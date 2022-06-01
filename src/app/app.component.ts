@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'opix-ui';
+  title = 'intelcomp-catalogue-ui';
+
+  open: boolean = true;
+
+  constructor(private router: Router) {}
+
+  isHome() {
+    return (this.router.url.startsWith('/home'));
+  }
 }

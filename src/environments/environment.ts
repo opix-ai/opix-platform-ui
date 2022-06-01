@@ -3,7 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  beta: false,
+  MATOMO_URL: '',
+  MATOMO_SITE: -1,
+  API_ENDPOINT: '/api',
+  API_TOKEN_ENDPOINT: '',
+  projectName: 'Opix',
+  projectMail: 'example@oac.eu',
+  hasUserConsent: true,
+  showHelpContent: false,
+  privacyPolicyURL: '',
+  marketplaceBaseURL: ''
 };
 
 /*
