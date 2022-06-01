@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:madgeek-arc/dataSpaceUI.git
+	branch = main
+	commit = 701740a80c25f8498e6e3dec67e0c5806a582999
+	parent = d94abc42b4dee83b4156d0b28a9d34ceffd18e39
+	method = merge
+	cmdver = 0.4.3

@@ -1,0 +1,25 @@
+<div class="uk-section uk-section-secondary uk-preserve-color" style="min-height: 900px; background-image: url('https://intelcomp.eu/themes/custom/basetheme/images/img-background.svg'); background-repeat: no-repeat; background-size: cover;">
+  <div class="uk-container uk-container-large">
+
+    <!--<img src="https://intelcomp.eu/themes/custom/basetheme/images/img-background.svg" class="uk-background-cover">-->
+
+    <div class="uk-grid uk-flex uk-flex-center uk-margin-xlarge-top">
+      <div class="uk-width-1-2 uk-card uk-card-default uk-card-body uk-margin-large-top uk-text-center">
+        <h4>Find a dataset</h4>
+
+        <div class="search_box_bg uk-margin-large-bottom" style="text-align:center">
+          <form [formGroup]="searchForm" (ngSubmit)="this.onSubmit(searchForm.value)">
+            <input aria-describedby="sizing-addon2" class="uk-input uk-width-2-3 uk-comment uk-comment-meta uk-search-field menuSearch"
+                   name="keyword" placeholder="Which dataset are you looking for?" type="text"
+                   formControlName="query">
+            <button class=" uk-button uk-button-primary" type="submit">Search</button>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>

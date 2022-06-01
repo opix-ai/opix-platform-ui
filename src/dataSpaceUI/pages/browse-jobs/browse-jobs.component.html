@@ -1,0 +1,54 @@
+<div class="uk-section uk-section-default">
+  <div *ngIf="jobs.length > 0" class="uk-container uk-container-large uk-margin">
+
+    <h4 class="uk-margin">My Data Requests</h4>
+
+    <div class="uk-card uk-card-default uk-card-body uk-margin-medium-top">
+      <table class="uk-table uk-table-divider">
+        <thead>
+        <tr>
+          <th>Dataset</th>
+          <th>Entity</th>
+          <th>Status</th>
+          <th class="uk-width-medium">Data path</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let job of jobs">
+          <td>
+            <div>{{getValueFromObject(job.callerAttributesObj, 'name')}}</div>
+            <div>({{getValueFromObject(job.callerAttributesObj, 'version')}})</div>
+          </td>
+          <td>
+            <div>{{getValueFromObject(job.callerAttributesObj, 'entity')}}</div>
+            <div class="uk-margin-top uk-text-meta">Filters</div>
+            <div *ngFor="let attr of getJobArguments(job.callerAttributesObj)">
+              <ng-container *ngIf="attr['name'] !== 'datasetId'">
+                {{attr['name']}}: {{attr['value']}}
+              </ng-container>
+            </div>
+          </td>
+          <td>
+            <div class="uk-margin-bottom"><strong>{{job.mergedStatus}}</strong></div>
+            <div *ngIf="job.createdAt">Created: {{job.createdAt | date:'medium'}}</div>
+            <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FINISHED' || job.status[0].status=='finished')">Finished: {{job.status[0].timestamp | date:'medium'}}</div>
+            <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FAILED' || job.status[0].status=='failed')">Failed: {{job.status[0].timestamp | date:'medium'}}</div>
+          </td>
+          <td>
+            <ng-container *ngFor="let status of job.status">
+              <ng-container *ngIf="status.status=='finished' && status.source=='spark'">
+                {{status.payload}}
+              </ng-container>
+            </ng-container>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!--<pre>{{jobs | json}}</pre>-->
+</div>
+
+

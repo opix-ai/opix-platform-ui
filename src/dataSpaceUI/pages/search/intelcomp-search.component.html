@@ -1,0 +1,276 @@
+<div id="tm-main" class="tm-main uk-section uk-section-default uk-section-small" uk-height-viewport="expand: true" style="box-sizing: border-box;">
+  <div class="uk-container uk-container-large">
+
+    <!--<div class="uk-grid uk-margin-medium-bottom">-->
+      <!--<div class="uk-width-1-1">-->
+        <!--<form class="" [formGroup]="searchForm"-->
+              <!--(ngSubmit)="onSubmit(searchForm.controls['query'].value)">-->
+          <!--&lt;!&ndash;          <div class="uk-visible@m uk-margin-right">&ndash;&gt;-->
+          <!--&lt;!&ndash;            <select *ngIf="showSearchFieldDropDown" class="uk-select menuSearchFields"&ndash;&gt;-->
+          <!--&lt;!&ndash;                    (change)="updateSearchField($event)" formControlName="searchFields">&ndash;&gt;-->
+          <!--&lt;!&ndash;              <option value="">&#45;&#45;Search field&#45;&#45;</option>&ndash;&gt;-->
+          <!--&lt;!&ndash;              <option *ngFor="let field of searchFields" value="{{field}}">{{field}}</option>&ndash;&gt;-->
+          <!--&lt;!&ndash;            </select>&ndash;&gt;-->
+          <!--&lt;!&ndash;          </div>&ndash;&gt;-->
+          <!--<div class="uk-inline uk-width-2-3">-->
+            <!--<span class="uk-form-icon" uk-icon="icon: search"></span>-->
+            <!--<input type="text" class="uk-input menuSearch" placeholder="Search a dataset..." name="keyword" formControlName="query">-->
+          <!--</div>-->
+        <!--</form>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--FILTERS LAPTOP & PAD LANDSCAPE-->
+    <div id="" class="uk-card uk-card-default uk-card-body">
+
+      <div *ngIf="searchResults != null" class="sidemenu refines">
+
+        <!--<div class="">Filter datasets</div>-->
+
+        <div class="uk-grid uk-margin-bottom">
+          <div class="uk-width-1-1">
+            <form class="" [formGroup]="searchForm"
+                  (ngSubmit)="onSubmit(searchForm.controls['query'].value)">
+              <!--          <div class="uk-visible@m uk-margin-right">-->
+              <!--            <select *ngIf="showSearchFieldDropDown" class="uk-select menuSearchFields"-->
+              <!--                    (change)="updateSearchField($event)" formControlName="searchFields">-->
+              <!--              <option value="">&#45;&#45;Search field&#45;&#45;</option>-->
+              <!--              <option *ngFor="let field of searchFields" value="{{field}}">{{field}}</option>-->
+              <!--            </select>-->
+              <!--          </div>-->
+              <div class="uk-inline uk-width-2-3">
+                <span class="uk-form-icon" uk-icon="icon: search"></span>
+                <input type="text" class="uk-input menuSearch" placeholder="Search a dataset..." name="keyword" formControlName="query">
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class=" uk-flex">
+
+          <ng-template ngFor let-facet [ngForOf]="searchResults.facets">
+            <div *ngIf="facet.field === 'publisher' || facet.field === 'languages' || facet.field === 'rights'" class="uk-margin-right uk-width-1-3">
+              <div class="uk-flex uk-flex-bottom">
+                <!--<p class="big-text uk-margin-remove">{{facet.label}}</p>-->
+                <div class="uk-margin-small-bottom">{{facet.label}}</div>
+<!--                <a class="uk-margin-left" (click)="clearSelections($event, facet.field)">Clear</a>-->
+              </div>
+              <ng-select class="uk-width-1-1 ng-select"
+                [items]="facet.values"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [hideSelected]="false"
+                [clearable]="false"
+                (remove)="clearFilter($event, facet.field)"
+                (add)="addFilter($event, facet.field)"
+                bindLabel="value"
+                [(ngModel)]="this[facet.field+'Filters']">
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <input (change)="this.onSelection($event, facet.field, item.value)" id="item-{{index}}"
+                         type="checkbox" [(ngModel)]="item$.selected" [checked]="item['isChecked']"/>
+                  {{item.value + ' (' + item.count + ')'}}
+                </ng-template>
+              </ng-select>
+<!--                <div class="refineOption uk-margin-top" *ngFor="let facetValue of facet.values">-->
+<!--                  <input type="checkbox" (change)="this.onSelection($event, facet.field, facetValue.value)"-->
+<!--                         [checked]="facetValue.isChecked">-->
+<!--                  {{facetValue.value}}-->
+<!--                  <span>({{facetValue.count}})</span>-->
+<!--                </div>-->
+            </div>
+          </ng-template>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="uk-width-expand@m uk-first-column">
+
+      <div *ngIf="errorMessage" class="">
+        <div data-uk-alert="" class="uk-alert uk-alert-danger">
+          <p>{{errorMessage}}</p>
+        </div>
+      </div>
+
+      <div *ngIf="!errorMessage && searchResults != null" class="">
+
+        <div *ngIf="!foundResults">
+          <div data-uk-alert="" class="uk-alert uk-alert-warning">
+            <p>No results found</p>
+          </div>
+        </div>
+
+        <div *ngIf="loading" class="whiteFilm">
+          <i class="fa fa-spinner fa-spin fa-5x uk-position-center loader" aria-hidden="true"></i>
+        </div>
+
+        <div *ngIf="searchResults.results != null && searchResults.results.length > 0">
+
+          <div class="uk-grid uk-row-first uk-margin-bottom uk-margin-large-top">
+            <div class="uk-width-1-1">
+
+              <div class="uk-flex uk-flex-between uk-flex-middle">
+
+                <div class=" uk-margin-remove">
+                  Showing <span class="uk-text-bold">{{searchResults.from + 1}}</span> - <span class="uk-text-bold">{{searchResults.to}}</span> of <span class="uk-text-bold">{{searchResults.total}}</span> datasets
+                  <!--<span class="uk-text-bold">{{searchResults.total}}</span> Datasets, Page <span class="uk-text-bold">{{currentPage}}</span> of {{totalPages}}-->
+                </div>
+
+                <ng-container *ngIf="pages.length>1">
+                  <ul class="uk-pagination uk-visible@m">
+                    <li *ngIf="currentPage>2 && pageTotal>5"><a (click)="goToPage(1)"><span uk-pagination-previous></span><span uk-pagination-previous></span></a></li>
+                    <li *ngIf="currentPage!==1"><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
+                    <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
+                      <a (click)="goToPage(i)">{{i}}</a>
+                    </li>
+                    <li *ngIf="currentPage!==pageTotal"><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
+                    <li *ngIf="currentPage<pageTotal-1 && pageTotal>5"><a (click)="goToPage(pageTotal)"><span uk-pagination-next></span><span uk-pagination-next></span></a></li>
+                  </ul>
+                </ng-container>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="uk-grid-margin-small">
+
+            <ng-container *ngFor="let resourceInfo of searchResults.results; let i = index">
+
+              <a [routerLink]="[itemPath + resourceInfo['id']]" class="serviceDetails">
+                <div class="uk-card uk-card-default uk-card-hover uk-margin-bottom">
+
+                  <!--LAPTOP & PAD LANDSCAPE-->
+                  <div class="uk-card-body uk-visible@m">
+
+                    <div>
+                      <div class="uk-grid">
+
+                        <div class="uk-width-2-3@m">
+                          <div>
+                            <h5 class="uk-margin-remove uk-text-left@m uk-text-center uk-scrollspy-inview uk-animation-fade uk-inline"
+                                uk-scrollspy-class="" style="">
+                              {{resourceInfo['name'] || "Not Available"}}
+                            </h5>
+                          </div>
+                          <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription line-clamp"
+                               uk-scrollspy-class="" style="">
+                            {{resourceInfo['metadata']['descriptions'][0]['value']}}
+                          </div>
+
+                          <div *ngIf="resourceInfo['metadata']['publisher']" class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
+                            <span class="field-label">Publisher: {{resourceInfo['metadata']['publisher']}}</span>
+                          </div>
+                          <div *ngIf="resourceInfo['metadata']['languages'][0] !== ''" class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+                            <span class="field-label">Language: </span>
+                            <span *ngFor="let language of resourceInfo['metadata']['languages']" class="field-value uk-margin-small-left">{{language}}</span>
+                          </div>
+
+                        </div>
+
+                        <div class="uk-width-1-3@m uk-padding-remove">
+                          <div class="uk-flex uk-flex-right">
+                            <img src="{{resourceInfo['metadata']['logo']}}" style="max-height: 200px;">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!--MOBILE & PAD PORTRAIT-->
+                  <div class="service-details-card-content uk-hidden@m">
+
+                    <div class="uk-padding-remove service-image">
+                      <img src="{{resourceInfo['metadata']['logo']}}" style="max-height: 200px;">
+                    </div>
+
+                    <div class="">
+                      <!--<div class="uk-grid" uk-grid="">-->
+                      <div>
+
+                        <div class="uk-card-body">
+                          <div>
+                            <h5 class="uk-margin-remove uk-text-left uk-scrollspy-inview uk-animation-fade uk-inline"
+                                uk-scrollspy-class="" style="">
+                              {{resourceInfo['name'] || "Not Available"}}
+                            </h5>
+                          </div>
+                          <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription line-clamp"
+                               uk-scrollspy-class="" style="">
+                            {{resourceInfo['metadata']['descriptions'][0]['value']}}
+                          </div>
+
+                          <div *ngIf="resourceInfo['metadata']['publisher']" class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
+                            <span class="field-label">Publisher: {{resourceInfo['metadata']['publisher']}}</span>
+                          </div>
+                          <div *ngIf="resourceInfo['metadata']['languages'][0] !== ''" class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+                            <span class="field-label">Language: </span>
+                            <span *ngFor="let language of resourceInfo['metadata']['languages']" class="field-value uk-margin-small-left">{{language}}</span>
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </a>
+
+            </ng-container>
+
+          </div>
+
+          <ng-container *ngIf="pages.length>1">
+            <ul class="uk-pagination uk-flex-right uk-margin">
+              <li *ngIf="currentPage>2 && pageTotal>5"><a (click)="goToPage(1)"><span uk-pagination-previous></span><span uk-pagination-previous></span></a></li>
+              <li *ngIf="currentPage!==1"><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
+              <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
+                <a (click)="goToPage(i)">{{i}}</a>
+              </li>
+              <li *ngIf="currentPage!==pageTotal"><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
+              <li *ngIf="currentPage<pageTotal-1 && pageTotal>5"><a (click)="goToPage(pageTotal)"><span uk-pagination-next></span><span uk-pagination-next></span></a></li>
+            </ul>
+          </ng-container>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="searchResults != null" id="offcanvas-filters" uk-offcanvas="overlay: true">
+  <div class="uk-offcanvas-bar uk-padding-remove">
+
+    <div class="header uk-padding uk-flex uk-flex-middle">
+      <button class="uk-offcanvas-close" type="button" uk-close></button>
+      <p class="big-text-header uk-width-1-1 uk-text-center uk-margin-remove">Filters</p>
+    </div>
+
+    <div class="uk-padding">
+      <ng-template ngFor let-facet [ngForOf]="searchResults.facets">
+        <div *ngIf="facet.field === 'languages' || facet.field === 'rights' || facet.field === 'publisher'" class="uk-margin-medium-bottom">
+          <read-more [maxHeight]="235">
+            <p class="big-text uk-inline">{{facet.label}}</p><a class="uk-inline uk-link uk-margin-left uk-margin-small-bottom"
+                                                                (click)="clearSelections($event, facet.field)">Clear</a>
+            <div class="refineOption" *ngFor="let facetValue of facet.values">
+              <input type="checkbox" class=""
+                     (change)="this.onSelection($event, facet.field, facetValue.value)"
+                     [checked]="facetValue.isChecked">
+              {{facetValue.value}}
+              <span>({{facetValue.count}})</span>
+            </div>
+          </read-more>
+        </div>
+      </ng-template>
+    </div>
+
+
+  </div>
+</div>
