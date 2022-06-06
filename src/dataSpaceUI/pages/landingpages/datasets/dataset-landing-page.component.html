@@ -143,12 +143,11 @@
           <td><span *ngFor="let size of instance['metadata']['sizes']; let i=index">
             <span *ngIf="i !== 0">,<br></span>{{size}}
           </span></td>
-          <td >
+          <td>
             <button *ngIf="userInfo?.roles.includes('OPERATOR_DATA-PROCESSOR') && (dataset['name']==='OpenAIRE Graph' || dataset['name']==='Clinical Trials')"
                     class="uk-button uk-button-default" (click)="gotoRequestData(instance['id'], dataset['id'])">Select</button>
-            <ng-template *ngIf="projectName === 'Opix'">
-              <button *ngIf="instance['location']['files']['baseDir']" class="uk-button uk-button-default">Download</button>
-            </ng-template>
+            <button *ngIf="instance['location']['files']['baseDir'] !== ''" class="uk-button uk-button-default"
+                    (click)="download(instance['location']['files']['baseDir'])">Download</button>
           </td>
         </tr>
         </tbody>
