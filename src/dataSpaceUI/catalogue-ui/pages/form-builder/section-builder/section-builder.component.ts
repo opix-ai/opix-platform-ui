@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {GroupedFields, Section} from "../../../domain/dynamic-form-model";
+import {GroupedFields} from "../../../domain/dynamic-form-model";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
@@ -9,7 +9,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export class SectionBuilderComponent {
 
-  @Input() section: Section;
+  @Input() section: GroupedFields;
 
   public editor = ClassicEditor;
 

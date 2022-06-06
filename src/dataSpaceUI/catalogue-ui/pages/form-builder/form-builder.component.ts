@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {Section} from "../../domain/dynamic-form-model";
+import {Chapter} from "../../domain/dynamic-form-model";
 
 @Component({
   selector: 'app-form-builder',
@@ -8,7 +8,7 @@ import {Section} from "../../domain/dynamic-form-model";
 
 export class FormBuilderComponent implements OnInit {
 
-  formBuilder: Section[] = [];
+  formBuilder: Chapter[] = [];
   show: string = 'chapter';
 
   ngOnInit() {

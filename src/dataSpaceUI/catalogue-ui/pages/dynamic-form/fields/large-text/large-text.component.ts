@@ -1,14 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {FormControl, FormGroup, FormGroupDirective} from "@angular/forms";
 import {Field, HandleBitSet} from "../../../../domain/dynamic-form-model";
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
-  selector: 'app-rich-text-field',
-  templateUrl: './rich-text-field.component.html'
+  selector: 'app-large-text',
+  templateUrl: './large-text.component.html'
 })
 
-export class RichTextFieldComponent implements OnInit {
+export class LargeTextComponent implements OnInit {
   @Input() fieldData: Field;
   @Input() editMode: any;
   @Input() position?: number = null;
@@ -19,9 +18,6 @@ export class RichTextFieldComponent implements OnInit {
 
   formControl!: FormControl;
   form!: FormGroup;
-  hideField: boolean = null;
-
-  public editor = ClassicEditor;
 
   constructor(private rootFormGroup: FormGroupDirective) {
   }
@@ -35,16 +31,7 @@ export class RichTextFieldComponent implements OnInit {
     // console.log(this.form);
 
     this.formControl = this.form.get(this.fieldData.name) as FormControl;
-    // console.log(this.formControl);
-
-    if(this.fieldData.form.dependsOn) {
-      // console.log(this.fieldData.form.dependsOn);
-      this.enableDisableField(this.form.get(this.fieldData.form.dependsOn.name).value);
-
-      this.form.get(this.fieldData.form.dependsOn.name).valueChanges.subscribe(value => {
-        this.enableDisableField(value);
-      });
-    }
+    // console.log(this.formControl);s
   }
 
   /** check fields validity--> **/
@@ -71,22 +58,6 @@ export class RichTextFieldComponent implements OnInit {
 
   timeOut(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  enableDisableField(value) {
-    // console.log(value);
-    if (value === true || value === 'Other, please specify') {
-      this.formControl.enable();
-      this.hideField = false;
-
-    } else {
-      this.formControl.disable();
-      this.formControl.reset();
-      this.hideField = true;
-      // maybe add this if the remaining empty fields are a problem
-      // (this.formControl as unknown as FormArray).clear();
-
-    }
   }
 
 }

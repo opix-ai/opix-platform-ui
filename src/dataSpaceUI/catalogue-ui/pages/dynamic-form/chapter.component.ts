@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 import {FormControlService} from '../../services/form-control.service';
 import {
-  Section,
+  Chapter,
   Field,
   GroupedFields,
   HandleBitSet,
@@ -15,7 +15,7 @@ import BitSet from 'bitset/bitset';
 import {PremiumSortPipe} from '../../shared/pipes/premium-sort.pipe';
 import {zip} from 'rxjs/internal/observable/zip';
 import {Router} from "@angular/router";
-import {SurveyService} from "../../../services/survey.service";
+import {SurveyService} from "../../../app/services/survey.service";
 
 declare var UIkit: any;
 
@@ -24,17 +24,16 @@ declare var UIkit: any;
   template: '',
   providers: [FormControlService]
 })
-
 export class ChapterComponent implements OnInit {
 
   @Input() tabsHeader: string;
   @Input() surveyId: string = null;
   @Input() readonly : boolean = null;
   @Input() validate : boolean = null;
-  @Input() chapter: Section = null;
+  @Input() chapter: Chapter = null;
   @Input() fields: GroupedFields[] = null;
 
-  chapters: Section[] = [];
+  chapters: Chapter[] = [];
   vocabularies: Map<string, string[]>;
   subVocabularies: UiVocabulary[] = [];
   editMode = false;
@@ -134,7 +133,7 @@ export class ChapterComponent implements OnInit {
     // tmpForm['extras'] = this.formControlService.toFormGroup(this.fields, false);
     // this.form = this.fb.group(tmpForm);
     for (let i  = 0; i < this.chapters.length; i++) {
-      this.form[i] = this.formControlService.toFormGroup(this.chapters[0].subSections, true);
+      this.form[i] = this.formControlService.toFormGroup(this.chapters[0].sections, true);
     }
 
     /** Initialize tab bitsets **/

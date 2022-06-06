@@ -12,7 +12,7 @@ import {SearchService} from "../../services/search.service";
   selector: 'app-search',
   templateUrl: './search.component.html',
   providers: [SearchService]
-  // styleUrls: ['../../../lib/pages/search/search.component.scss']
+  // styleUrls: ['../../../lib/pages/search/search.component.css']
 })
 
 export class SearchComponent implements OnInit {
@@ -138,7 +138,6 @@ export class SearchComponent implements OnInit {
             for (const parameterValue of urlParameter.values) {
               for (const facetValue of facet.values) {
                 if (parameterValue === facetValue.value) {
-                  this[facet.field+'Filters'].push(facetValue.value);
                   facetValue.isChecked = true;
                 }
               }

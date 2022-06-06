@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Section} from "../../../domain/dynamic-form-model";
+import {Chapter} from "../../../domain/dynamic-form-model";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
@@ -9,7 +9,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export class ChapterBuilderComponent {
 
-  @Input() chapter: Section = null;
+  @Input() chapter: Chapter = null;
 
   public editor = ClassicEditor;
 }

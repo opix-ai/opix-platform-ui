@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Field, GroupedFields, Model, Required, Section} from '../domain/dynamic-form-model';
-import {environment} from '../../../environments/environment';
+import {Field, GroupedFields, Model, Required} from '../domain/dynamic-form-model';
+import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {urlRegEx} from "../shared/validators/generic.validator";
 
@@ -18,9 +18,8 @@ export class FormControlService implements OnInit{
   ngOnInit() {
   }
 
-  getFormModel(id: string) {
-    // return this.http.get<Model>(this.base + `/ui/form/model/${id}`);
-    return this.http.get<Model>(this.base + `/forms/models/${id}`);
+  getFormModel(surveyId: string) {
+    return this.http.get<Model>(this.base + `/ui/form/model/${surveyId}`);
   }
 
   getUiVocabularies() {
@@ -36,7 +35,7 @@ export class FormControlService implements OnInit{
     return this.http.get<boolean>(this.base + `/provider/validateUrl?urlForValidation=${url}`);
   }
 
-  toFormGroup(form: Section[], checkImmutable: boolean) {
+  toFormGroup(form: GroupedFields[], checkImmutable: boolean) {
     const group: any = {};
     form.forEach(groups => {
       groups.fields.sort((a, b) => a.form.display?.order - b.form.display?.order)

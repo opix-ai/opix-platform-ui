@@ -1,14 +1,14 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {FormControlService} from '../../services/form-control.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {
-  Section,
+  Chapter,
   Field,
   GroupedFields,
   HandleBitSet,
   Tab, Tabs,
-  UiVocabulary, Model
+  UiVocabulary
 } from '../../domain/dynamic-form-model';
 import BitSet from "bitset";
 import {PremiumSortPipe} from "../../shared/pipes/premium-sort.pipe";
@@ -28,14 +28,14 @@ export class ChapterEditComponent implements OnChanges{
   @Input() surveyAnswerId: string = null;
   @Input() readonly : boolean = null;
   @Input() validate : boolean = null;
-  @Input() vocabularies: Map<string, string[]> = null;
-  @Input() chapter: Model = null;
-  @Input() fields: Section[] = null;
+  @Input() chapter: Chapter = null;
+  @Input() fields: GroupedFields[] = null;
 
   @Output() chapterHasChanges = new EventEmitter<string[]>();
 
   @ViewChild('sections') sections: ElementRef<HTMLElement>;
 
+  vocabularies: Map<string, string[]>;
   subVocabularies: UiVocabulary[] = [];
   editMode = true;
 
@@ -65,9 +65,7 @@ export class ChapterEditComponent implements OnChanges{
   }
 
   ngOnChanges(changes:SimpleChanges) {
-    // remove later
-    this.initializations();
-    this.ready=true
+    this.ready=false
     if (this.answerValue) {
       this.initializations();
       this.ready = true
