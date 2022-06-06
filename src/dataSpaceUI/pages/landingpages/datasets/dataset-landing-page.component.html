@@ -78,7 +78,7 @@
         </div>
 
         <div class="uk-width-1-3">
-          <div *ngIf="instances.length > 0" class="uk-card uk-card-default uk-card-body">
+          <div *ngIf="instances?.length > 0" class="uk-card uk-card-default uk-card-body">
             <h6 class="field-label">Instances / Versions</h6>
             <div class="uk-flex">
               <ul>
@@ -128,7 +128,7 @@
           <th>Creator</th>
           <th>Creation date</th>
           <th>Sizes</th>
-          <th *ngIf="dataset['name']==='OpenAIRE Graph'">Actions</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -143,9 +143,12 @@
           <td><span *ngFor="let size of instance['metadata']['sizes']; let i=index">
             <span *ngIf="i !== 0">,<br></span>{{size}}
           </span></td>
-          <td *ngIf="userInfo?.roles.includes('OPERATOR_DATA-PROCESSOR')
-                     && (dataset['name']==='OpenAIRE Graph' || dataset['name']==='Clinical Trials')" >
-            <button class="uk-button uk-button-default" (click)="gotoRequestData(instance['id'], dataset['id'])">Select</button>
+          <td >
+            <button *ngIf="userInfo?.roles.includes('OPERATOR_DATA-PROCESSOR') && (dataset['name']==='OpenAIRE Graph' || dataset['name']==='Clinical Trials')"
+                    class="uk-button uk-button-default" (click)="gotoRequestData(instance['id'], dataset['id'])">Select</button>
+            <ng-template *ngIf="projectName === 'Opix'">
+              <button *ngIf="instance['location']['files']['baseDir']" class="uk-button uk-button-default">Download</button>
+            </ng-template>
           </td>
         </tr>
         </tbody>
