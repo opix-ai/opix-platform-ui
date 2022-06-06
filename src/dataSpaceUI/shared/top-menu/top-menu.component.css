@@ -42,6 +42,16 @@
   fill: white;
 }
 
+.projectLogo {
+  background-image: var(--logo);
+  background-repeat: no-repeat;
+  background-size: contain;
+  /*height: 100%;*/
+  width: 200px;
+  height: 90px;
+  padding: 10px;
+}
+
 .logo img {
   width: 200px;
   padding: 10px;
@@ -49,11 +59,11 @@
 
 a.logo span {
   /*color: #004494;*/
-  color: #ff006e;
+  color: var(--primary-color);
   /*font-weight: bold;*/
   font-size: 18px;
   /*border-left: 1px solid #004494;*/
-  border-left: 1px solid #ff006e;
+  border-left: 1px solid var(--primary-color);
   padding-left: 20px;
   margin-left: 15px;
 }

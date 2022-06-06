@@ -1,13 +1,13 @@
 <router-outlet></router-outlet><ng-container *ngIf="isHome() ; else dashboard">
   <app-top-menu-landing></app-top-menu-landing>
   <router-outlet></router-outlet>
-  <app-footer-intelcomp></app-footer-intelcomp>
+  <!--<app-footer-intelcomp></app-footer-intelcomp>-->
 </ng-container>
 
 <ng-template #dashboard>
   <div id="sidebar_main_content" class="sidebar_main_swipe sidebar_main_active" [class.sidebar_main_active]="open">
     <app-top-menu-dashboard></app-top-menu-dashboard>
-    <div style="margin-top: 60px"></div>
+    <div class="header-margin"></div>
     <app-side-menu-dashboard></app-side-menu-dashboard>
 
     <div id="page_content">

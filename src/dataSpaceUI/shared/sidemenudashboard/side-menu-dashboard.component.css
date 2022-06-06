@@ -1,9 +1,9 @@
 #sidebar_main {
   overflow: auto;
-  top: 60px !important;
+  top: var(--header-height) !important;
   box-shadow: 0 0 16px 2px #00000029;
   /*background: #fff;*/
-  background: #151f2e;
+  background: var(--intelcomp-dark-color);
   width: 280px;
 }
 
