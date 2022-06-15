@@ -6,14 +6,14 @@
       edit<span class="material-icons">edit</span>
     </a>
     <div [innerHTML]="request.description"></div>
-    <div class="uk-margin-small">Assigner: <span>{{request.assigner}}</span></div>
+    <div class="uk-margin-small">Assigner: <span>{{request.assigner.firstname}} {{request.assigner.lastname}}</span></div>
     <div class="uk-margin-small">Assignee: <span>{{request.assignee}}</span></div>
     <div class="uk-margin-small">Created at: <span>{{request.created | date}}</span></div>
     <div class="uk-margin-small">Last update: <span>{{request.updated | date}}</span></div>
   </div>
 
   <div *ngFor="let subComment of request.comments" class="uk-margin-small uk-card uk-card-default uk-card-body">
-    <span class="uk-text-bold">{{subComment.from ? subComment.from : 'Unknown'}} said at {{subComment.date | date}}</span>
+    <span class="uk-text-bold">{{subComment.from.firstname}} {{subComment.from.lastname}} said at {{subComment.date | date:'medium'}}</span>
     <p>{{subComment.text}}</p>
   </div>
 
@@ -32,4 +32,5 @@
   </div>
 
 </div>
-<!--<pre>{{request | json}}</pre>-->
+
+<!--<pre>{{comment.value | json}}</pre>-->

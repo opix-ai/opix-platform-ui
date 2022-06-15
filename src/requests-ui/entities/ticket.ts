@@ -1,7 +1,7 @@
 export class Ticket {
   id: string;
   name: string;
-  assigner: string;
+  assigner: From;
   assignee: string;
   created: Date;
   updated: Date;
@@ -39,7 +39,7 @@ export class Ticket {
 }
 
 export class TicketComment {
-  from: string;
+  from: From;
   text: string;
   date: Date;
 
@@ -47,5 +47,17 @@ export class TicketComment {
     this.from = null;
     this.text = null;
     this.date = null;
+  }
+}
+
+export class From {
+  firstname: string;
+  lastname: string;
+  email: string;
+
+  constructor() {
+    this.firstname = null;
+    this.lastname = null;
+    this.email = null;
   }
 }

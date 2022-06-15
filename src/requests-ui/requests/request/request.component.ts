@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Ticket, TicketComment} from "../../entities/ticket";
+import {From, Ticket, TicketComment} from "../../entities/ticket";
 import {RequestsService} from "../../services/requests.service";
 import {UserService} from "../../../dataSpaceUI/services/user.service";
 import UIkit from "uikit";
@@ -23,6 +23,7 @@ export class RequestComponent implements OnInit{
   constructor(private fb: FormBuilder, private requestService: RequestsService,
               private route: ActivatedRoute, private userService: UserService) {
     this.comment = this.fb.group(new TicketComment());
+    this.comment.setControl('from', this.fb.group(new From()));
     this.comment.get('text').addValidators(Validators.required);
   }
 
@@ -43,7 +44,9 @@ export class RequestComponent implements OnInit{
     if (this.comment.valid) {
       this.comment.get('date').setValue(new Date());
       if (this.userService.userInfo) {
-        this.comment.get('from').setValue(this.userService.userInfo.email);
+        this.comment.get('from.email').setValue(this.userService.userInfo.email);
+        this.comment.get('from.firstname').setValue(this.userService.userInfo.name);
+        this.comment.get('from.lastname').setValue(this.userService.userInfo.surname);
       } else {
         UIkit.notification({
           message: 'Didn\'t find user info please try logging in.', status: 'danger', pos: 'top-center', timeout: 3000

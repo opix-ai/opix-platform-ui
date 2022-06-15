@@ -21,8 +21,8 @@ export class RequestsService {
     return this.http.post<Ticket>(this.base + '/tickets', ticket);
   }
 
-  editRequest(ticket: Ticket) {
-    return this.http.put<Ticket>(this.base + '/tickets', ticket);
+  editRequest(requestId: string, ticket: Ticket) {
+    return this.http.put<Ticket>(this.base + `/tickets/${requestId}`, ticket);
   }
 
   postComment(ticketId: string, comment: TicketComment) {
