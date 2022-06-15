@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('../dataSpaceUI/dataSpaceUI.module').then(m => m.DataSpaceUIModule)
+  },
+  {
+    path: 'requests',
+    loadChildren: () => import('../requests-ui/requests.module').then(m => m.RequestsModule)
   }
 ];
 

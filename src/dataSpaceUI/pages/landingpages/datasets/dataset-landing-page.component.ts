@@ -19,7 +19,6 @@ export class DatasetLandingPageComponent extends LandingPageComponent {
   }
 
   download(url: string) {
-    console.log(url);
     window.open(url, '_blank');
   }
 

@@ -4,5 +4,11 @@
   "secure": false,
   "logLevel": "debug",
   "changeOrigin": true
+  },
+  "/requests-api/*": {
+    "target": "http://localhost:8380/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }

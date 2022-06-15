@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   API_ENDPOINT: '/api',
+  REQUESTS_ENDPOINT: '/requests-api',
   projectName: 'Opix'
 };
 
