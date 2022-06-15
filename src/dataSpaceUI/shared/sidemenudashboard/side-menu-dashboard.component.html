@@ -31,32 +31,43 @@
       </li>
 
     </ul>
+
+    <ul *ngIf="userInfo?.roles && hasRole('OPERATOR_DATASET-OWNER')">
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['requests', 'create']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">description</span>
+          <span class="menu_title">Request Dataset</span>
+        </a>
+      </li>
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['requests', 'all']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">description</span>
+          <span class="menu_title">Dataset Requests</span>
+        </a>
+      </li>
+    </ul>
+
+    <ul *ngIf="userInfo?.roles && hasRole('OPERATOR_DATASET-INGESTOR')">
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['requests', 'all']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">description</span>
+          <span class="menu_title">Dataset Requests</span>
+        </a>
+      </li>
+    </ul>
   </div>
 
-  <!--<div class="menu_section border_top sidebar-footer">-->
-    <!--<ul>-->
+  <div *ngIf="userInfo?.roles && hasRole('OPERATOR_DATASET-INGESTOR')" class="menu_section border_top">
+    <ul>
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['form', 'm-ixQivyAM']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">description</span>
+          <span class="menu_title">Create Dataset Metadata</span>
+        </a>
+      </li>
 
-      <!--<li>-->
-        <!--<a class="uk-flex uk-flex-middle" href="mailto:stefania.martziou@athenarc.gr">-->
-          <!--<span class="material-icons uk-margin-right">help</span>-->
-          <!--<span class="menu_title uk-flex uk-flex-middle">-->
-            <!--<span>Support</span>-->
-            <!--<span class="material-icons md-18 uk-margin-left">forward_to_inbox</span>-->
-          <!--</span>-->
-        <!--</a>-->
-      <!--</li>-->
+    </ul>
+  </div>
 
-      <!--<li>-->
-        <!--<a class="uk-flex uk-flex-middle">-->
-          <!--<span class="material-icons uk-margin-right">policy</span>-->
-          <!--<span class="menu_title uk-flex uk-flex-middle">-->
-            <!--<span>Privacy policy</span>-->
-            <!--<span class="material-icons md-18 uk-margin-left">open_in_new</span>-->
-          <!--</span>-->
-        <!--</a>-->
-      <!--</li>-->
-
-    <!--</ul>-->
-  <!--</div>-->
 
 </aside><!-- main sidebar end -->

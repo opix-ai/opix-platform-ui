@@ -46,9 +46,8 @@
   background-image: var(--logo);
   background-repeat: no-repeat;
   background-size: contain;
-  /*height: 100%;*/
   width: 200px;
-  height: 90px;
+  height: var(--logo-height);
   padding: 10px;
 }
 
