@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@github.com:madgeek-arc/ticketing-ui.git
 	branch = master
-	commit = eabf5120034c712e7e51fdf28d90a9a68ea36027
-	parent = f20763c55036a30135176e521019ebe28166e990
+	commit = efe303bc8c3926f900aa0d1eeae2fda4e6b1ebee
+	parent = d0ac81b5661f71cf280152d94a413f3336d93516
 	method = merge
 	cmdver = 0.4.3
