@@ -17,7 +17,10 @@ export class ViewAllRequestsComponent implements OnInit {
 
   ngOnInit() {
     this.requestService.getAllRequests().subscribe(
-      next => {this.requests = next},
+      next => {
+        this.requests = next
+        console.log('requests: ' + this.requests);
+      },
       error => {console.log(error)}
     );
   }

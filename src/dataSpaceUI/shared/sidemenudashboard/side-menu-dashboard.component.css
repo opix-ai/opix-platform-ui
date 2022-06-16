@@ -71,6 +71,11 @@
   color: #fff !important;
 }
 
+#sidebar_main .menu_section > h6 {
+  /*color: #1A1A1A !important;*/
+  color: #fff !important;
+}
+
 /*.material-icons-small {*/
   /*width: 12px !important;*/
   /*height: 12px !important;*/

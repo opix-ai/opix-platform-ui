@@ -14,6 +14,7 @@ export class SideMenuDashboardComponent implements OnInit, OnDestroy {
   subscriptions = [];
   toggle: number[] = [];
   userInfo: UserInfo;
+  // roles = ['OPERATOR_DATA-PROCESSOR','OPERATOR_DATASET-INGESTOR','OPERATOR_DATASET-OWNER']
 
   constructor(private userService: UserService) {
   }

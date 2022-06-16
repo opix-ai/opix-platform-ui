@@ -53,7 +53,10 @@ export class RequestComponent implements OnInit{
         });
       }
       this.requestService.postComment(this.requestId, this.comment.getRawValue()).subscribe(
-        next => {this.request = next;},
+        next => {
+          this.request = next;
+          this.comment.reset();
+        },
         error => {console.log(error)}
       );
     } else {

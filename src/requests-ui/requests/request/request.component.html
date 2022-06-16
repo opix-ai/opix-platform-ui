@@ -1,36 +1,38 @@
-<div *ngIf="ready" class="uk-margin uk-container">
-  <div class="uk-card uk-card-default uk-card-body">
+<div class="uk-section">
+  <div *ngIf="ready" class="uk-margin uk-container">
+    <div class="uk-card uk-card-default uk-card-body">
 
-    <h4 class="uk-card-title uk-flex uk-flex-center">{{request.name}}</h4>
-    <a class="uk-flex uk-flex-right" [routerLink]="['/requests', requestId, 'edit']">
-      edit<span class="material-icons">edit</span>
-    </a>
-    <div [innerHTML]="request.description"></div>
-    <div class="uk-margin-small">Assigner: <span>{{request.assigner.firstname}} {{request.assigner.lastname}}</span></div>
-    <div class="uk-margin-small">Assignee: <span>{{request.assignee}}</span></div>
-    <div class="uk-margin-small">Created at: <span>{{request.created | date}}</span></div>
-    <div class="uk-margin-small">Last update: <span>{{request.updated | date}}</span></div>
-  </div>
-
-  <div *ngFor="let subComment of request.comments" class="uk-margin-small uk-card uk-card-default uk-card-body">
-    <span class="uk-text-bold">{{subComment.from.firstname}} {{subComment.from.lastname}} said at {{subComment.date | date:'medium'}}</span>
-    <p>{{subComment.text}}</p>
-  </div>
-
-  <div class="uk-card uk-card-default uk-card-body uk-margin">
-    <form class="uk-form-horizontal" [formGroup]="comment">
-      <label class="uk-form-label" for="assignee">Comment: </label>
-      <div class="uk-form-controls">
-        <textarea  formControlName="text" class="uk-textarea" id="assignee" type="textarea"
-                   [ngClass]="{'uk-form-danger': checkFormValidity('text')}"></textarea>
-      </div>
-    </form>
-
-    <div class="uk-margin-small uk-flex uk-flex-right">
-      <button (click)="addComment()" class="uk-button uk-button-primary">Add Comment</button>
+      <h4 class="uk-card-title uk-flex uk-flex-center">{{request.name}}</h4>
+      <a class="uk-flex uk-flex-right" [routerLink]="['/requests', requestId, 'edit']">
+        edit<span class="material-icons">edit</span>
+      </a>
+      <div [innerHTML]="request.description"></div>
+      <div class="uk-margin-small">Assigner: <span>{{request.assigner.firstname}} {{request.assigner.lastname}}</span></div>
+      <div class="uk-margin-small">Assignee: <span>{{request.assignee}}</span></div>
+      <div class="uk-margin-small">Created at: <span>{{request.created | date}}</span></div>
+      <div class="uk-margin-small">Last update: <span>{{request.updated | date}}</span></div>
     </div>
-  </div>
 
+    <div *ngFor="let subComment of request.comments" class="uk-margin-small uk-card uk-card-default uk-card-body">
+      <span class="uk-text-bold">{{subComment.from.firstname}} {{subComment.from.lastname}} said at {{subComment.date | date:'medium'}}</span>
+      <p>{{subComment.text}}</p>
+    </div>
+
+    <div class="uk-card uk-card-default uk-card-body uk-margin">
+      <form class="uk-form-horizontal" [formGroup]="comment">
+        <label class="uk-form-label" for="assignee">Comment: </label>
+        <div class="uk-form-controls">
+          <textarea  formControlName="text" class="uk-textarea" id="assignee" type="textarea"
+                     [ngClass]="{'uk-form-danger': checkFormValidity('text')}"></textarea>
+        </div>
+      </form>
+
+      <div class="uk-margin-small uk-flex uk-flex-right">
+        <button (click)="addComment()" class="uk-button uk-button-primary">Add Comment</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <!--<pre>{{comment.value | json}}</pre>-->

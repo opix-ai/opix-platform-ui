@@ -34,7 +34,7 @@
             ],
             "styles": [
               "src/dataSpaceUI/styles/styles.scss",
-              "src/styles/styles.scss",
+              "src/styles/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
