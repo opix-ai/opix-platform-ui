@@ -16,20 +16,20 @@
     <ul>
       <li *ngIf="hasRole('OPERATOR_DATASET-OWNER')" [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['requests', 'create']" class="uk-flex uk-flex-middle">
-          <span class="material-icons uk-margin-right">description</span>
+          <span class="material-icons uk-margin-right">input</span>
           <span class="menu_title">Request Dataset</span>
         </a>
       </li>
       <li [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['requests', 'all']" class="uk-flex uk-flex-middle">
-          <span class="material-icons uk-margin-right">description</span>
+          <span class="material-icons uk-margin-right">file_download</span>
           <span class="menu_title">Dataset Requests</span>
         </a>
       </li>
       <li *ngIf="hasRole('OPERATOR_DATASET-INGESTOR')" [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['form', 'm-ixQivyAM']" class="uk-flex uk-flex-middle">
           <span class="material-icons uk-margin-right">description</span>
-          <span class="menu_title">Register Metadata</span>
+          <span class="menu_title">Register Dataset</span>
         </a>
       </li>
     </ul>

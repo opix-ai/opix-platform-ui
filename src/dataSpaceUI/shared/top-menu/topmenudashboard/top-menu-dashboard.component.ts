@@ -1,9 +1,9 @@
-import {Component, Input, OnDestroy, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {UserService} from "../../../services/user.service";
 import {UserInfo} from "../../../domain/userInfo";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {Subscriber} from "rxjs";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-top-menu-dashboard',
@@ -15,6 +15,7 @@ export class TopMenuDashboardComponent implements OnInit, OnDestroy {
 
   subscriptions = [];
   userInfo: UserInfo = null;
+  projectName = environment.projectName;
 
   constructor(private userService: UserService, private authenticationService: AuthenticationService) {
   }

@@ -10,6 +10,7 @@ import UIkit from "uikit";
 @Component({
   selector: 'app-create-request',
   templateUrl: 'create.request.component.html',
+  styleUrls: ['create.request.component.scss'],
   providers: [RequestsService]
 })
 
@@ -50,6 +51,7 @@ export class CreateRequestComponent implements OnInit{
   createRequest() {
     if (this.createRequestForm.valid) {
       this.createRequestForm.get('created').setValue(new Date());
+      this.createRequestForm.get('status').setValue('Submitted');
       if (this.userService.userInfo){
         this.createRequestForm.get('assigner').get('email').setValue(this.userService.userInfo.email);
         this.createRequestForm.get('assigner.firstname').setValue(this.userService.userInfo.name);
@@ -94,10 +96,12 @@ export class CreateRequestComponent implements OnInit{
 
   addValidators() {
     this.createRequestForm.get('name').addValidators(Validators.required);
-    this.createRequestForm.get('assignee').addValidators(Validators.required);
     this.createRequestForm.get('description').addValidators(Validators.required);
-    this.createRequestForm.get('status').addValidators(Validators.required);
     this.createRequestForm.get('priority').addValidators(Validators.required);
+    if (this.edit) {
+      this.createRequestForm.get('status').addValidators(Validators.required);
+      this.createRequestForm.get('assignee').addValidators(Validators.required);
+    }
   }
 
 }

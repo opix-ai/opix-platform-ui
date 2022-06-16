@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="uk-margin">
+    <div *ngIf="edit" class="uk-margin">
       <label class="uk-form-label" for="assignee">Assign to</label>
       <div class="uk-form-controls">
         <input formControlName="assignee" class="uk-input" id="assignee" type="email"
@@ -27,14 +27,17 @@
       </div>
     </div>
 
-    <div class="uk-margin">
+    <div *ngIf="edit" class="uk-margin">
       <label class="uk-form-label" for="status">Status</label>
       <div class="uk-form-controls">
         <select formControlName="status" class="uk-select" id="status"
                 [ngClass]="{'uk-form-danger': checkFormValidity('status')}">
-          <option>Open</option>
-          <option>Closed</option>
-          <option>Inactive</option>
+          <option>Submitted</option>
+          <option>Assigned to ingestor</option>
+          <option>Ingested</option>
+          <option>Registered</option>
+          <option>Assigned to provisioner</option>
+          <option>Completed</option>
         </select>
       </div>
     </div>
