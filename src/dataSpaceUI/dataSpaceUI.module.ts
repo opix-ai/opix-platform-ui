@@ -21,6 +21,7 @@ import {AuthenticationService} from "./services/authentication.service";
 import {UserService} from "./services/user.service";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {CommonModule} from "@angular/common";
+import {RoleAuthGuardComponent} from "./services/role-auth-guard.component";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {CommonModule} from "@angular/common";
     NavigationService,
     AuthenticationService,
     UserService,
-    SurveyService
+    SurveyService,
+    RoleAuthGuardComponent
   ],
   exports: [
     IntelcompFooterComponent

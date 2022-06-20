@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {From, Ticket} from "../../entities/ticket";
 import {RequestsService} from "../../services/requests.service";
 import {UserService} from "../../../dataSpaceUI/services/user.service";

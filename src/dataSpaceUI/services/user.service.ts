@@ -15,4 +15,14 @@ export class UserService {
     return this.http.get<UserInfo>(this.base + '/user/info');
   }
 
+  roleToSessionStorage(userInfo: UserInfo) {
+    this.userInfo = userInfo;
+    sessionStorage.setItem('userRoles', userInfo.roles.toString());
+  }
+
+  cleanUserInfo() {
+    this.userInfo = null;
+    sessionStorage.removeItem('userRoles')
+  }
+
 }
