@@ -19,11 +19,11 @@
         <td>{{request.priority}}</td>
         <td><a [routerLink]="['/requests', request.id]">{{request.name}}</a></td>
         <td>{{request.assigner?.firstname}} {{request.assigner?.lastname}}</td>
-        <td *ngIf="request.assignee else showAssignButton">{{request.assignee}}</td>
-        <ng-template #showAssignButton>
-          <td *ngIf="hasRole('OPERATOR_DATASET-INGESTOR')">
-            <button class="uk-button uk-button-primary" (click)="assignToMe(request.id)">Assign to me</button>
-          </td>
+        <td *ngIf="!request.assignee && hasRole('OPERATOR_DATASET-INGESTOR') else showAssignee">
+          <button class="uk-button uk-button-primary" (click)="assignToMe(request.id)">Assign to me</button>
+        </td>
+        <ng-template #showAssignee>
+          <td>{{request.assignee ? request.assignee : '-'}}</td>
         </ng-template>
         <td>{{request.created | date}}</td>
         <td>{{request.updated | date}}</td>

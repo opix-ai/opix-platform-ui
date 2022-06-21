@@ -7,6 +7,7 @@ import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset
 import {RequestDataComponent} from "./pages/requestdata/request-data.component";
 import {FormComponent} from "./pages/form/form.component";
 import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
+import {RoleAuthGuardComponent} from "./services/role-auth-guard.component";
 
 const dataSpaceRoutes: Routes = [
   {
@@ -36,7 +37,11 @@ const dataSpaceRoutes: Routes = [
   },
   {
     path: 'form/:datasetTypeId',
-    component: FormComponent
+    component: FormComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR_DATASET-INGESTOR"]
+    }
     // loadChildren: () => import('../pages/pages/dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule)
   }
 ];

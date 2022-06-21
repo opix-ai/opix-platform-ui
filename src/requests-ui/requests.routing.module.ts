@@ -27,7 +27,7 @@ const routes: Routes = [
     component: RequestComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {
-      roles: ["OPERATOR_DATASET-OWNER"]
+      roles: ["OPERATOR_DATASET-OWNER",  "OPERATOR_DATASET-INGESTOR"]
     }
   },
   {
