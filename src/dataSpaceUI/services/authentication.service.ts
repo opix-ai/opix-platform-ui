@@ -9,6 +9,7 @@ import {UserService} from "./user.service";
 export class AuthenticationService {
 
   base = environment.API_ENDPOINT;
+  loginEndPoint = environment.API_LOGIN;
   cookieName = 'AccessToken';
 
   constructor(private router: Router, private userService: UserService) {
@@ -25,7 +26,7 @@ export class AuthenticationService {
   }
 
   login() {
-    window.location.href = this.base + '/oauth2/authorization/cite';
+    window.location.href = this.base + this.loginEndPoint;
   }
 
   logout() {
