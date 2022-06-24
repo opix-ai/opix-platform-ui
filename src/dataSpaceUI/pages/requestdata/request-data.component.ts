@@ -55,41 +55,24 @@ export class RequestDataComponent implements OnInit, OnDestroy {
         dataRequestIds => {
           if (dataRequestIds) {
             this.subscriptions.push(
-              this.catalogueService.getResourceTypeById(dataRequestIds.instanceId, 'dataset_instance').subscribe(
-                res => {
-                  this.instance = res;
-                  this.subscriptions.push(
-                    this.catalogueService.getInternalId(dataRequestIds.instanceId).subscribe(
-                      res => {
-                        this.internalId = res.toString();
-                      },
-                      error => {console.log(error);}
-                    )
-                  );
-                }
-              )
-            );
-          } else {
-            console.log('there is no dataRequestIds');
-          }
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
-          console.log('subject is', this.navigationService.dataRequestIds$);
-        }
-      )
-    );
-
-    this.subscriptions.push(
-      this.navigationService.dataRequestIds.subscribe(
-        dataRequestIds => {
-          if (dataRequestIds) {
-            this.subscriptions.push(
               this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
                 res => {
                   this.dataset = res;
+                  this.subscriptions.push(
+                    this.catalogueService.searchDatasetInstance('dataset_instance', this.dataset['name'], dataRequestIds.instanceVersion,).subscribe(
+                      res => {
+                        this.instance = res.results[0];
+                        this.subscriptions.push(
+                          this.catalogueService.getInternalId(this.dataset['name'], dataRequestIds.instanceVersion).subscribe(
+                            res => {
+                              this.internalId = res.toString();
+                            },
+                            error => {console.log(error);}
+                          )
+                        );
+                      }
+                    )
+                  );
                 }
               )
             );

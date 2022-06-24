@@ -12,10 +12,11 @@ declare var UIkit: any;
 
 export class DatasetLandingPageComponent extends LandingPageComponent {
 
-  gotoRequestData(instanceId, datasetId) {
-    this.navigationService.setDataRequestIds(instanceId, datasetId);
-    this.router.navigate([`/request-data`]);
-    UIkit.modal('#modal-dataset-instances').hide();
+  gotoRequestData(instanceVersion, datasetId) {
+    this.navigationService.setDataRequestIds(instanceVersion, datasetId);
+    this.router.navigate([`/request-data`]).then(
+      UIkit.modal('#modal-dataset-instances').hide()
+    );
   }
 
   download(url: string) {

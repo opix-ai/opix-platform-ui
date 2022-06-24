@@ -36,7 +36,7 @@ const dataSpaceRoutes: Routes = [
     component: BrowseJobsComponent
   },
   {
-    path: 'form/:datasetTypeId',
+    path: 'form/:resourceTypeModel',
     component: FormComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {

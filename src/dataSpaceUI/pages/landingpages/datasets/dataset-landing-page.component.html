@@ -144,8 +144,14 @@
             <span *ngIf="i !== 0">,<br></span>{{size}}
           </span></td>
           <td>
-            <button *ngIf="userInfo?.roles.includes('OPERATOR_DATA-PROCESSOR') && (dataset['name']==='OpenAIRE Graph' || dataset['name']==='Clinical Trials')"
-                    class="uk-button uk-button-default" (click)="gotoRequestData(instance['id'], dataset['id'])">Select</button>
+            <button *ngIf="userInfo?.roles.includes('OPERATOR_DATA-PROCESSOR')
+                          && (dataset['name']==='OpenAIRE Graph'
+                              || dataset['name']==='Clinical Trials'
+                              || dataset['name']==='NIH Research Portfolios'
+                              || dataset['name']==='European Job Portal'
+                              || dataset['name']==='Semantic Scholar'
+                              || dataset['name']==='Spanish Job Portal tecnoempleo.com')"
+                    class="uk-button uk-button-default" (click)="gotoRequestData(instance['metadata']['version'], dataset['id'])">Select</button>
             <button *ngIf="instance['location']['files']['baseDir'] !== ''" class="uk-button uk-button-default"
                     (click)="download(instance['location']['files']['baseDir'])">Download</button>
           </td>
