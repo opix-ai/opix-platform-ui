@@ -29,7 +29,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
     ])
   };
 
-  dataForm: FormGroup;
+  dataForm: FormGroup
 
   instance: Object = null;
   dataset: Object = null;
@@ -53,7 +53,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.navigationService.dataRequestIds.subscribe(
         dataRequestIds => {
-          if (dataRequestIds) {
+          if (dataRequestIds?.datasetId !== null && dataRequestIds?.instanceVersion !== null) {
             this.subscriptions.push(
               this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
                 res => {
@@ -77,14 +77,13 @@ export class RequestDataComponent implements OnInit, OnDestroy {
               )
             );
           } else {
-            console.log('there is no dataRequestIds');
+            console.log('There is no dataRequestIds');
           }
         },
         error => {
-          console.log('error');
+          console.log(error);
         },
-        () => {
-        }
+        () => {}
       )
     );
 
@@ -193,10 +192,6 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   }
 
   /** <--manage form arrays **/
-
-  printMyData(){
-    console.log(this.dataForm.value);
-  }
 
   sampleModal() {
     UIkit.modal('#sampleModal').show();
