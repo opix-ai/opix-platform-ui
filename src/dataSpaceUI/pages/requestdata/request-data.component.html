@@ -59,43 +59,32 @@
             </div>
 
             <div class="uk-margin-medium-bottom">
-              <label class="uk-form-label uk-text-right" for="dateFrom">
-                Date From
-              </label>
+              <label class="uk-form-label uk-text-right" for="dateFrom">Date From</label>
               <div class="uk-form-controls uk-margin-top">
-                <input id="dateFrom" class="uk-input uk-width-9-10" type="date" lang="gr"
-                       formControlName="dateFrom">
+                <input id="dateFrom" class="uk-input uk-width-9-10" type="date" lang="gr" formControlName="dateFrom">
               </div>
             </div>
 
             <div class="uk-margin-medium-bottom">
-              <label class="uk-form-label uk-text-right" for="dateTo">
-                Date To
-              </label>
+              <label class="uk-form-label uk-text-right" for="dateTo">Date To</label>
               <div class="uk-form-controls uk-margin-top">
-                <input id="dateTo" class="uk-input uk-width-9-10" type="date" lang="gr"
-                       formControlName="dateTo">
+                <input id="dateTo" class="uk-input uk-width-9-10" type="date" lang="gr" formControlName="dateTo">
               </div>
             </div>
 
             <div formArrayName="funder" class="uk-margin-medium-bottom">
-              <label class="uk-form-label uk-text-right" for="funder">
-                Publisher
-              </label>
+              <label class="uk-form-label uk-text-right" for="funder">Publisher</label>
               <div class="uk-form-controls uk-margin-top">
                 <div *ngFor="let funder of getFieldAsFormArray('funder').controls; let i=index"
-                     class="uk-margin-bottom">
-                  <input id="funder" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
-                         type="text" [formControlName]="i">
-                  <a *ngIf="getFieldAsFormArray('funder').length > 1"
-                     class="remove-element uk-padding-small"
+                     class="uk-margin-bottom uk-flex uk-flex-middle">
+                  <input id="funder" class="uk-input uk-width-9-10 uk-animation-slide-top-small" type="text" [formControlName]="i">
+                  <a *ngIf="getFieldAsFormArray('funder').length > 1" class="remove-element uk-padding-small"
                      (click)="remove('funder', i)">
-                    <i class="" aria-hidden="true">X</i>
+                    <span class="material-icons">clear</span>
                   </a>
                 </div>
                 <div class="uk-width-9-10 uk-text-center uk-margin-medium-top">
-                  <a class="add-new-element"
-                     (click)="push('funder')">
+                  <a class="add-new-element" (click)="push('funder')">
                     <i class="" aria-hidden="true"></i>+ Add Publisher
                   </a>
                 </div>
@@ -103,23 +92,18 @@
             </div>
 
             <div formArrayName="journal" class="uk-margin-medium-bottom">
-              <label class="uk-form-label uk-text-right" for="journal">
-                Journal
-              </label>
+              <label class="uk-form-label uk-text-right" for="journal">Journal</label>
               <div class="uk-form-controls uk-margin-top">
                 <div *ngFor="let journal of getFieldAsFormArray('journal').controls; let i=index"
-                     class="uk-margin-bottom">
-                  <input id="journal" class="uk-input uk-width-9-10 uk-animation-slide-top-small"
-                         type="text" [formControlName]="i">
-                  <a *ngIf="getFieldAsFormArray('journal').length > 1"
-                     class="remove-element uk-padding-small"
+                     class="uk-margin-bottom uk-flex uk-flex-middle">
+                  <input id="journal" class="uk-input uk-width-9-10 uk-animation-slide-top-small" type="text" [formControlName]="i">
+                  <a *ngIf="getFieldAsFormArray('journal').length > 1" class="remove-element uk-padding-small"
                      (click)="remove('journal', i)">
-                    <i class="" aria-hidden="true">X</i>
+                    <span class="material-icons">clear</span>
                   </a>
                 </div>
                 <div class="uk-width-9-10 uk-text-center uk-margin-medium-top">
-                  <a class="add-new-element"
-                     (click)="push('journal')">
+                  <a class="add-new-element" (click)="push('journal')">
                     <i class="" aria-hidden="true"></i>+ Add Journal
                   </a>
                 </div>
@@ -129,32 +113,25 @@
             <div class="uk-margin-medium-bottom">
               <label class="uk-form-label uk-text-right">Projects</label>
               <div class="uk-form-controls uk-margin-top">
-                <div formArrayName="projects"
-                     *ngFor="let project of projectArray.controls; let i = index">
-                  <div [formGroupName]="i"
-                       class="uk-margin-bottom formGroupElement uk-width-9-10 uk-display-inline-block">
+                <div formArrayName="projects" *ngFor="let project of projectArray.controls; let i = index" class="uk-flex uk-flex-top">
+                  <div [formGroupName]="i" class="uk-margin-bottom formGroupElement uk-width-9-10 uk-display-inline-block">
                     <div class="">
-                      <label class="uk-form-label uk-text-right" for="name">
-                        Project Name
-                      </label>
-                      <div class="uk-form-controls uk-margin-medium-top">
+                      <label class="uk-form-label uk-text-right" for="name">Project Name</label>
+                      <div class="uk-form-controls uk-margin-top">
                         <input id="name" class="uk-input" type="text" formControlName="name">
                       </div>
                     </div>
-                    <div class="">
-                      <label class="uk-form-label uk-text-right" for="acronym">
-                        Project Acronym
-                      </label>
-                      <div class="uk-form-controls uk-margin-medium-top">
+                    <div class="uk-margin-small-top">
+                      <label class="uk-form-label uk-text-right" for="acronym">Project Acronym</label>
+                      <div class="uk-form-controls uk-margin-top">
                         <input id="acronym" class="uk-input" type="text" formControlName="acronym">
                       </div>
                     </div>
 
                   </div>
-                  <a *ngIf="getFieldAsFormArray('projects').length > 1"
-                     class="remove-element uk-padding-small"
+                  <a *ngIf="getFieldAsFormArray('projects').length > 1" class="remove-element uk-padding-small"
                      (click)="removeProject(i)">
-                    <i class="" aria-hidden="true">X</i>
+                    <span class="material-icons">clear</span>
                   </a>
                 </div>
                 <div class="uk-width-9-10 uk-text-center uk-margin-top">
@@ -165,14 +142,14 @@
               </div>
             </div>
 
-
+          </div>
+          <div class="uk-flex uk-flex-right">
+            <button type="submit" class="uk-button uk-button-primary uk-margin-medium-top"
+                    [ngClass]="!dataForm.touched?'uk-disabled':''" (click)="submit()">
+              Get my data
+            </button>
           </div>
         </div>
-
-        <button type="submit" class="uk-button uk-button-primary uk-margin-medium-top"
-                [ngClass]="!dataForm.touched?'uk-disabled':''"
-                (click)="submit()">Get my data
-        </button>
 
       </form>
 
@@ -180,155 +157,6 @@
 
   </div>
 </div>
-
-<!--<div class="">-->
-
-  <!--<h3 class="uk-margin-medium-top uk-width-3-4 uk-align-center">Data Provision</h3>-->
-
-  <!--<div *ngIf="instance">-->
-
-    <!--<form [formGroup]="dataForm" role="form" class="uk-form uk-margin uk-width-3-4 uk-align-center uk-form-horizontal">-->
-
-      <!--<div class="formContainer uk-margin-large-bottom">-->
-
-        <!--<h6>{{instance['metadata']['version']}} of {{instance['type']}}</h6>-->
-        <!--<h6 class="uk-margin-remove-top">created on {{instance['metadata']['dates'][0]['value']}} by {{instance['metadata']['creators'][0]['creatorName']}}</h6>-->
-
-        <!--<h5>Filter By</h5>-->
-
-        <!--<div class="uk-margin-medium-bottom">-->
-          <!--<div class="uk-inline uk-margin-right">-->
-            <!--<label class="" for="entity">Entity </label>-->
-            <!--<div class="uk-inline">-->
-              <!--<select class="uk-input uk-select" id="entity">-->
-<!--&lt;!&ndash;              <select class="uk-input uk-select" id="entity" formControlName="entity">&ndash;&gt;-->
-                <!--<option value="publication" selected>Publication</option>-->
-              <!--</select>-->
-            <!--</div>-->
-          <!--</div>-->
-
-          <!--<div class="uk-inline">-->
-            <!--<button style="background:none; border:none;" (click)="sampleModal()">View Sample</button>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="uk-margin-large-bottom">-->
-          <!--<label class="uk-form-label uk-text-right" for="dateFrom">-->
-            <!--Date From:-->
-          <!--</label>-->
-          <!--<div class="uk-form-controls uk-margin-top">-->
-            <!--<input id="dateFrom" class="uk-input uk-width-9-10" type="date" lang="gr"-->
-                   <!--formControlName="dateFrom">-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="uk-margin-large-bottom">-->
-          <!--<label class="uk-form-label uk-text-right" for="dateTo">-->
-            <!--Date To:-->
-          <!--</label>-->
-          <!--<div class="uk-form-controls uk-margin-top">-->
-            <!--<input id="dateTo" class="uk-input uk-width-9-10" type="date" lang="gr"-->
-                   <!--formControlName="dateTo">-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div formArrayName="funder" class="uk-margin-large-bottom">-->
-          <!--<label class="uk-form-label uk-text-right" for="funder">-->
-            <!--Publisher-->
-          <!--</label>-->
-          <!--<div class="uk-form-controls uk-margin-medium-top">-->
-            <!--<div *ngFor="let funder of getFieldAsFormArray('funder').controls; let i=index"-->
-                 <!--class="uk-margin-bottom">-->
-              <!--<input id="funder" class="uk-input uk-width-9-10 uk-animation-slide-top-small"-->
-                     <!--type="text" [formControlName]="i">-->
-              <!--<a *ngIf="getFieldAsFormArray('funder').length > 1"-->
-                 <!--class="remove-element uk-padding-small"-->
-                 <!--(click)="remove('funder', i)">-->
-                <!--<i class="" aria-hidden="true">X</i>-->
-              <!--</a>-->
-            <!--</div>-->
-            <!--<div class="uk-width-9-10 uk-text-center uk-margin-medium-top">-->
-              <!--<a class="add-new-element"-->
-                 <!--(click)="push('funder')">-->
-                <!--<i class="" aria-hidden="true"></i>+ Add Publisher-->
-              <!--</a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div formArrayName="journal" class="uk-margin-large-bottom">-->
-          <!--<label class="uk-form-label uk-text-right" for="journal">-->
-            <!--Journal-->
-          <!--</label>-->
-          <!--<div class="uk-form-controls uk-margin-medium-top">-->
-            <!--<div *ngFor="let journal of getFieldAsFormArray('journal').controls; let i=index"-->
-                 <!--class="uk-margin-bottom">-->
-              <!--<input id="journal" class="uk-input uk-width-9-10 uk-animation-slide-top-small"-->
-                     <!--type="text" [formControlName]="i">-->
-              <!--<a *ngIf="getFieldAsFormArray('journal').length > 1"-->
-                 <!--class="remove-element uk-padding-small"-->
-                 <!--(click)="remove('journal', i)">-->
-                <!--<i class="" aria-hidden="true">X</i>-->
-              <!--</a>-->
-            <!--</div>-->
-            <!--<div class="uk-width-9-10 uk-text-center uk-margin-medium-top">-->
-              <!--<a class="add-new-element"-->
-                 <!--(click)="push('journal')">-->
-                <!--<i class="" aria-hidden="true"></i>+ Add Journal-->
-              <!--</a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="uk-margin-large-bottom">-->
-          <!--<label class="uk-form-label uk-text-right">Projects</label>-->
-          <!--<div class="uk-form-controls uk-margin-medium-top">-->
-            <!--<div formArrayName="projects"-->
-                 <!--*ngFor="let project of projectArray.controls; let i = index">-->
-              <!--<div [formGroupName]="i"-->
-                   <!--class="uk-margin-bottom uk-padding-remove-top formGroupElement uk-width-9-10 uk-display-inline-block">-->
-                <!--<div class="">-->
-                  <!--<label class="uk-form-label uk-text-right" for="name">-->
-                    <!--Project Name-->
-                  <!--</label>-->
-                  <!--<div class="uk-form-controls uk-margin-medium-top">-->
-                    <!--<input id="name" class="uk-input" type="text" formControlName="name">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="">-->
-                  <!--<label class="uk-form-label uk-text-right" for="acronym">-->
-                    <!--Project Acronym-->
-                  <!--</label>-->
-                  <!--<div class="uk-form-controls uk-margin-medium-top">-->
-                    <!--<input id="acronym" class="uk-input" type="text" formControlName="acronym">-->
-                  <!--</div>-->
-                <!--</div>-->
-
-              <!--</div>-->
-              <!--<a *ngIf="getFieldAsFormArray('projects').length > 1"-->
-                 <!--class="remove-element uk-padding-small"-->
-                 <!--(click)="removeProject(i)">-->
-                <!--<i class="" aria-hidden="true">X</i>-->
-              <!--</a>-->
-            <!--</div>-->
-            <!--<div class="uk-width-9-10 uk-text-center uk-margin-top">-->
-              <!--<a class="add-new-element" (click)="pushProject()">-->
-                <!--<i class="" aria-hidden="true"></i>+ Add Project-->
-              <!--</a>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<button type="submit" class="uk-button uk-button-blue uk-margin-left"-->
-                <!--[ngClass]="!dataForm.touched?'uk-disabled':''"-->
-                <!--(click)="submit()">Get my data-->
-        <!--</button>-->
-      <!--</div>-->
-
-    <!--</form>-->
-
-  <!--</div>-->
-<!--</div>-->
 
 <!--fixme sample is per entity-->
 <!--fixme find a better way to format sample-->

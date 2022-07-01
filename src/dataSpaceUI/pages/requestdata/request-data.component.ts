@@ -152,7 +152,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
         },
         error => {
           this.job = new Job();
-          console.log(error)
+          console.log(error);
         }
       )
     );
