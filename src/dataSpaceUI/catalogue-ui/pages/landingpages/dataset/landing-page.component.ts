@@ -45,7 +45,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       );
     }
 
-
     this.subscriptions.push(
       this.route.params.subscribe(params => {
         this.subscriptions.push(

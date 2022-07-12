@@ -139,10 +139,32 @@ export class RequestDataComponent implements OnInit, OnDestroy {
     this.jobArguments.push({'name': this.dataset['name']});
     this.jobArguments.push({'entity': this.dataForm.get('entity').value});
     this.job.callerAttributes = JSON.stringify(this.jobArguments);
-    if ( this.instance['type'] === 'OpenAIRE Graph') {
-      this.job.serviceArguments.processId = 'openaire-graph-kubernetes';
-    } else {
-      this.job.serviceArguments.processId = 'clinical-trials-kubernetes';
+    // TODO: Fix manual processId setting when supported
+    switch (this.instance['type']) {
+      case 'OpenAIRE Graph': {
+        this.job.serviceArguments.processId = 'openaire-graph-kubernetes';
+        break;
+      }
+      case 'Clinical Trials': {
+        this.job.serviceArguments.processId = 'clinical-trials-kubernetes';
+        break;
+      }
+      case 'NIH Research Portfolios': {
+        this.job.serviceArguments.processId = 'nih-kubernetes';
+        break;
+      }
+      case 'European Job Portal': {
+        this.job.serviceArguments.processId = 'euraxess-kubernetes';
+        break;
+      }
+      case 'Semantic Scholar': {
+        this.job.serviceArguments.processId = 'semanticscholar-kubernetes';
+        break;
+      }
+      case 'Spanish Job Portal tecnoempleo.com': {
+        this.job.serviceArguments.processId = 'tecnoempleo-kubernetes';
+        break;
+      }
     }
 
     this.subscriptions.push(
