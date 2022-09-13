@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Field, GroupedFields, Model, Required, Section} from '../domain/dynamic-form-model';
-import {environment} from '../../../environments/environment';
+import {Field, Model, Required, Section} from '../domain/dynamic-form-model';
+import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {urlRegEx} from "../shared/validators/generic.validator";
 import {Paging} from "../domain/paging";
@@ -20,7 +20,6 @@ export class FormControlService implements OnInit{
   }
 
   getFormModelById(id: string) {
-    // return this.http.get<Model>(this.base + `/ui/form/model/${id}`);
     return this.http.get<Model>(this.base + `/forms/models/${id}`);
   }
 
@@ -141,6 +140,31 @@ export class FormControlService implements OnInit{
       }
     });
     return  subGroup;
+  }
+
+  createField (formField: Field) {
+    if (formField.typeInfo.type === 'url') {
+      return formField.form.mandatory ?
+        new FormControl('', [Validators.required, Validators.pattern(this.urlRegEx)])
+        : new FormControl('', Validators.pattern(this.urlRegEx));
+    } else if (formField.typeInfo.type === 'composite' || formField.typeInfo.type === 'chooseOne') {
+      return new FormGroup(this.createCompositeField(formField));
+    } else if (formField.typeInfo.type === 'email') {
+      return formField.form.mandatory ?
+        new FormControl('', Validators.compose([Validators.required, Validators.email]))
+        : new FormControl('', Validators.email);
+    } else if (formField.typeInfo.type === 'phone') {
+      return formField.form.mandatory ?
+        new FormControl('', Validators.compose([Validators.required, Validators.pattern('[+]?\\d+$')]))
+        : new FormControl('', Validators.pattern('[+]?\\d+$'));
+    } else if (formField.typeInfo.type === 'number') {
+      this.numbersOfDecimals = this.calculateNumberOfDecimals(formField.typeInfo.values);
+      return formField.form.mandatory ?
+        new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.numberRegEx)]))
+        : new FormControl('', Validators.pattern(this.numberRegEx));
+    } else {
+      return  new FormControl(null, Validators.required)
+    }
   }
 
   calculateNumberOfDecimals(values: string[]): string {

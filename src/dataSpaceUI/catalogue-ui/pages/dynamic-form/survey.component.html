@@ -1,17 +1,21 @@
 <div *ngIf="survey" class="uk-grid">
   <h5 class="uk-width-1-2 uk-margin-bottom">{{survey.name}}</h5>
   <div class="uk-width-1-2">
-    <button *ngIf="validate" class="uk-float-right uk-button uk-button-primary" (click)="validateSurvey()">Validate</button>
+    <button *ngIf="validate" class="uk-float-right uk-button uk-button-primary" (click)="validateForm()">Validate</button>
   </div>
   <p class="uk-margin-bottom">{{survey.notice}}</p>
 </div>
 
+<div class="uk-flex uk-flex-right">
+  <button class="uk-button uk-button-secondary" (click)="generatePDF()">Download as pdf</button>
+</div>
+
 <!--Chapter Selection-->
-<div *ngIf="model?.sections.length > 0" [ngClass]="{'uk-display-none': model.sections[0].fields !== null}">
-  <ul uk-tab="connect: #top-navigation-tabs; animation: uk-animation-fade" class="chapter-tabs">
-    <li class="" *ngFor="let chapter of model.sections">
-      <a (click)="showUnsavedChangesPrompt(chapter)">{{chapter.name}}
-        <span *ngIf="chapterChangeMap.get(chapter.id)" class="material-icons md-10 uk-margin-small-left">circle</span></a>
+<div *ngIf="survey" [ngClass]="{'uk-display-none': (survey.sections.length === 1 || !survey.sections[0].subSections)}">
+  <ul class="chapter-tabs uk-tab" uk-switcher="connect: #top-navigation-tabs; animation: uk-animation-fade">
+    <li class="" *ngFor="let section of survey.sections; trackBy: trackByMethod">
+      <a (click)="showUnsavedChangesPrompt(section)">{{section.name}}
+        <span *ngIf="chapterChangeMap.get(section.id)" class="material-icons md-10 uk-margin-small-left">circle</span></a>
     </li>
   </ul>
 </div>
@@ -21,31 +25,30 @@
   <a (click)="closeAlert()" class="uk-alert-close" uk-close></a>
   {{errorMessage}}
 </pre>
-<div *ngIf="successMessage" class="uk-alert uk-alert-success" id="successMessage">
+<div *ngIf="successMessage" class="uk-alert uk-alert-success uk-animation-slide-top-small" id="successMessage">
   <p>{{successMessage}}</p>
 </div>
 
 <div *ngIf="ready; else showLoader">
-  <ul id="top-navigation-tabs" class="uk-switcher">
-<!--    <li *ngFor="let answer of this.sortedSurveyAnswers | keyvalue; let i = index">-->
-    <div *ngIf="model.sections[0].fields === null else singleDepth">
-      <li *ngFor="let answer of model.sections let i = index">
-        <app-chapter-edit [answerValue]="" [form]="getFormGroup(i)" [readonly]="readonly" [validate]="validate"
-                          [tabsHeader]="tabsHeader" [chapter]="model"
-                          [fields]="model.sections[i].subSections" [vocabularies]="vocabularies"
-                          [surveyAnswerId]="" (chapterHasChanges)="setChapterChangesMap($event)">
+  <ul id="top-navigation-tabs" #printPDF class="uk-switcher">
+<!--    <div *ngIf="survey.sections[0].fields === null else singleDepth">-->
+      <li *ngFor="let section of survey.sections let i = index">
+        <app-chapter-edit [form]="getFormGroup(i)" [readonly]="readonly" [validate]="validate" [vocabularies]="vocabularies"
+                          [tabsHeader]="tabsHeader" [chapter]="survey.sections[i]" [resourceType]="survey.resourceType"
+                          [fields]="survey.sections[i].subSections ? survey.sections[i].subSections : survey.sections"
+                          [surveyAnswerId]="" (submit)="onSubmit($event)" (chapterHasChanges)="setChapterChangesMap($event)">
         </app-chapter-edit>
       </li>
-    </div>
-    <ng-template #singleDepth>
-      <li>
-        <app-chapter-edit [answerValue]="" [form]="getFormGroup()" [readonly]="readonly" [validate]="validate"
-                          [tabsHeader]="tabsHeader" [chapter]="model"
-                          [fields]="model.sections" [vocabularies]="vocabularies"
-                          [surveyAnswerId]="" (chapterHasChanges)="setChapterChangesMap($event)">
-        </app-chapter-edit>
-      </li>
-    </ng-template>
+<!--    </div>-->
+<!--    <ng-template #singleDepth>-->
+<!--      <li>-->
+<!--        <app-chapter-edit [answerValue]="" [form]="getFormGroup(sectionIndex)" [readonly]="readonly" [validate]="validate"-->
+<!--                          [tabsHeader]="tabsHeader" [chapter]="survey"-->
+<!--                          [fields]="survey.sections" [vocabularies]="vocabularies"-->
+<!--                          [surveyAnswerId]="" (chapterHasChanges)="setChapterChangesMap($event)">-->
+<!--        </app-chapter-edit>-->
+<!--      </li>-->
+<!--    </ng-template>-->
   </ul>
 </div>
 
@@ -63,7 +66,7 @@
     editable until unlocked.</p>
     <p class="uk-text-right">
       <button class="uk-button uk-button-secondary uk-modal-close" type="button">Close</button>
-      <button class="uk-button uk-button-primary" type="button" (click)="validateSurvey()">I agree</button>
+      <button class="uk-button uk-button-primary" type="button" (click)="validateForm()">I agree</button>
     </p>
   </div>
 </div>
@@ -75,7 +78,7 @@
     <p>There are unsaved changes, do you want to submit them before moving on;</p>
     <p class="uk-text-right">
       <button class="uk-button uk-button-secondary uk-modal-close" type="button">I will do it later</button>
-      <button class="uk-button uk-button-primary" type="button" (click)="onSubmit()">Submit now</button>
+      <button class="uk-button uk-button-primary" type="button" (click)="onSubmit(null)">Submit now</button>
     </p>
   </div>
 </div>

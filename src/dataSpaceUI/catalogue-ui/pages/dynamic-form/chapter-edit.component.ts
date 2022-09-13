@@ -1,17 +1,10 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {FormControlService} from '../../services/form-control.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {
-  Section,
-  Field,
-  GroupedFields,
-  HandleBitSet,
-  Tab, Tabs,
-  UiVocabulary, Model
-} from '../../domain/dynamic-form-model';
-import BitSet from "bitset";
+import {Section, Field, GroupedFields, HandleBitSet, Tab, Tabs, UiVocabulary} from '../../domain/dynamic-form-model';
 import {PremiumSortPipe} from "../../shared/pipes/premium-sort.pipe";
+import BitSet from "bitset";
 
 import UIkit from 'uikit';
 
@@ -22,19 +15,21 @@ import UIkit from 'uikit';
 })
 export class ChapterEditComponent implements OnChanges{
 
-  @Input() answerValue: Object = null;
-  @Input() form: FormGroup = null;
+  // @Input() answerValue: Object = null;
+  @Input() form: any = null;
   @Input() tabsHeader: string;
   @Input() surveyAnswerId: string = null;
   @Input() readonly : boolean = null;
   @Input() validate : boolean = null;
   @Input() vocabularies: Map<string, string[]> = null;
-  @Input() chapter: Model = null;
+  @Input() chapter: Section = null;
+  @Input() resourceType: string = null;
   @Input() fields: Section[] = null;
 
   @Output() chapterHasChanges = new EventEmitter<string[]>();
+  @Output() submit = new EventEmitter();
 
-  @ViewChild('sections') sections: ElementRef<HTMLElement>;
+  // @ViewChild('sections') sections: ElementRef<HTMLElement>;
 
   subVocabularies: UiVocabulary[] = [];
   editMode = true;
@@ -66,9 +61,9 @@ export class ChapterEditComponent implements OnChanges{
 
   ngOnChanges(changes:SimpleChanges) {
     // remove later
-    this.initializations();
-    this.ready=true
-    if (this.answerValue) {
+    // this.initializations();
+    // this.ready=true
+    if (this.fields) {
       this.initializations();
       this.ready = true
     }
@@ -77,25 +72,26 @@ export class ChapterEditComponent implements OnChanges{
   onSubmit(tempSave: boolean, pendingService?: boolean) {
     // if (this.form.valid) {
     window.scrollTo(0, 0);
-    this.showLoader = true;
-    this.formControlService.postGenericItem(this.chapter.resourceType, this.form.getRawValue(), this.editMode).subscribe(
-      res => {
-        // this.router.navigate(['/contributions/mySurveys']);
-      },
-      error => {
-        this.errorMessage = 'Something went bad, server responded: ' + JSON.stringify(error.error.error);
-        this.showLoader = false;
-        console.log(error);
-      },
-      () => {
-        this.successMessage = 'Updated successfully!';
-        setTimeout( () => {
-          UIkit.alert('#successMessage').close();
-        }, 4000);
-        this.showLoader = false;
-        this.unsavedChangesPrompt(true, 'notNull');
-      }
-    );
+    this.submit.emit(null);
+    // this.showLoader = true;
+    // this.formControlService.postGenericItem(this.resourceType, this.form.getRawValue(), this.editMode).subscribe(
+    //   res => {
+    //     // this.router.navigate(['/contributions/mySurveys']);
+    //   },
+    //   error => {
+    //     this.errorMessage = 'Something went bad, server responded: ' + JSON.stringify(error.error.error);
+    //     this.showLoader = false;
+    //     console.log(error);
+    //   },
+    //   () => {
+    //     this.successMessage = 'Updated successfully!';
+    //     setTimeout( () => {
+    //       UIkit.alert('#successMessage').close();
+    //     }, 4000);
+    //     this.showLoader = false;
+    //     this.unsavedChangesPrompt(true, 'notNull');
+    //   }
+    // );
     // } else {
     //   this.errorMessage = 'Please check if all the required fields have a value.';
     //   window.scrollTo(0, 0);
