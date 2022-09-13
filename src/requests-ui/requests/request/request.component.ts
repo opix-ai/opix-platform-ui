@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {From, Ticket, TicketComment} from "../../entities/ticket";
 import {RequestsService} from "../../services/requests.service";
-import {UserService} from "../../../dataSpaceUI/services/user.service";
+import {UserService} from "../../../dataSpaceUI/app/services/user.service";
 import UIkit from "uikit";
 
 @Component({

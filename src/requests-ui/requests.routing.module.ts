@@ -3,7 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {RequestComponent} from "./requests/request/request.component";
 import {CreateRequestComponent} from "./requests/create/create.request.component";
 import {ViewAllRequestsComponent} from "./requests/viewAll/viewAllRequests.component";
-import {RoleAuthGuardComponent} from "../dataSpaceUI/services/role-auth-guard.component";
+import {RoleAuthGuardComponent} from "../dataSpaceUI/app/services/role-auth-guard.component";
 
 const routes: Routes = [
   {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {RequestsService} from "../../services/requests.service";
 import {Ticket} from "../../entities/ticket";
-import {UserService} from "../../../dataSpaceUI/services/user.service";
+import {UserService} from "../../../dataSpaceUI/app/services/user.service";
 
 import UIkit from 'uikit';
 
