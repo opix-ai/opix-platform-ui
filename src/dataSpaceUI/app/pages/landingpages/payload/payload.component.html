@@ -1,79 +1,137 @@
 <div class="uk-section uk-section-primary uk-preserve-color">
   <div class="uk-container uk-container-large">
 
-    <h3 uk-scrollspy-class="" class="uk-margin-remove uk-text-left@m uk-text-center uk-scrollspy-inview uk-animation-fade uk-inline">{{resourceType}} payload</h3>
+    <div class="uk-grid">
 
-    <div *ngIf="payload?.identifier" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <span class="field-label">Identifier: {{payload['identifier']['value'] + ' (' + payload['identifier']['identifierType'] + ')'}}</span>
-    </div>
+      <div class="uk-width-2-3">
+        <h3 class="uk-margin-remove uk-text-left@m uk-text-center uk-scrollspy-inview uk-animation-fade uk-inline" uk-scrollspy-class="" style="">
+          {{payload.titles[0]?.value || "Not Available"}}
+        </h3>
+        <div *ngIf="payload?.identifier" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
+          <span class="field-label">Identifier: {{payload['identifier']['value'] + ' (' + payload['identifier']['identifierType'] + ')'}}</span>
+        </div>
+        <div *ngIf="payload?.publisher" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
+          <span class="field-label">Publisher: {{payload.publisher.value}}</span>
+        </div>
 
-    <div *ngIf="payload?.publisher" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <span class="field-label">Publisher: {{payload.publisher.value}}</span>
-    </div>
-
-    <div *ngIf="payload?.publicationYear" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <span class="field-label">Publication year: {{payload.publicationYear}}</span>
-    </div>
-
-    <div *ngIf="payload?.resourceType" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <span class="field-label">Resource type: {{payload.resourceType.value}}</span>
-    </div>
-
-    <div *ngIf="payload?.titles?.length > 0" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <h6 class="field-label">Titles</h6>
-      <div class="uk-flex">
-        <ul>
-          <li *ngFor="let title of payload.titles">
-            <span>{{title.value}}</span>
-          </li>
-        </ul>
       </div>
-    </div>
 
-    <div *ngIf="payload?.subjects?.length > 0" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <h6 class="field-label">Subjects</h6>
-      <div class="uk-flex">
-        <ul>
-          <li *ngFor="let subject of payload.subjects">
-            <span>{{subject.value}}</span>
-          </li>
-        </ul>
+      <div class="uk-width-1-3 uk-flex uk-flex-right">
+<!--        <div class="uk-padding-remove uk-overlay uk-overlay-default service-image">-->
+<!--          <img src="{{dataset['metadata']['logo']}}" style="max-height: 200px;">-->
+<!--        </div>-->
       </div>
+
     </div>
 
-    <div *ngIf="payload?.descriptions?.length > 0" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <h6 class="field-label">Descriptions</h6>
-      <div class="uk-flex">
-        <ul>
-          <li *ngFor="let description of payload.descriptions">
-            <span>{{description.content}}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div *ngIf="payload?.creators?.length > 0" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <h6 class="field-label">Creators</h6>
-      <div class="uk-flex">
-        <ul>
-          <li *ngFor="let creator of payload.creators">
-            <span>{{creator.creatorName.value}}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div *ngIf="payload?.contributors?.length > 0" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
-      <h6 class="field-label">Contributors</h6>
-      <div class="uk-flex">
-        <ul>
-          <li *ngFor="let contributor of payload.contributors">
-            <span>{{contributor.contributorName.value}}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-<!--    <pre>{{payload | json}}</pre>-->
   </div>
 </div>
+<!--<hr>-->
+<div class="uk-section uk-section-default">
+  <div class="uk-container uk-container-large">
+
+    <div class="uk-grid">
+
+      <div class="uk-width-2-3">
+        <div *ngIf="payload?.descriptions?.length > 0" class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription" uk-scrollspy-class="" style="">
+          <h6 class="field-label">Descriptions</h6>
+          <div class="">
+
+            <div *ngFor="let description of payload.descriptions" class="uk-margin-bottom">
+              <dt>{{description.descriptionType}}</dt>
+              <dd>{{description.content}}</dd>
+            </div>
+
+<!--            <ul>-->
+<!--              <li *ngFor="let description of payload.descriptions">-->
+<!--                <span>{{description.content}}</span>-->
+<!--              </li>-->
+<!--            </ul>-->
+          </div>
+        </div>
+
+        <!-- subject -->
+        <div *ngIf="payload?.subjects?.length > 0" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+          <span class="field-label">Subjects: </span>
+          <ng-container *ngFor="let subject of payload.subjects; let i=index" class="field-value uk-margin-small-left">
+            <span>{{(i === 0 ? '' : ', ') + subject.value}}</span>
+          </ng-container>
+        </div>
+        <!-- type -->
+        <div *ngIf="payload?.resourceType" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+          <span class="field-label">Type: {{payload.resourceType.value}}</span>
+        </div>
+        <!-- formats -->
+        <div *ngIf="payload?.formats?.length > 0" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+          <span class="field-label">Formats: </span>
+          <ng-container *ngFor="let format of payload.formats; let i=index" class="field-value uk-margin-small-left">
+            <span>{{(i === 0 ? '' : ', ') + format}}</span>
+          </ng-container>
+        </div>
+        <!-- version -->
+        <div *ngIf="payload?.version" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+          <span class="field-label">Version: {{payload.version}}</span>
+        </div>
+        <!-- publication year -->
+        <div *ngIf="payload?.publicationYear" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="" style="">
+          <span class="field-label">Publication year: </span>
+          <span class="field-value uk-margin-small-left">{{payload.publicationYear}}</span>
+        </div>
+      </div>
+
+      <div class="uk-width-1-3">
+
+        <div *ngIf="payload?.creators?.length > 0" class="uk-card uk-card-default uk-card-body uk-margin-top">
+          <h6 class="field-label">Creators</h6>
+
+          <div class="uk-flex">
+            <ul>
+              <li *ngFor="let creator of payload.creators">
+                <span>{{creator.creatorName.value}}</span>
+              </li>
+            </ul>
+          </div>
+
+<!--          <div class="uk-flex">-->
+<!--            <div>-->
+<!--              <span uk-icon="icon: mail"></span>-->
+<!--            </div>-->
+<!--            <div class="uk-margin-left">-->
+<!--              <div> {{dataset['metadata']['contact']['name']}} </div>-->
+<!--              <span>{{dataset['metadata']['contact']['email'].replace('@', ' [at] ')}}</span>-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+
+        <div *ngIf="payload?.contributors?.length > 0" class="uk-card uk-card-default uk-card-body uk-margin-top">
+          <h6 class="field-label">Contributors</h6>
+
+          <div class="uk-flex">
+            <ul>
+              <li *ngFor="let contributor of payload.contributors">
+                <span>{{contributor.contributorName.value}}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!--          <div class="uk-flex">-->
+          <!--            <div>-->
+          <!--              <span uk-icon="icon: mail"></span>-->
+          <!--            </div>-->
+          <!--            <div class="uk-margin-left">-->
+          <!--              <div> {{dataset['metadata']['contact']['name']}} </div>-->
+          <!--              <span>{{dataset['metadata']['contact']['email'].replace('@', ' [at] ')}}</span>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!--<div>-->
+<!--  <pre>{{payload | json}}</pre>-->
+<!--</div>-->
