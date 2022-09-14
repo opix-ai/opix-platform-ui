@@ -8,6 +8,7 @@ import {FormComponent} from "./pages/form/form.component";
 import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
 import {RoleAuthGuardComponent} from "./services/role-auth-guard.component";
 import {PayloadComponent} from "./pages/landingpages/payload/payload.component";
+import {ResourceSearchComponent} from "./pages/search/resource-search/resource-search.component";
 
 const dataSpaceRoutes: Routes = [
   {
@@ -22,6 +23,10 @@ const dataSpaceRoutes: Routes = [
   {
     path: 'search',
     component: IntelcompSearchComponent
+  },
+  {
+    path: 'search/:resourceType',
+    component: ResourceSearchComponent
   },
   {
     path: 'dataset/:id',

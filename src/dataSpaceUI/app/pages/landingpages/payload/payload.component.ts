@@ -1,31 +1,41 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {ResourcePayloadService} from "../../../services/resource-payload.service";
+import {LandingPageService} from "../../../../catalogue-ui/services/landing-page.service";
 
 @Component({
   selector: 'app-payload-landing',
   templateUrl: 'payload.component.html',
-  providers: [ResourcePayloadService]
+  providers: [ResourcePayloadService, LandingPageService]
 })
 
 export class PayloadComponent implements OnInit{
 
   payload = null;
-  resourceType: string = null;
+  relatedDatasets: {id: string, name: string}[] = [];
 
-  constructor(private route: ActivatedRoute, private resourcePayloadService: ResourcePayloadService) {
+  constructor(private route: ActivatedRoute, private resourcePayloadService: ResourcePayloadService,
+              private landingPageService: LandingPageService) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       console.log(params);
-      this.resourceType = params['resourceType'];
       this.resourcePayloadService.getItem(params['resourceType'], params['identifierValue']).subscribe(
-        next => {
-          console.log(next);
-          this.payload = next;
-        },
-        error => {console.log(error);}
+        next => {this.payload = next;},
+        error => {console.log(error);},
+        () => {
+          this.relatedDatasets = [];
+          for (let i = 0; i < this.payload?.relatedIdentifiers?.length; i++) {
+            if (this.payload.relatedIdentifiers[i].resourceTypeGeneral === 'DATASET') {
+              this.landingPageService.getDataset(this.payload.relatedIdentifiers[i].value).subscribe(
+                next => {
+                  this.relatedDatasets.push({id: this.payload.relatedIdentifiers[i].value, name: next['name']});
+                }
+              );
+            }
+          }
+        }
       );
     })
   }

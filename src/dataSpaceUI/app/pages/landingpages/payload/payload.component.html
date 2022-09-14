@@ -5,7 +5,7 @@
 
       <div class="uk-width-2-3">
         <h3 class="uk-margin-remove uk-text-left@m uk-text-center uk-scrollspy-inview uk-animation-fade uk-inline" uk-scrollspy-class="" style="">
-          {{payload.titles[0]?.value || "Not Available"}}
+          {{payload?.titles[0]?.value || "Not Available"}}
         </h3>
         <div *ngIf="payload?.identifier" class="uk-margin-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
           <span class="field-label">Identifier: {{payload['identifier']['value'] + ' (' + payload['identifier']['identifierType'] + ')'}}</span>
@@ -92,15 +92,6 @@
             </ul>
           </div>
 
-<!--          <div class="uk-flex">-->
-<!--            <div>-->
-<!--              <span uk-icon="icon: mail"></span>-->
-<!--            </div>-->
-<!--            <div class="uk-margin-left">-->
-<!--              <div> {{dataset['metadata']['contact']['name']}} </div>-->
-<!--              <span>{{dataset['metadata']['contact']['email'].replace('@', ' [at] ')}}</span>-->
-<!--            </div>-->
-<!--          </div>-->
         </div>
 
         <div *ngIf="payload?.contributors?.length > 0" class="uk-card uk-card-default uk-card-body uk-margin-top">
@@ -114,16 +105,21 @@
             </ul>
           </div>
 
-          <!--          <div class="uk-flex">-->
-          <!--            <div>-->
-          <!--              <span uk-icon="icon: mail"></span>-->
-          <!--            </div>-->
-          <!--            <div class="uk-margin-left">-->
-          <!--              <div> {{dataset['metadata']['contact']['name']}} </div>-->
-          <!--              <span>{{dataset['metadata']['contact']['email'].replace('@', ' [at] ')}}</span>-->
-          <!--            </div>-->
-          <!--          </div>-->
         </div>
+
+        <div *ngIf="relatedDatasets?.length > 0" class="uk-card uk-card-default uk-card-body uk-margin-top">
+          <h6 class="field-label">Related datasets</h6>
+
+          <div class="uk-flex">
+            <ul>
+              <li *ngFor="let relatedIdentifier of relatedDatasets">
+                <a [routerLink]="['/dataset', relatedIdentifier.id]">{{relatedIdentifier.name}}</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
       </div>
 
     </div>

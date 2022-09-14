@@ -9,8 +9,11 @@ export class ResourcePayloadService {
 
   constructor(private http: HttpClient) {}
 
-  getItemsByResourceType(resourceType: string, datasetId: string) {
-    return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}&datasets=${datasetId}`);
+  getItemsByResourceType(resourceType: string, datasetId?: string) {
+    if (datasetId)
+      return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}&datasets=${datasetId}`);
+
+    return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}`);
   }
 
   getItem(resourceType: string, identifierValue: string) {

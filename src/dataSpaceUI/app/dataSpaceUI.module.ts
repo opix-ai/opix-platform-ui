@@ -23,6 +23,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {CommonModule} from "@angular/common";
 import {RoleAuthGuardComponent} from "./services/role-auth-guard.component";
 import {PayloadComponent} from "./pages/landingpages/payload/payload.component";
+import {ResourceSearchComponent} from "./pages/search/resource-search/resource-search.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {PayloadComponent} from "./pages/landingpages/payload/payload.component";
     RequestDataComponent,
     FormComponent,
     BrowseJobsComponent,
-    PayloadComponent
+    PayloadComponent,
+    ResourceSearchComponent
   ],
   imports: [
     CommonModule,
