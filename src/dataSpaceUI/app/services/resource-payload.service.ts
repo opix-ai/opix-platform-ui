@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Paging} from "../../catalogue-ui/domain/paging";
+import {Params} from "@angular/router";
 
 @Injectable()
 export class ResourcePayloadService {
@@ -14,6 +15,19 @@ export class ResourcePayloadService {
       return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}&datasets=${datasetId}`);
 
     return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}`);
+  }
+
+  getItemsWithQueryParams(resourceType: string, queryParameters?: Params) {
+    let params = new HttpParams();
+    if (Object.entries(queryParameters).length > 0) {
+      for (const [key, value] of Object.entries(queryParameters)) {
+        params = params.append(key, value);
+      }
+      return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}&${params.toString()}`);
+    }
+
+    return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}`);
+
   }
 
   getItem(resourceType: string, identifierValue: string) {
