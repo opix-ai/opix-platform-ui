@@ -1,8 +1,10 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {ResourcePayloadService} from "../../../services/resource-payload.service";
 import {Paging} from "../../../../catalogue-ui/domain/paging";
 import {ActivatedRoute, Router} from "@angular/router";
 import {URLParameter} from "../../../../catalogue-ui/domain/url-parameter";
+import {debounceTime, distinctUntilChanged, filter, fromEvent} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-tool-search',
@@ -11,6 +13,8 @@ import {URLParameter} from "../../../../catalogue-ui/domain/url-parameter";
 })
 
 export class ResourceSearchComponent implements OnInit {
+
+  @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 
   resourceType: string = null;
   payload: Paging<any> = null
@@ -29,14 +33,6 @@ export class ResourceSearchComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.resourceType = params['resourceType'];
-      this.resourcePayloadService.getItemsByResourceType(params['resourceType']).subscribe(
-        next => {
-          this.payload = next;
-          this.initPagination(this.payload.from, this.payload.total);
-        },
-        error => {console.log(error)},
-        () => {}
-      );
       this.route.queryParams.subscribe(params => {
         for (const [key, value] of Object.entries(params)) {
           if (key === 'query') {
@@ -53,6 +49,19 @@ export class ResourceSearchComponent implements OnInit {
         )
       })
     });
+
+    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
+      map((event: any) => { // get value
+        return event.target.value;
+      })
+      // , filter(res => res.length > 2) // if character length greater then 2
+      , debounceTime(500) // Time in milliseconds between key events
+      , distinctUntilChanged() // If previous query is diffent from current
+      ).subscribe((text: string) => {
+        this.updateURLParameters('query', text);
+        this.navigateUsingParameters();
+      }
+    );
 
   }
 
@@ -107,7 +116,6 @@ export class ResourceSearchComponent implements OnInit {
 
   searchOnEnter(e) {
     if(e.key === 'Enter') {
-      console.log(this.searchQuery);
       // returning false will prevent the event from bubbling up.
       this.updateURLParameters('query', this.searchQuery);
       this.navigateUsingParameters();
