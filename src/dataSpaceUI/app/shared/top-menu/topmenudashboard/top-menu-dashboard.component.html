@@ -31,33 +31,14 @@
                         <circle cx="30" cy="30" r="20" stroke-width="1"></circle>
                         <text dy=".4em" font-size="16" text-anchor="middle" x="50%" y="50%" class="ng-star-inserted"> {{parseUsername()}} </text>
                       </svg>
-                      <!--<i class="material-icons">keyboard_arrow_down</i>-->
                     </a>
                     <div class="uk-padding-remove-horizontal ng-star-inserted uk-dropdown" uk-dropdown="mode: click; offset: -2; delay-hide: 0; flip: false; pos: bottom-right">
                       <ul class="uk-nav uk-dropdown-nav">
-                        <!--<li class="user-info">-->
-                          <!--<div>-->
-                            <!--<div class="uk-text-bold">{{userInfo.user.fullname}}</div>-->
-                            <!--<div class="uk-text-meta">{{userInfo.user.email}}</div>-->
-                          <!--</div>-->
-                        <!--</li>-->
-                        <!--<hr>-->
-                        <!--<li class="groups" *ngFor="let stakeholder of userInfo.stakeholders">-->
-                          <!--<a (click)="setGroup(stakeholder)"><span class="material-icons uk-margin-right">group</span>-->
-                            <!--{{stakeholder.name + (stakeholder.type === 'association' ? (', EOSC Association '+ (stakeholder.country ? '(' + stakeholder.country + ')': '')) : '') }}-->
-                          <!--</a>-->
-                        <!--</li>-->
-                        <!--<hr>-->
-                        <!--<li class="groups" *ngFor="let coordinator of userInfo.coordinators">-->
-                          <!--<a (click)="setCoordinator(coordinator)"><span class="material-icons uk-margin-right">group</span>{{coordinator.name}}</a>-->
-                        <!--</li>-->
-                        <!--<hr>-->
                         <li>
                           <a id="logout" (click)="logout()">Log out</a>
                         </li>
                       </ul>
                     </div>
-                    <div id="logout2"></div>
                   </div>
                 </li>
               </ul>

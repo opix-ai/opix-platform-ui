@@ -80,7 +80,7 @@ export class ResourceSearchComponent implements OnInit {
     for (const urlParameter of this.urlParameters) {
       map[urlParameter.key] = urlParameter.values.join(',');
     }
-    return this.router.navigate(['/search/tool'], {queryParams: map});
+    return this.router.navigate([`/search/${this.resourceType}`], {queryParams: map});
   }
 
   initPagination(from, total) {

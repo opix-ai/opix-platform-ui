@@ -20,7 +20,7 @@ export class UserService {
     sessionStorage.setItem('userRoles', userInfo.roles.toString());
   }
 
-  cleanUserInfo() {
+  clearUserInfo() {
     this.userInfo = null;
     sessionStorage.removeItem('userRoles')
   }
