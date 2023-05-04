@@ -46,6 +46,7 @@ export class DatasetLandingPageComponent extends LandingPageComponent {
           },
           error => {
             console.log(error);
+            this.userService.clearUserInfo();
           }
         )
       );

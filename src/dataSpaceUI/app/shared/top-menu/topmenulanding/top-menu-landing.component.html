@@ -9,7 +9,6 @@
           <div class="uk-navbar-left">
 
             <a class="logo" [routerLink]="['home']">
-              <!--<img src="dataSpaceUI/assets/images/intelcomp-logo.svg">-->
               <div class="projectLogo uk-inline">
               </div>
               <span *ngIf="projectName !== 'Opix'" class="uk-margin-left">Data Catalogue</span>
@@ -18,42 +17,27 @@
 
           <div class="uk-navbar-right">
             <div id="navigation">
-              <!--<ul class="uk-navbar-nav user_actions">-->
-                <!--<li>-->
-                  <!--<div>-->
-                    <!--<a class="uk-icon ng-star-inserted" aria-expanded="false">-->
-                      <!--<span class="uk-text-small uk-margin-small-right">Stefania Martziou</span>-->
-                      <!--&lt;!&ndash;                        <svg height="60" width="60">&ndash;&gt;-->
-                      <!--&lt;!&ndash;                          <circle cx="30" cy="30" r="20" stroke-width="1"></circle>&ndash;&gt;-->
-                      <!--&lt;!&ndash;                          <text dy=".4em" font-size="16" text-anchor="middle" x="50%" y="50%" class="ng-star-inserted"> {{ parseUsername() }} </text>&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        </svg>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<i class="material-icons">keyboard_arrow_down</i>&ndash;&gt;-->
-                    <!--</a>-->
-                    <!--&lt;!&ndash;<div class="uk-padding-remove-horizontal ng-star-inserted uk-dropdown"&ndash;&gt;-->
-                         <!--&lt;!&ndash;uk-dropdown="mode: click; offset: -2; delay-hide: 0; flip: false; pos: bottom-right">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<ul class="uk-nav uk-dropdown-nav">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li class="user-info">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<div>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<div class="uk-text-bold">{{userInfo.user.fullname}}</div>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<div class="uk-text-meta">{{userInfo.user.email}}</div>&ndash;&gt;-->
-                          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<hr>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li class="groups" *ngIf="userInfo.stakeholders.length > 0">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<a class="" [routerLink]="'/contributions/home'">Go to Dashboard</a>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<hr>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<a id="logout" (click)="logout()">Log out</a>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--<div id="logout2"></div>-->
-                  <!--</div>-->
-                <!--</li>-->
-              <!--</ul>-->
-              <ul class="uk-navbar-nav user_actions">
-                <li *ngIf="showLogin">
+              <ul *ngIf="userInfo" class="uk-navbar-nav user_actions">
+                <li>
+                  <div>
+                    <a class="uk-icon ng-star-inserted" aria-expanded="false">
+                      <svg height="60" width="60">
+                        <circle cx="30" cy="30" r="20" stroke-width="1"></circle>
+                        <text dy=".4em" font-size="16" text-anchor="middle" x="50%" y="50%" class="ng-star-inserted"> {{parseUsername()}} </text>
+                      </svg>
+                    </a>
+                    <div class="uk-padding-remove-horizontal ng-star-inserted uk-dropdown" uk-dropdown="mode: click; offset: -2; delay-hide: 0; flip: false; pos: bottom-right">
+                      <ul class="uk-nav uk-dropdown-nav">
+                        <li>
+                          <a id="logout" (click)="logout()">Log out</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <ul *ngIf="!userInfo" class="uk-navbar-nav user_actions">
+                <li>
                   <div>
                     <a class="uk-button uk-button-link" (click)="logInButton()">Login</a>
                   </div>
