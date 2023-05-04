@@ -14,7 +14,7 @@ export class SideMenuDashboardComponent implements OnInit, OnDestroy {
   subscriptions = [];
   toggle: number[] = [];
   userInfo: UserInfo;
-  // roles = ['OPERATOR_DATA-PROCESSOR','OPERATOR_DATASET-INGESTOR','OPERATOR_DATASET-OWNER','OPERATOR_DEVELOPER']
+  // roles = ['OPERATOR_DATA-PROCESSOR','OPERATOR_DATASET-INGESTOR','OPERATOR_DATASET-OWNER']
 
   constructor(private userService: UserService) {
   }
@@ -28,7 +28,6 @@ export class SideMenuDashboardComponent implements OnInit, OnDestroy {
           // console.log(this.userInfo);
         }, error => {
           console.log(error);
-          this.userService.clearUserInfo()
         }
       )
     );
@@ -43,10 +42,7 @@ export class SideMenuDashboardComponent implements OnInit, OnDestroy {
   }
 
   hasRole(role: string) {
-    // console.log(role);
-    // console.log(this.userInfo.roles.indexOf(role) > -1);
     return this.userInfo.roles.indexOf(role) > -1;
-    // return this.roles.indexOf(role) > -1;
   }
 
 }

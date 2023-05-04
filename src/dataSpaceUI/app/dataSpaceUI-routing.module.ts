@@ -49,7 +49,7 @@ const dataSpaceRoutes: Routes = [
     component: FormComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {
-      roles: ["OPERATOR_DATASET-INGESTOR", "OPERATOR_DEVELOPER"]
+      roles: ["OPERATOR_DATASET-INGESTOR"]
     }
     // loadChildren: () => import('../pages/pages/dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule)
   }

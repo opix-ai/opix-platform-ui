@@ -1,8 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {environment} from "../../../../../environments/environment";
-import {UserService} from "../../../services/user.service";
-import {UserInfo} from "../../../domain/userInfo";
 
 @Component({
   selector: 'app-top-menu-landing',
@@ -12,34 +10,14 @@ import {UserInfo} from "../../../domain/userInfo";
 
 export class TopMenuLandingComponent implements OnInit {
 
-  subscriptions = [];
-  userInfo: UserInfo = null;
+  showLogin = true;
   projectName = environment.projectName;
 
-  constructor(private authentication: AuthenticationService, private userService: UserService) {
+  constructor(private authentication: AuthenticationService) {
   }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.userService.getUserInfo().subscribe(
-        res => {
-          this.userInfo = res;
-          this.userService.roleToSessionStorage(res);
-          // console.log(this.userInfo);
-        }, error => {
-          console.log(error);
-          this.userService.clearUserInfo();
-        }
-      )
-    );
-  }
 
-  parseUsername() {
-    let firstLetters = "";
-    let matches = this.userInfo.fullname?.match(/\b(\w)/g);
-    if(matches)
-      firstLetters += matches.join('');
-    return firstLetters;
   }
 
   logInButton() {
@@ -47,6 +25,6 @@ export class TopMenuLandingComponent implements OnInit {
   }
 
   logout() {
-    this.authentication.logout();
+    // this.authentication.logout();
   }
 }

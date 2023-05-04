@@ -32,7 +32,7 @@ export class AuthenticationService {
   logout() {
     sessionStorage.clear();
     deleteCookie(this.cookieName);
-    this.userService.clearUserInfo();
+    this.userService.cleanUserInfo();
     window.location.href = this.base + '/logout';
   }
 
