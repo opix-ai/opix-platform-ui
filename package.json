@@ -24,6 +24,7 @@
     "bitset": "^5.1.1",
     "ng2-date-picker": "^13.1.1",
     "pdfmake": "^0.2.5",
+    "seedrandom": "^3.0.5",
     "uikit": "^3.7.6",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
