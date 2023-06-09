@@ -46,4 +46,8 @@ export class CatalogueService {
     return this.http.get(this.base + `/datasets/instances/${type}/${version}/internalid`, { responseType: 'text'});
   }
 
+  getUiVocabularies() {
+    return this.http.get<Map<string, object[]>>(this.base + '/ui/vocabularies/map');
+  }
+
 }

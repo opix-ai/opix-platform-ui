@@ -22,16 +22,15 @@ export class FormComponent implements OnInit, OnDestroy {
   subscriptions = [];
   tabsHeader: string = null;
   mandatoryFieldsText: string = 'Fields with (*) are mandatory.';
-  // mandatoryFieldsText: string = 'Fields with (*) are mandatory and must be completed in order for the survey to be validated.';
   surveyAnswers: SurveyAnswer = null
   vocabulariesMap: Map<string, object[]> = null
   resourceType: string;
   model: Model = null;
+  subType: string = null;
   downloadPDF: boolean = false;
   ready = false;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private catalogueService: CatalogueService,
+  constructor(private activatedRoute: ActivatedRoute, private catalogueService: CatalogueService,
               private formService: FormControlService) {
   }
 
@@ -44,8 +43,8 @@ export class FormComponent implements OnInit, OnDestroy {
           this.resourceType = params['resourceTypeModel'];
           this.subscriptions.push(
             zip(
-              this.formService.getFormModelByType(this.resourceType),
-              this.formService.getUiVocabularies()).subscribe(
+              this.formService.getFormModelByResourceType(this.resourceType),
+              this.catalogueService.getUiVocabularies()).subscribe(
               res => {
                 this.model = res[0].results[0];
                 this.vocabulariesMap = res[1]
@@ -59,12 +58,10 @@ export class FormComponent implements OnInit, OnDestroy {
     );
   }
 
-  submitForm(form: FormGroup) {
+  submitForm(value) {
     this.child.onSubmit();
-    if (form.valid) {
-    } else {
-      form.markAllAsTouched();
-    }
+    if (value[0].invalid)
+      value[0].markAllAsTouched();
   }
 
   ngOnDestroy() {
