@@ -1,0 +1,58 @@
+<div class="uk-section uk-section-default">
+  <div class="uk-container uk-container-large uk-margin">
+    <form [formGroup]="paForm">
+      <div class="">
+        <label for="dataSource">Data Source</label>
+        <ng-select #dataSource labelForId="dataSource" [searchable]="false" formControlName="dataSource">
+          <ng-option [value]="'EPO'">EPO</ng-option>
+          <ng-option [value]="'USPTO'">USPTO</ng-option>
+        </ng-select>
+      </div>
+      <div class="">
+        <label for="domain">Domain</label>
+        <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true" formControlName="domain">
+        </ng-select>
+      </div>
+
+      <div class="">
+        <label for="category">Category</label>
+        <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true" formControlName="category">
+        </ng-select>
+      </div>
+
+      <div class="">
+        <label for="topics">Topics</label>
+        <ng-select #topic labelForId="topics" [items]="topics" [multiple]="true" [closeOnSelect]="false"
+                   formControlName="topics" bindValue="topic">
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.code +' - '+ item.label}}
+          </ng-template>
+          <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+            <div class="ng-value" *ngFor="let item of items | slice:0:2">
+              <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+              <span class="ng-value-label">{{item['code'] +' - '+ item['label']}}</span>
+            </div>
+            <div class="ng-value" *ngIf="items.length > 2">
+              <span class="ng-value-label">{{items.length - 2}} more...</span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+
+      <div class="">
+        <label for="countries">Countries</label>
+        <ng-select #countries labelForId="countries" [items]="countriesFlat" bindValue="country_code" bindLabel="name"
+                   [multiple]="true" groupBy="continent" [selectableGroup]="true" formControlName="countries">
+          <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.continent | uppercase}}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item['name']}}
+          </ng-template>
+        </ng-select>
+      </div>
+
+    </form>
+    <pre>{{paForm.getRawValue() | json}}</pre>
+  </div>
+</div>

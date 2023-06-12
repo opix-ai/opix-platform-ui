@@ -1,13 +1,11 @@
 import {NgModule} from '@angular/core';
 import {DataSpaceUIRoutingModule} from './dataSpaceUI-routing.module';
-import {DataSpaceUIComponent} from './dataSpaceUI.component';
 import {HomeComponent} from "./pages/home/home.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CatalogueUiModule} from "../catalogue-ui/catalogue-ui.module";
 import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.component";
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
-import {IntelcompTopMenuComponent} from "./shared/topmenu/topmenu.component";
 import {IntelcompFooterComponent} from "./shared/footer/footer.component";
 import {RequestDataComponent} from "./pages/requestdata/request-data.component";
 import {NavigationService} from "./services/navigation.service";
@@ -26,9 +24,7 @@ import {ResourceSearchComponent} from "./pages/search/resource-search/resource-s
 
 @NgModule({
   declarations: [
-    DataSpaceUIComponent,
     HomeComponent,
-    IntelcompTopMenuComponent,
     IntelcompFooterComponent,
     IntelcompSearchComponent,
     DatasetLandingPageComponent,
@@ -58,8 +54,7 @@ import {ResourceSearchComponent} from "./pages/search/resource-search/resource-s
   ],
   exports: [
     IntelcompFooterComponent
-  ],
-  bootstrap: [DataSpaceUIComponent]
+  ]
 })
 
 export class DataSpaceUIModule { }

@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {ResourcePayloadService} from "../../../services/resource-payload.service";
 import {LandingPageService} from "../../../../catalogue-ui/services/landing-page.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-payload-landing',
@@ -10,6 +11,8 @@ import {LandingPageService} from "../../../../catalogue-ui/services/landing-page
 })
 
 export class PayloadComponent implements OnInit{
+
+  projectName = environment.projectName
 
   payload = null;
   relatedDatasets: {id: string, name: string}[] = [];

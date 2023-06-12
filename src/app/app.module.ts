@@ -7,10 +7,14 @@ import {DataSpaceUIModule} from "../dataSpaceUI/app/dataSpaceUI.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {ReusableComponentsModule} from "../dataSpaceUI/app/shared/reusablecomponents/reusable-components.module";
+import {PaFormComponent} from "./pages/patentAnalytics/inputForm/pa-form.component";
+import {InputService} from "./services/input.service";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PaFormComponent
   ],
   imports: [
     BrowserModule,
@@ -19,9 +23,10 @@ import {ReusableComponentsModule} from "../dataSpaceUI/app/shared/reusablecompon
     ReactiveFormsModule,
     DataSpaceUIModule,
     ReusableComponentsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgSelectModule
   ],
-  providers: [],
+  providers: [InputService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
