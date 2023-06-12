@@ -1,4 +1,7 @@
-<aside id="sidebar_main" style="overflow-y: auto; max-height: calc(100svh - var(--header-height))">
+<aside id="sidebar_main" >
+
+  <div id="sidebar_toggle" class="" (click)="toggleSidebar()"></div>
+
   <div class="menu_section">
     <ul>
       <li [routerLinkActive]="['current_section']" [routerLinkActiveOptions]="{exact: true}">

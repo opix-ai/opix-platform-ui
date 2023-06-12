@@ -1,84 +1,26 @@
+#sidebar_main #sidebar_toggle:hover {
+  background-color: var(--intelcomp-light-color) !important;
+  color: var(--white);
+}
+
 #sidebar_main {
-  overflow: auto;
-  top: var(--header-height) !important;
-  box-shadow: 0 0 16px 2px #00000029;
-  /*background: #fff;*/
-  background: var(--intelcomp-dark-color);
-  width: 280px;
+  background-color: var(--intelcomp-dark-color);
+  color: var(--white);
 }
 
-#sidebar_main .menu_section {
-  overflow: visible;
-  margin-bottom: 15px;
-  padding-bottom: 20px;
-  flex: 0;
-  padding-top: 35px;
+#sidebar_main .menu_section .material-icons {
+  color: var(--white) !important;
 }
 
-.sidebar_main_active #sidebar_main .menu_section {
-  overflow: auto;
-  flex: 1;
-  margin-bottom: 45px;
-}
-
-#sidebar_main .menu_section.sidebar-footer {
-  border-bottom: none;
-  margin-bottom: 100px;
-  position: absolute;
-  bottom: 0;
-}
-
-#sidebar_main .menu_section.border_top {
-  border-top: 1px solid #DEDEDE;
-}
-
-#sidebar_main .menu_section ul > li {
-  padding: 0px 20px;
+.menu_section .current_section .material-icons {
+  background-color: var(--intelcomp-light-color) !important;
+  /*color: var(--white);*/
 }
 
 #sidebar_main .menu_section > ul > li > a {
-  color: #ddd;
-  font-size: 16px;
-}
-
-#sidebar_main .menu_section > ul > li > a:hover {
-  /*background-color: #ececec;*/
-  background-color: #000;
-  color: #fff;
-  border-radius: 6px;
-}
-
-#sidebar_main .menu_section > ul > li.current_section {
-  background-color: transparent;
+  color: var(--white) !important;
 }
 
 #sidebar_main .menu_section > ul > li.current_section a {
-  /*background-color: rgba(255, 205, 0, 0.5);*/
-  /*background-color: #ececec;*/
-  background-color: #000;
-  color: #fff;
-  border-radius: 6px;
+  color: var(--white) !important;
 }
-
-#sidebar_main .menu_section > ul > li.current_section > a:hover {
-  /*background-color: #ececec;*/
-  background-color: #000;
-  /*background-color: rgba(255, 205, 0, 0.5);*/
-}
-
-#sidebar_main .menu_section > ul > li.current_section a {
-  /*color: #1A1A1A !important;*/
-  color: #fff !important;
-}
-
-#sidebar_main .menu_section > h6 {
-  /*color: #1A1A1A !important;*/
-  color: #fff !important;
-}
-
-/*.material-icons-small {*/
-  /*width: 12px !important;*/
-  /*height: 12px !important;*/
-  /*!*vertical-align: middle;*!*/
-  /*color: #6b6b6b;*/
-/*}*/
