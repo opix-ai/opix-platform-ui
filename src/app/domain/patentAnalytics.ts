@@ -9,7 +9,7 @@ export class PatentAnalytics {
   topics: string[] = [];
   continent: string[] = [];
   countries: string[] = [];
-  indicators: string[] = [];
+  indicators: string = null;
 
   public static toFormGroup(fb: FormBuilder) {
     const formPrepare: FormGroup = fb.group(new PatentAnalytics());
@@ -25,7 +25,8 @@ export class PatentAnalytics {
     formPrepare.setControl('continent', fb.control([]));
     // formPrepare.setControl('countries', fb.array([null]));
     formPrepare.setControl('countries', fb.control([]));
-    formPrepare.setControl('indicators', fb.array([null], Validators.required));
+    formPrepare.setControl('indicators', fb.control([], Validators.required));
+    formPrepare.controls['to'].setValue(2022);
 
     return formPrepare;
   }

@@ -12,6 +12,10 @@ export class InputService {
     return this.http.get(this.base + '/topics?service=Patents');
   }
 
+  getIndicators() {
+    return this.http.get(this.base + '/indicators?service=Patents');
+  }
+
   getCountries() {
     return this.http.get(this.base + '/countries');
   }

@@ -2,3 +2,8 @@
 
 /* opix SCSS */
 @import '../assets/scss/opix-custom';
+
+.ng-dropdown-panel {
+  width: auto !important;
+  min-width: 100%;
+}
