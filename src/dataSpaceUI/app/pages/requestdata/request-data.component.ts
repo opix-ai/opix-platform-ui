@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NavigationService} from "../../services/navigation.service";
 import {CatalogueService} from "../../services/catalogue.service";
-import {Job, JobArguments} from "../../domain/job";
+import {Job, JobArgument} from "../../domain/job";
 import {Router} from "@angular/router";
 import {Subscriber} from "rxjs";
 
@@ -102,7 +102,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
 
   submit() {
     // this.job.jobArguments.push(new JobArguments('datasetId', this.instance['id']));
-    this.job.jobArguments.push(new JobArguments('datasetId', this.internalId));
+    this.job.jobArguments.push(new JobArgument('datasetId', this.internalId));
 
 
     for (const [key, value] of Object.entries(this.dataForm.getRawValue())) {
@@ -124,13 +124,13 @@ export class RequestDataComponent implements OnInit, OnDestroy {
             // }
           } else if (value[i] !== '') {
             // console.log(`${key}: ${value[i]}`);
-            this.job.jobArguments.push(new JobArguments(key, value[i].toString()));
+            this.job.jobArguments.push(new JobArgument(key, value[i].toString()));
           }
         }
 
       } else if (value !== '' && key !== 'entity') {
         // console.log(`${key}: ${value}`);
-        this.job.jobArguments.push(new JobArguments(key, value.toString()));
+        this.job.jobArguments.push(new JobArgument(key, value.toString()));
       }
     }
 

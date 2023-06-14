@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {PatentAnalytics} from "../../../domain/patentAnalytics";
 import {InputService} from "../../../services/input.service";
+import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 
 @Component({
   selector: 'app-pa-input-form',
@@ -19,8 +20,8 @@ export class PaFormComponent implements OnInit {
   categories: string[] = [];
   topics: object[] = [];
   yearRange: number[] = [];
-
   allTopics: boolean = false;
+  job: Job = new Job();
 
   constructor(private fb: FormBuilder, private inputService: InputService) {
   }
@@ -33,6 +34,23 @@ export class PaFormComponent implements OnInit {
     for (let i = 2010; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
+  }
+
+  submitJob() {
+    if (this.paForm.invalid) {
+      console.log('Invalid Form');
+      // return;
+    }
+    for (let control in this.paForm.controls) {
+      if (this.paForm.controls[control].value instanceof Array) {
+        // console.log(this.paForm.controls[control].value);
+      } else {
+        let jobArgument: JobArgument = new JobArgument(control, this.paForm.controls[control].value);
+        this.job.jobArguments.push(jobArgument);
+      }
+    }
+    console.log(this.job);
+
   }
 
   getTopics() {
@@ -98,7 +116,7 @@ export class PaFormComponent implements OnInit {
   }
 
   setCategory(domain: string) {
-    console.log('setting categories');
+    // console.log('setting categories');
     this.categories = [];
     this.paForm.controls['category'].reset(null);
     if (domain === null) {
@@ -112,7 +130,7 @@ export class PaFormComponent implements OnInit {
   }
 
   setTopics(category: string) {
-    console.log('setting topics');
+    // console.log('setting topics');
     this.topics = [];
     this.paForm.controls['topics'].reset(null);
     this.allTopics = false;
@@ -127,6 +145,21 @@ export class PaFormComponent implements OnInit {
     }
     this.topics = [...this.topics];
   }
+
+
+  compareAccounts = (item, selected) => {
+
+    if (selected.length === 2) {
+      if (item.country_code && selected) {
+        return item.country_code === selected;
+      }
+    } else {
+      if (selected && item.continent) {
+        return item.continent === selected;
+      }
+    }
+    return false;
+  };
 
   selectAllTopics(event) {
     if (!event.target.checked) {
@@ -170,6 +203,10 @@ export class PaFormComponent implements OnInit {
       });
       this.paForm.get('indicators').setValue(tmpIndicators);
     }
+  }
+
+  removeCheck(controlName: string) {
+    return this.paForm.controls[controlName].value.length === 0;
   }
 
 }

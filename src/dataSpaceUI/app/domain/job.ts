@@ -1,6 +1,6 @@
 export class Job {
   callerAttributes: string;
-  jobArguments: JobArguments[];
+  jobArguments: JobArgument[];
   serviceArguments: ServiceArgument;
 
 
@@ -11,7 +11,7 @@ export class Job {
   }
 }
 
-export class JobArguments {
+export class JobArgument {
   name: string;
   value: string;
 

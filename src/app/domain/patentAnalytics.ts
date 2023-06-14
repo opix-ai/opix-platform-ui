@@ -18,13 +18,11 @@ export class PatentAnalytics {
     formPrepare.setControl('domain', fb.control(null, Validators.required));
     formPrepare.setControl('category', fb.control(null, Validators.required));
     formPrepare.controls['category'].disable();
-    // formPrepare.setControl('topics', fb.array([null], Validators.required));
     formPrepare.setControl('topics', fb.control([], Validators.required));
     formPrepare.controls['topics'].disable();
-    // formPrepare.setControl('continent', fb.array([null]));
     formPrepare.setControl('continent', fb.control([]));
-    // formPrepare.setControl('countries', fb.array([null]));
     formPrepare.setControl('countries', fb.control([]));
+    formPrepare.controls['countries'].setValue(['Europe']);
     formPrepare.setControl('indicators', fb.control([], Validators.required));
     formPrepare.controls['to'].setValue(2022);
 
