@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {BrowseJob} from "../../dataSpaceUI/app/domain/job";
 
 @Injectable()
 export class InputService {
@@ -18,5 +19,9 @@ export class InputService {
 
   getCountries() {
     return this.http.get(this.base + '/countries');
+  }
+
+  getJobs() {
+    return this.http.post<BrowseJob[]>(this.base + '/jobs', {})
   }
 }

@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PaFormComponent} from "./pages/patentAnalytics/inputForm/pa-form.component";
+import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'patentsAnalytics',
     component: PaFormComponent
+  },
+  {
+    path: 'workflowSearch',
+    component: SearchWorkflowJobComponent
   },
   {
     path: 'home',

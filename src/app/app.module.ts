@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {DataSpaceUIModule} from "../dataSpaceUI/app/dataSpaceUI.module";
@@ -10,11 +9,13 @@ import {ReusableComponentsModule} from "../dataSpaceUI/app/shared/reusablecompon
 import {PaFormComponent} from "./pages/patentAnalytics/inputForm/pa-form.component";
 import {InputService} from "./services/input.service";
 import {NgSelectModule} from "@ng-select/ng-select";
+import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    PaFormComponent
+    PaFormComponent,
+    SearchWorkflowJobComponent
   ],
   imports: [
     BrowserModule,
