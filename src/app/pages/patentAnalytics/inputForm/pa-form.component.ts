@@ -44,11 +44,24 @@ export class PaFormComponent implements OnInit {
     for (let control in this.paForm.controls) {
       if (this.paForm.controls[control].value instanceof Array) {
         // console.log(this.paForm.controls[control].value);
-      } else {
+        for (let element of this.paForm.controls[control].value) {
+          let key = control;
+          if (control==='countries' && element.length > 2) {
+            key = 'continents'
+          }
+          let jobArgument: JobArgument = new JobArgument(key, element);
+          this.job.jobArguments.push(jobArgument);
+        }
+      } else if (this.paForm.controls[control].value) {
         let jobArgument: JobArgument = new JobArgument(control, this.paForm.controls[control].value);
         this.job.jobArguments.push(jobArgument);
       }
     }
+    let jobArguments: any[] = [];
+    jobArguments.push({'jobType':'workflow'});
+    jobArguments.push({'workflowType':'patentAnalytics'});
+    jobArguments.push({'jobArguments': this.job.jobArguments});
+    this.job.callerAttributes = JSON.stringify(jobArguments);
     console.log(this.job);
 
   }
