@@ -10,11 +10,13 @@ import {PaFormComponent} from "./pages/patentAnalytics/inputForm/pa-form.compone
 import {InputService} from "./services/input.service";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
+import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/bibliometrics-form.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     PaFormComponent,
+    BibliometricsFormComponent,
     SearchWorkflowJobComponent
   ],
   imports: [

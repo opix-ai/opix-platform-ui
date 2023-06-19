@@ -41,7 +41,7 @@ export class Bibliometrics {
   countries: string[] = [];
   accessRights: string[] = [];
   publicationType: string = null;
-  additionalOption: string[] = [];
+  additionalOptions: string[] = [];
   indicators: string = null;
 
   public static toFormGroup(fb: FormBuilder) {

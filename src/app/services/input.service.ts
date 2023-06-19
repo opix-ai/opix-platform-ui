@@ -6,6 +6,7 @@ import {BrowseJob} from "../../dataSpaceUI/app/domain/job";
 @Injectable()
 export class InputService {
   base: string = environment.INPUT_ENDPOINT;
+  api: string = environment.API_ENDPOINT;
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +22,19 @@ export class InputService {
     return this.http.get(this.base + '/countries');
   }
 
+  getAccessRights() {
+    return this.http.get(this.base + '/access_rights?service=Bibliometrics');
+  }
+
+  getAdditionalOptions() {
+    return this.http.get(this.base + '/additional_options?service=Bibliometrics');
+  }
+
+  getPublicationType() {
+    return this.http.get(this.base + '/publication_type?service=Bibliometrics');
+  }
+
   getJobs() {
-    return this.http.post<BrowseJob[]>(this.base + '/jobs', {})
+    return this.http.post<BrowseJob[]>(this.api + '/jobs', {})
   }
 }
