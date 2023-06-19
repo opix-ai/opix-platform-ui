@@ -6,6 +6,9 @@
 #sidebar_main {
   background-color: var(--intelcomp-dark-color);
   color: var(--white);
+  /*max-height: calc(100svh - var(--header-height));*/
+  /*overflow-y: auto;*/
+  /*overflow-x: hidden;*/
 }
 
 #sidebar_main .menu_section .material-icons {
@@ -23,4 +26,8 @@
 
 #sidebar_main .menu_section > ul > li.current_section a {
   color: var(--white) !important;
+}
+
+#sidebar_main .menu_section h6 {
+  color: var(--intelcomp-light-color);
 }
