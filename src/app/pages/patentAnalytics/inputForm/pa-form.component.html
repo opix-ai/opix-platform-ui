@@ -13,7 +13,7 @@
           </div>
           <ng-select #dataSource labelForId="dataSource" [searchable]="false" formControlName="dataSource">
             <ng-option [value]="'EPO'">EPO</ng-option>
-            <ng-option [value]="'USPTO'">USPTO</ng-option>
+            <ng-option [value]="'USPTO'" [disabled]="true">USPTO</ng-option>
           </ng-select>
         </div>
       </div>
@@ -59,12 +59,12 @@
                 {{(item.code ? '(' + item.code + ') ' : '') + item.label}}
               </ng-template>
               <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                <div class="ng-value" *ngFor="let item of items | slice:0:1">
                   <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                   <span class="ng-value-label">{{(item['code'] ? '(' + item['code'] + ') ' : '') + item['label']}}</span>
                 </div>
-                <div class="ng-value" *ngIf="items.length > 2">
-                  <span class="ng-value-label">{{items.length - 2}} more...</span>
+                <div class="ng-value" *ngIf="items.length > 1">
+                  <span class="ng-value-label">{{items.length - 1}} more...</span>
                 </div>
               </ng-template>
             </ng-select>

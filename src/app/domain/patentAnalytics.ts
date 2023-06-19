@@ -1,4 +1,5 @@
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {BibliometricsFormComponent} from "../pages/bibliometrics/inputForm/bibliometrics-form.component";
 
 export class PatentAnalytics {
   dataSource: string = null;
@@ -14,7 +15,7 @@ export class PatentAnalytics {
   public static toFormGroup(fb: FormBuilder) {
     const formPrepare: FormGroup = fb.group(new PatentAnalytics());
     formPrepare.setControl('dataSource', fb.control('EPO', Validators.required));
-    formPrepare.controls['dataSource'].disable();
+    // formPrepare.controls['dataSource'].disable();
     formPrepare.setControl('domain', fb.control(null, Validators.required));
     formPrepare.setControl('category', fb.control(null, Validators.required));
     formPrepare.controls['category'].disable();
@@ -28,4 +29,25 @@ export class PatentAnalytics {
 
     return formPrepare;
   }
+}
+
+export class Bibliometrics {
+  domain: string = null;
+  category: string = null;
+  from: number = null;
+  to: number = null;
+  topics: string[] = [];
+  continent: string[] = [];
+  countries: string[] = [];
+  accessRights: string[] = [];
+  publicationType: string = null;
+  additionalOption: string[] = [];
+  indicators: string = null;
+
+  public static toFormGroup(fb: FormBuilder) {
+    const formPrepare: FormGroup = fb.group(new Bibliometrics());
+
+    return formPrepare;
+  }
+
 }

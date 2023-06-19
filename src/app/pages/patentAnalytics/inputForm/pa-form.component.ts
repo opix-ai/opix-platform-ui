@@ -31,7 +31,7 @@ export class PaFormComponent implements OnInit {
     this.getCountries();
     this.getIndicators();
 
-    for (let i = 2010; i < new Date().getFullYear(); i++) {
+    for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
   }
