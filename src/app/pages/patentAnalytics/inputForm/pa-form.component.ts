@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {PatentAnalytics} from "../../../domain/patentAnalytics";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
+import {Router} from "@angular/router";
+import {timeout} from "rxjs";
 
 @Component({
   selector: 'app-pa-input-form',
@@ -22,8 +24,9 @@ export class PaFormComponent implements OnInit {
   yearRange: number[] = [];
   allTopics: boolean = false;
   job: Job = new Job();
+  message: string = null;
 
-  constructor(private fb: FormBuilder, private inputService: InputService) {
+  constructor(private fb: FormBuilder,private router: Router, private inputService: InputService) {
   }
 
   ngOnInit() {
@@ -39,17 +42,15 @@ export class PaFormComponent implements OnInit {
   submitJob() {
     if (this.paForm.invalid) {
       console.log('Invalid Form');
-      // return;
+      this.message = 'Fields with * are mandatory.'
+      window.scrollTo(0,0);
+      return;
     }
     for (let control in this.paForm.controls) {
       if (this.paForm.controls[control].value instanceof Array) {
         // console.log(this.paForm.controls[control].value);
         for (let element of this.paForm.controls[control].value) {
-          let key = control;
-          if (control==='countries' && element.length > 2) {
-            key = 'continents'
-          }
-          let jobArgument: JobArgument = new JobArgument(key, element);
+          let jobArgument: JobArgument = new JobArgument(control, element);
           this.job.jobArguments.push(jobArgument);
         }
       } else if (this.paForm.controls[control].value) {
@@ -62,12 +63,21 @@ export class PaFormComponent implements OnInit {
     jobArguments.push({'workflowType':'patentAnalytics'});
     jobArguments.push({'jobArguments': this.job.jobArguments});
     this.job.callerAttributes = JSON.stringify(jobArguments);
+    this.job.serviceArguments.processId = 'patent-workflow';
     console.log(this.job);
+
+    this.inputService.postJob(this.job).subscribe(
+      res => {
+        this.router.navigate(['/success']);
+      },error => {
+        console.error(error);
+      }
+    );
 
   }
 
   getTopics() {
-    this.inputService.getTopics().subscribe(
+    this.inputService.getTopics('Patents').subscribe(
       value=> {
         this.patents = value;
         this.setDomain();
@@ -92,7 +102,7 @@ export class PaFormComponent implements OnInit {
   }
 
   getIndicators() {
-    this.inputService.getIndicators().subscribe(
+    this.inputService.getIndicators('Patents').subscribe(
       res=> {
         for (let key in res) {
           this.indicators.push({label: key, id: res[key]});
@@ -220,6 +230,12 @@ export class PaFormComponent implements OnInit {
 
   removeCheck(controlName: string) {
     return this.paForm.controls[controlName].value.length === 0;
+  }
+
+  clearMessage() {
+    setTimeout(()=>{
+      this.message = null;
+    }, 300);
   }
 
 }

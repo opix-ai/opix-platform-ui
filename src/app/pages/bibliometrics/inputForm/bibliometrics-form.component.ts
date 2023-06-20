@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {Bibliometrics} from "../../../domain/patentAnalytics";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-bibliometric-input-form',
@@ -20,13 +21,14 @@ export class BibliometricsFormComponent implements OnInit {
   categories: string[] = [];
   topics: object[] = [];
   accessRights: string[] = [];
-  additionalOptions: object[] = [];
-  publicationTypes: object[] = [];
+  additionalOptions: string[] = [];
+  publicationTypes: string[] = [];
   yearRange: number[] = [];
   allTopics: boolean = false;
   job: Job = new Job();
+  message: string = null;
 
-  constructor(private fb: FormBuilder, private inputService: InputService) {
+  constructor(private fb: FormBuilder, private router: Router, private inputService: InputService) {
   }
 
   ngOnInit() {
@@ -34,6 +36,8 @@ export class BibliometricsFormComponent implements OnInit {
     this.getCountries();
     this.getIndicators();
     this.getAccessRights();
+    this.getAdditionalOptions();
+    this.getPublicationTypes();
 
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
@@ -43,17 +47,13 @@ export class BibliometricsFormComponent implements OnInit {
   submitJob() {
     if (this.bibliometricForm.invalid) {
       console.log('Invalid Form');
-      // return;
+      return;
     }
     for (let control in this.bibliometricForm.controls) {
       if (this.bibliometricForm.controls[control].value instanceof Array) {
         // console.log(this.paForm.controls[control].value);
         for (let element of this.bibliometricForm.controls[control].value) {
-          let key = control;
-          if (control==='countries' && element.length > 2) {
-            key = 'continents'
-          }
-          let jobArgument: JobArgument = new JobArgument(key, element);
+          let jobArgument: JobArgument = new JobArgument(control, element);
           this.job.jobArguments.push(jobArgument);
         }
       } else if (this.bibliometricForm.controls[control].value) {
@@ -63,15 +63,24 @@ export class BibliometricsFormComponent implements OnInit {
     }
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
-    jobArguments.push({'workflowType':'patentAnalytics'});
+    jobArguments.push({'workflowType':'bibliometricAnalysis'});
     jobArguments.push({'jobArguments': this.job.jobArguments});
     this.job.callerAttributes = JSON.stringify(jobArguments);
+    this.job.serviceArguments.processId = 'bibliometric-workflow';
+
+    this.inputService.postJob(this.job).subscribe(
+      res => {
+        this.router.navigate(['/success']);
+      },error => {
+        console.error(error);
+      }
+    );
     console.log(this.job);
 
   }
 
   getTopics() {
-    this.inputService.getTopics().subscribe(
+    this.inputService.getTopics('Bibliometrics').subscribe(
       value=> {
         this.bibliometric = value;
         this.setDomain();
@@ -96,7 +105,7 @@ export class BibliometricsFormComponent implements OnInit {
   }
 
   getIndicators() {
-    this.inputService.getIndicators().subscribe(
+    this.inputService.getIndicators('Bibliometrics').subscribe(
       res=> {
         for (let key in res) {
           this.indicators.push({label: key, id: res[key]});
@@ -127,12 +136,26 @@ export class BibliometricsFormComponent implements OnInit {
   getAccessRights() {
     this.inputService.getAccessRights().subscribe(
       res=> {
-        console.log(res)
-        for (let key in res) {
-          this.accessRights.push(res[key]);
-        }
-        // console.log(this.indicators);
+        this.accessRights = <string[]>res;
         this.accessRights = [...this.accessRights];      }
+    );
+  }
+
+  getAdditionalOptions() {
+    this.inputService.getAdditionalOptions().subscribe(
+      res=> {
+        this.additionalOptions = <string[]>res;
+        this.additionalOptions = [...this.additionalOptions];
+        }
+    );
+  }
+
+  getPublicationTypes() {
+    this.inputService.getPublicationTypes().subscribe(
+      res=> {
+        this.publicationTypes = <string[]>res;
+        this.publicationTypes = [...this.publicationTypes];
+        }
     );
   }
 
@@ -240,11 +263,11 @@ export class BibliometricsFormComponent implements OnInit {
       return;
     }
     if (event.target.checked) {
-      let tmpIndicators: string[] = [];
-      this[name].forEach(indicator => {
-        tmpIndicators.push(indicator.id);
+      let tmpArray: string[] = [];
+      this[name].forEach(element => {
+        tmpArray.push(element);
       });
-      this.bibliometricForm.get(name).setValue(tmpIndicators);
+      this.bibliometricForm.get(name).setValue(tmpArray);
     }
   }
 

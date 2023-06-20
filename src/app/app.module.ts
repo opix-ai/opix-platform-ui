@@ -11,10 +11,12 @@ import {InputService} from "./services/input.service";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
 import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/bibliometrics-form.component";
+import {SuccessPageComponent} from "./pages/successPage/successPage.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    SuccessPageComponent,
     PaFormComponent,
     BibliometricsFormComponent,
     SearchWorkflowJobComponent

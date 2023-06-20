@@ -32,6 +32,7 @@ export class PatentAnalytics {
 }
 
 export class Bibliometrics {
+  dataSource: string = null;
   domain: string = null;
   category: string = null;
   from: number = null;
@@ -46,6 +47,17 @@ export class Bibliometrics {
 
   public static toFormGroup(fb: FormBuilder) {
     const formPrepare: FormGroup = fb.group(new Bibliometrics());
+    formPrepare.setControl('dataSource', fb.control('OpenAIRE Graph', Validators.required));
+    formPrepare.setControl('domain', fb.control(null, Validators.required));
+    formPrepare.setControl('category', fb.control(null, Validators.required));
+    formPrepare.controls['category'].disable();
+    formPrepare.setControl('topics', fb.control([], Validators.required));
+    formPrepare.controls['topics'].disable();
+    formPrepare.setControl('continent', fb.control([]));
+    formPrepare.setControl('countries', fb.control([]));
+    // formPrepare.controls['countries'].setValue(['Europe']);
+    formPrepare.setControl('indicators', fb.control([], Validators.required));
+    formPrepare.controls['to'].setValue(2022);
 
     return formPrepare;
   }

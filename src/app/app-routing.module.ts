@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {PaFormComponent} from "./pages/patentAnalytics/inputForm/pa-form.component";
 import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
 import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/bibliometrics-form.component";
+import {SuccessPageComponent} from "./pages/successPage/successPage.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'workflowSearch',
     component: SearchWorkflowJobComponent
+  },
+  {
+    path: 'success',
+    component: SuccessPageComponent
   },
   {
     path: 'home',
