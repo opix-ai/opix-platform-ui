@@ -3,11 +3,12 @@ import {ActivatedRoute} from "@angular/router";
 import {ResourcePayloadService} from "../../../services/resource-payload.service";
 import {LandingPageService} from "../../../../catalogue-ui/services/landing-page.service";
 import {environment} from "../../../../environments/environment";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-payload-landing',
   templateUrl: 'payload.component.html',
-  providers: [ResourcePayloadService, LandingPageService]
+  providers: [ResourcePayloadService, LandingPageService, AuthenticationService]
 })
 
 export class PayloadComponent implements OnInit{
@@ -18,7 +19,7 @@ export class PayloadComponent implements OnInit{
   relatedDatasets: {id: string, name: string}[] = [];
 
   constructor(private route: ActivatedRoute, private resourcePayloadService: ResourcePayloadService,
-              private landingPageService: LandingPageService) {
+              private landingPageService: LandingPageService, private authService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -41,5 +42,11 @@ export class PayloadComponent implements OnInit{
         }
       );
     })
+  }
+
+  hasRole(role: string) {
+    const userRoles: string[] = this.authService.userRoles;
+    return userRoles.includes(role);
+
   }
 }
