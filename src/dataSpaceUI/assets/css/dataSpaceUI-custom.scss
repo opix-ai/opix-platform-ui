@@ -124,6 +124,27 @@ body {
   background-size: cover;
 }
 
+/* ========================================================================
+   Sidebar - overrides
+ ========================================================================== */
+
+.sidebar_main_swipe #sidebar_main .menu_section .header {
+  padding: 10px 20px;
+}
+
+.sidebar_main_swipe #sidebar_main .menu_section > ul > li > a {
+  padding: 5px 20px;
+}
+
+#sidebar_main .menu_section {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+#sidebar_main .menu_section.border_top {
+  border-top: 1px solid #6E6E6E;
+}
+
 
 /* ========================================================================
    Margins
