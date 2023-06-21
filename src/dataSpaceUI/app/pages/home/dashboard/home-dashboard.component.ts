@@ -26,7 +26,64 @@ export class HomeDashboardComponent implements OnInit {
     this.resourceService.getItemsWithQueryParams('tool').subscribe(res=> {
       this.toolsCount = res.total;
     });
-    if (this.authService.userRoles.includes('OPERATOR-WORKFLOW_PROCESSOR'))
-      this.catalogueService.getJobs().subscribe(res=> this.jobs = res);
+    if (this.authService.userRoles.includes('OPERATOR-WORKFLOW_PROCESSOR')) {
+      this.catalogueService.getJobs().subscribe(
+        res=> {
+          this.jobs = res;
+          for (const job of this.jobs) {
+            job.callerAttributesObj = JSON.parse(job.callerAttributes);
+            this.getFiltersAsAMap(job.callerAttributesObj);
+          }
+        }
+      );
+    }
+  }
+
+
+  getWorkflowType(obj: object) {
+    for (const [key, value] of Object.entries(obj)) {
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (subKey === 'workflowType') {
+          return subValue;
+        }
+      }
+    }
+  }
+
+  getNumberOfFilters(obj: object) {
+    for (const [key, value] of Object.entries(obj)) {
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (subKey === 'jobArguments') {
+          let subValueObj = subValue as [object];
+          return subValueObj.length;
+        }
+      }
+    }
+    return 0;
+  }
+
+  getFiltersAsAMap(obj: object) {
+    let myMap = new Map<string, string[]>();
+
+    for (const [key, value] of Object.entries(obj)) {
+      // console.log(`key: ${key} value: ${value}`);
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (subKey === 'jobArguments') {
+          for (const item of subValue as [object]) {
+            // console.log('item[\'name\']: ', item['name']);
+            // console.log('item[\'value\']: ', item['value']);
+            if (myMap.has(item['name'])) {
+              myMap.get(item['name']).push(item['value']);
+            } else {
+              myMap.set(item['name'],[item['value']]);
+            }
+          }
+
+          // console.log(myMap);
+          return myMap;
+        }
+      }
+    }
+    return myMap;
   }
 }

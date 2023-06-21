@@ -1,13 +1,143 @@
 <div class="uk-section">
-  <div class="uk-container uk-container-large">
-    <h4>Dashboard</h4>
-    <p>Lorem ipsum...</p>
-    <p>Tool count: {{toolsCount}}</p>
-    <p>Dataset count: {{datasetCount}}</p>
+  <div class="uk-container uk-container-expand">
 
-    <div *ngFor="let job of jobs | slice:0:3">
-      {{job.id}}
+    <div class="uk-grid uk-child-width-1-4 uk-grid-match">
+      <div>
+        <div class="uk-card uk-card-default uk-card-body uk-card-small uk-flex uk-flex-middle">
+          <div><span class="material-icons uk-margin-right md-36 icons-secondary">analytics</span></div>
+          <div>
+            <div class="uk-margin-small-bottom uk-text-muted">Analyses submitted</div>
+            <div class="uk-text-bold">{{jobs.length}}</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-body uk-card-small uk-flex uk-flex-middle">
+          <div><span class="material-icons uk-margin-right md-36 icons-secondary">dataset</span></div>
+          <div>
+            <div class="uk-margin-small-bottom uk-text-muted">Datasets available</div>
+            <div class="uk-text-bold">{{datasetCount}}</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-body uk-card-small uk-flex uk-flex-middle">
+          <div><span class="material-icons uk-margin-right md-36 icons-secondary">build</span></div>
+          <div>
+            <div class="uk-margin-small-bottom uk-text-muted">Tools available</div>
+            <div class="uk-text-bold">{{toolsCount}}</div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="uk-margin-medium-top uk-grid uk-child-width-1-2 uk-grid-match" uk-height-match="target: > div > .uk-card">
+      <div>
+        <div class="uk-card uk-card-default uk-card-body uk-card-small uk-flex uk-flex-column uk-flex-between">
+          <div class="uk-grid">
+            <div class="uk-width-3-5">
+              <h5>Patent analytics</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</p>
+            </div>
+            <div class="uk-width-2-5">
+              <img src="https://ipexcel.com/in/images/Patent-analytics.jpg">
+            </div>
+          </div>
+          <div class="uk-flex uk-flex-between uk-margin-medium-top">
+            <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/patent-analytics']">Learn more</button>
+            <button class="uk-button uk-button-primary">Start now</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-body uk-card-small uk-flex uk-flex-column uk-flex-between">
+          <div class="uk-grid">
+            <div class="uk-width-3-5">
+              <h5>Bibliometric analysis</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+            </div>
+            <div class="uk-width-2-5">
+              <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs11192-018-2765-z/MediaObjects/11192_2018_2765_Fig5_HTML.gif">
+            </div>
+          </div>
+          <div class="uk-flex uk-flex-between uk-margin-medium-top">
+            <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/bibliometric-analysis']">Learn more</button>
+            <button class="uk-button uk-button-primary">Start now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uk-margin-medium-top uk-grid">
+      <div class="uk-width-4-5">
+        <div class="uk-card uk-card-default uk-card-body uk-card-small">
+          <div class="uk-margin-bottom">
+            Latest analyses
+          </div>
+          <div>
+            <table class="uk-table table-simple">
+              <thead>
+              <tr>
+                <th>Type</th>
+                <th>Filters</th>
+                <th>Dates</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let job of jobs | slice:0:3">
+                <td>
+                  <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalytics'">Patent Analytics</ng-container>
+                  <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)!=='patentAnalytics'">Bibliometrics Analysis</ng-container>
+                </td>
+                <td>
+                  <a class="uk-link">{{this.getNumberOfFilters(job.callerAttributesObj)}} filters selected</a>
+                  <div uk-dropdown="mode: click; pos: bottom-left" class="filters-dropdown" style="max-width: 300px !important;">
+                    <div class="uk-padding-small">
+                      <h6>Filters</h6>
+                      <div *ngFor="let filter of getFiltersAsAMap(job.callerAttributesObj) | keyvalue" class="uk-margin-top">
+                        <span>{{filter.key}}: </span>
+                        <span>{{filter.value}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="job.createdAt">Created: {{job.createdAt | date:'medium'}}</div>
+                  <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FINISHED' || job.status[0].status=='finished')">Finished: {{job.status[0].timestamp | date:'medium'}}</div>
+                  <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FAILED' || job.status[0].status=='failed')">Failed: {{job.status[0].timestamp | date:'medium'}}</div>
+                </td>
+                <td>
+                  <ng-container *ngIf="job.mergedStatus==='FINISHED'"><label class="uk-label uk-label-success">{{job.mergedStatus}}</label></ng-container>
+                  <ng-container *ngIf="job.mergedStatus==='FAILED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+                  <ng-container *ngIf="job.mergedStatus==='RUNNING'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
+                </td>
+                <td>
+                  <ng-container *ngIf="job.mergedStatus === 'FINISHED'">
+                    <a [routerLink]="['/result', job.id]" uk-tooltip="View results..">
+                      <span class="material-icons icons-secondary">arrow_forward</span>
+                    </a>
+                  </ng-container>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="uk-margin-top">
+            <a class="uk-link" [routerLink]="['/workflowSearch']">
+              <span>Show more ...</span>
+<!--              <span class="material-icons uk-margin-small-left">east</span>-->
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--    <div *ngFor="let job of jobs | slice:0:3">-->
+<!--      {{job.id}}-->
+<!--    </div>-->
 
   </div>
 </div>
+

@@ -144,7 +144,7 @@ a.uk-icon span {
   color: var(--intelcomp-light-color);
 }
 
-.uk-navbar-nav>li>a:before {
+.uk-navbar-nav>li.uk-active>a:before {
   content: "";
   display: block;
   position: absolute;

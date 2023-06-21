@@ -17,7 +17,7 @@ export class ResultComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.url = this.base + encodeURIComponent('{"keywordFilters":[{"field":"execution-id","values":["job_35"]}],"dashboard":"job_35"}')
+      this.url = this.base + encodeURIComponent('{"keywordFilters":[{"field":"analysis_id","values":["job_35"]}],"dashboard":"job_35"}')
       console.log(this.id);
       console.log(this.url);
     });

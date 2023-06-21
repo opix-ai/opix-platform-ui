@@ -148,6 +148,31 @@ body {
   border-top: 1px solid #6E6E6E;
 }
 
+/* ========================================================================
+   Dropdown - custom
+ ========================================================================== */
+
+.filters-dropdown {
+  max-width: 400px !important;
+  overflow-wrap: break-word;
+}
+
+/* ========================================================================
+   Table - custom
+ ========================================================================== */
+
+.table-simple.uk-table thead tr {
+  background-color: var(--primary-color-background);
+  border-radius: 6px;
+}
+
+.table-simple.uk-table th {
+  text-transform: none;
+}
+
+.table-simple td {
+  font-size: 14px;
+}
 
 /* ========================================================================
    Margins
@@ -901,6 +926,10 @@ a.serviceDetails {
   /*vertical-align: middle;*/
   //color: #6b6b6b;
   color: #ddd;
+}
+
+.material-icons.icons-secondary {
+  color: var(--intelcomp-dark-color);
 }
 
 .material-icons.md-10 { font-size: 10px; }
