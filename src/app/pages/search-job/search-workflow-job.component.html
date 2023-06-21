@@ -10,7 +10,7 @@
           <th>Dataset</th>
           <th>Entity</th>
           <th>Status</th>
-          <th class="uk-width-medium">Data path</th>
+          <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -35,10 +35,8 @@
             <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FAILED' || job.status[0].status=='failed')">Failed: {{job.status[0].timestamp | date:'medium'}}</div>
           </td>
           <td>
-            <ng-container *ngFor="let status of job.status">
-              <ng-container *ngIf="status.status=='finished' && status.source=='spark'">
-                {{status.payload}}
-              </ng-container>
+            <ng-container *ngIf="job.mergedStatus === 'FINISHED'">
+              <a [routerLink]="['/result', job.id]" class="uk-button uk-button-primary">results</a>
             </ng-container>
           </td>
         </tr>

@@ -51,7 +51,9 @@ export class BibliometricsFormComponent implements OnInit {
 
   submitJob() {
     if (this.bibliometricForm.invalid) {
-      console.log('Invalid Form');
+      // console.log('Invalid Form');
+      this.message = 'Fields with * are mandatory.'
+      window.scrollTo(0,0);
       return;
     }
     for (let control in this.bibliometricForm.controls) {
@@ -282,4 +284,9 @@ export class BibliometricsFormComponent implements OnInit {
     return this.bibliometricForm.controls[controlName].value.length === 0;
   }
 
+  clearMessage() {
+    setTimeout(()=>{
+      this.message = null;
+    }, 300);
+  }
 }

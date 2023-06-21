@@ -6,6 +6,7 @@ import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/biblio
 import {SuccessPageComponent} from "./pages/successPage/successPage.component";
 import {PayloadComponent} from "../dataSpaceUI/app/pages/landingpages/payload/payload.component";
 import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
+import {ResultComponent} from "./pages/result/result.component";
 
 const routes: Routes = [
   {
@@ -14,24 +15,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'patentsAnalytics',
-    component: PaFormComponent
-  },
-  {
-    path: 'bibliometrics',
-    component: BibliometricsFormComponent
-  },
-  {
     path: 'workflowSearch',
     component: SearchWorkflowJobComponent
   },
   {
-    path: 'success',
-    component: SuccessPageComponent
-  },
-  {
     path: 'landingPage/:resourceType/:identifierValue',
     component: PayloadExtendComponent
+  },
+  {
+    path: 'result/:id',
+    component: ResultComponent
   },
   {
     path: '',

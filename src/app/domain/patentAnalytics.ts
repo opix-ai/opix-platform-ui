@@ -23,7 +23,10 @@ export class PatentAnalytics {
     formPrepare.controls['topics'].disable();
     formPrepare.setControl('continent', fb.control([]));
     formPrepare.setControl('countries', fb.control([]));
-    formPrepare.controls['countries'].setValue(['Europe']);
+    formPrepare.controls['countries'].setValue(["AD", "AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY",
+      "CZ", "DE", "DK", "EE", "ES", "FI", "FO", "FR", "GB", "GE", "GG", "GI", "GL", "GR", "HR", "HU", "IE", "IM", "IS",
+      "IT", "JE", "LI", "LT", "LU", "LV", "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "SE", "SI",
+      "SK", "SM", "UA", "VA"]);
     formPrepare.setControl('indicators', fb.control([], Validators.required));
     formPrepare.controls['to'].setValue(2022);
 

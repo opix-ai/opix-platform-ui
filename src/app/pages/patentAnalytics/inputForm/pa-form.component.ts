@@ -49,9 +49,6 @@ export class PaFormComponent implements OnInit {
       // console.log('Invalid Form');
       this.message = 'Fields with * are mandatory.'
       window.scrollTo(0,0);
-
-      UIkit.modal('#modal-success').show();
-      this.success.timer(1/12);
       return;
     }
     for (let control in this.paForm.controls) {

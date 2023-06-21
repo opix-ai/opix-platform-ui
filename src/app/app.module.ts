@@ -13,6 +13,8 @@ import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job
 import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/bibliometrics-form.component";
 import {SuccessPageComponent} from "./pages/successPage/successPage.component";
 import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
+import {ResultComponent} from "./pages/result/result.component";
+import {SharedModule} from "../dataSpaceUI/catalogue-ui/shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-
     SuccessPageComponent,
     PaFormComponent,
     BibliometricsFormComponent,
-    SearchWorkflowJobComponent
+    SearchWorkflowJobComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-
     DataSpaceUIModule,
     ReusableComponentsModule,
     AppRoutingModule,
-    NgSelectModule
+    NgSelectModule,
+    SharedModule
   ],
   providers: [InputService],
   bootstrap: [AppComponent]
