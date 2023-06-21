@@ -113,3 +113,54 @@ a.uk-icon span {
   background-color: #ececec;
 }
 
+
+
+
+
+.uk-navbar-dropdown {
+  width: 280px;
+  padding: 25px 0px;
+}
+
+.uk-navbar-dropdown-nav > li {
+  padding: 0px 25px;
+}
+
+.uk-nav > li > a {
+  padding: 5px 15px;
+}
+
+.uk-navbar-dropdown-nav > li > a, .uk-navbar-dropdown-nav > li > a:hover {
+  color: #212121;
+}
+
+.uk-navbar-dropdown-nav > li:hover, .uk-navbar-dropdown-nav > li.uk-active {
+  color: #212121;
+  background: var(--primary-color-background) 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.uk-navbar-nav>li.uk-active>a {
+  color: var(--intelcomp-light-color);
+}
+
+.uk-navbar-nav>li>a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  height: 2px;
+  transition: .35s ease-in-out;
+  transition-property: all;
+  left: 50%;
+  right: 50%;
+  opacity: 0;
+  background: var(--intelcomp-light-color);
+}
+
+.uk-navbar-nav>li.uk-active>a:before {
+  left: 0px;
+  right: 0px;
+  opacity: 1;
+}

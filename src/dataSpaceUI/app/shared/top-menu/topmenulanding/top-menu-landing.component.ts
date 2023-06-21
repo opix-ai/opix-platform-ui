@@ -16,6 +16,8 @@ export class TopMenuLandingComponent implements OnInit {
   userInfo: UserInfo = null;
   projectName = environment.projectName;
 
+  logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
+
   constructor(private authentication: AuthenticationService, private userService: UserService) {
   }
 

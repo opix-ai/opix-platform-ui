@@ -13,7 +13,10 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
-  isHome() {
-    return (this.router.url.startsWith('/home'));
+  isNotDashboard() {
+    return (this.router.url.startsWith('/home')
+    || this.router.url.startsWith('/search')
+    || this.router.url.startsWith('/landingPage')
+    || this.router.url.startsWith('/dataset'));
   }
 }

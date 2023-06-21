@@ -1,56 +1,146 @@
 <div id="header_main">
   <div class="main-menu tm-header uk-visible@m tm-header-transparent">
 
-    <div class="uk-navbar-container">
-      <div class="uk-container uk-container-expand">
+    <nav class="uk-navbar-container uk-container uk-container-expand" uk-navbar>
 
-        <nav class="uk-navbar fixed-navbar">
+      <div class="uk-navbar-left">
 
-          <div class="uk-navbar-left">
-
-            <a class="logo" [routerLink]="['home']">
-              <div class="projectLogo uk-inline">
-              </div>
-              <span *ngIf="projectName !== 'Opix'" class="uk-margin-left">Data Catalogue</span>
-            </a>
-          </div>
-
-          <div class="uk-navbar-right">
-            <div id="navigation">
-              <ul *ngIf="userInfo" class="uk-navbar-nav user_actions">
-                <li>
-                  <div>
-                    <a class="uk-icon ng-star-inserted" aria-expanded="false">
-                      <svg height="60" width="60">
-                        <circle cx="30" cy="30" r="20" stroke-width="1"></circle>
-                        <text dy=".4em" font-size="16" text-anchor="middle" x="50%" y="50%" class="ng-star-inserted"> {{parseUsername()}} </text>
-                      </svg>
-                    </a>
-                    <div class="uk-padding-remove-horizontal ng-star-inserted uk-dropdown" uk-dropdown="mode: click; offset: -2; delay-hide: 0; flip: false; pos: bottom-right">
-                      <ul class="uk-nav uk-dropdown-nav">
-                        <li>
-                          <a id="logout" (click)="logout()">Log out</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <ul *ngIf="!userInfo" class="uk-navbar-nav user_actions">
-                <li>
-                  <div>
-                    <a class="uk-button uk-button-link" (click)="logInButton()">Login</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-        </nav>
+        <a [routerLink]="['home']" class="uk-logo uk-navbar-item">
+          <img src="{{logoURL}}" alt="Opix Platform" class="" width="150px" height="80px">
+        </a>
 
       </div>
 
-    </div>
+      <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+
+          <li class="uk-parent" [routerLinkActive]="['uk-active']">
+            <a href="#" class="" aria-expanded="false">
+              Browse catalogue
+            </a>
+            <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" id="browse" uk-toggle>
+              <div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">
+                <div class="uk-first-column">
+                  <ul class="uk-nav uk-navbar-dropdown-nav">
+                    <li [routerLinkActive]="'uk-active'" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/search" routerLinkActive="uk-active" href="/search">Datasets</a></li>
+                    <li [routerLinkActive]="'uk-active'"><a routerLink="/search/tool" routerLinkActive="uk-active" href="/search/tool">Tools & Workflows</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="uk-navbar-right">
+        <div id="navigation">
+          <ul *ngIf="userInfo" class="uk-navbar-nav user_actions">
+            <li>
+              <div>
+                <a class="uk-icon ng-star-inserted" aria-expanded="false">
+                  <svg height="60" width="60">
+                    <circle cx="30" cy="30" r="20" stroke-width="1"></circle>
+                    <text dy=".4em" font-size="16" text-anchor="middle" x="50%" y="50%" class="ng-star-inserted"> {{parseUsername()}} </text>
+                  </svg>
+                </a>
+                <div class="uk-padding-remove-horizontal ng-star-inserted uk-dropdown" uk-dropdown="mode: click; offset: -2; delay-hide: 0; flip: false; pos: bottom-right">
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li>
+                      <a id="logout" (click)="logout()">Log out</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul *ngIf="!userInfo" class="uk-navbar-nav user_actions">
+            <li>
+              <div>
+                <a class="uk-button uk-button-link" (click)="logInButton()">Login</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+<!--      <div class="uk-container uk-container-expand">-->
+
+<!--        <nav class="uk-navbar fixed-navbar">-->
+
+<!--          <div class="uk-navbar-left">-->
+
+<!--            <a class="logo" [routerLink]="['home']">-->
+<!--              <div class="projectLogo uk-inline">-->
+<!--              </div>-->
+<!--              <span *ngIf="projectName !== 'Opix'" class="uk-margin-left">Data Catalogue</span>-->
+<!--            </a>-->
+<!--          </div>-->
+
+<!--          <div class="uk-navbar-center">-->
+<!--            <ul class="uk-navbar-nav">-->
+<!--              <a href="#">Parent</a>-->
+<!--              <div class="uk-navbar-dropdown">-->
+<!--                <ul class="uk-nav uk-navbar-dropdown-nav">-->
+<!--                  <li class="uk-active"><a href="#">Active</a></li>-->
+<!--                  <li><a href="#">Item</a></li>-->
+<!--                  <li><a href="#">Item</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--&lt;!&ndash;              <li class="uk-parent" [routerLinkActive]="['uk-active']">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a href="#" class="" aria-expanded="false">&ndash;&gt;-->
+<!--&lt;!&ndash;                  Browse catalogue&ndash;&gt;-->
+<!--&lt;!&ndash;                </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" id="browse" uk-toggle>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="uk-first-column">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <ul class="uk-nav uk-navbar-dropdown-nav">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a routerLink="/search" routerLinkActive="uk-active">Datasets</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a routerLink="/search/tools" routerLinkActive="uk-active">Tools & Workflows</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </li>&ndash;&gt;-->
+<!--            </ul>-->
+<!--          </div>-->
+
+<!--          <div class="uk-navbar-right">-->
+<!--            <div id="navigation">-->
+<!--              <ul *ngIf="userInfo" class="uk-navbar-nav user_actions">-->
+<!--                <li>-->
+<!--                  <div>-->
+<!--                    <a class="uk-icon ng-star-inserted" aria-expanded="false">-->
+<!--                      <svg height="60" width="60">-->
+<!--                        <circle cx="30" cy="30" r="20" stroke-width="1"></circle>-->
+<!--                        <text dy=".4em" font-size="16" text-anchor="middle" x="50%" y="50%" class="ng-star-inserted"> {{parseUsername()}} </text>-->
+<!--                      </svg>-->
+<!--                    </a>-->
+<!--                    <div class="uk-padding-remove-horizontal ng-star-inserted uk-dropdown" uk-dropdown="mode: click; offset: -2; delay-hide: 0; flip: false; pos: bottom-right">-->
+<!--                      <ul class="uk-nav uk-dropdown-nav">-->
+<!--                        <li>-->
+<!--                          <a id="logout" (click)="logout()">Log out</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--              <ul *ngIf="!userInfo" class="uk-navbar-nav user_actions">-->
+<!--                <li>-->
+<!--                  <div>-->
+<!--                    <a class="uk-button uk-button-link" (click)="logInButton()">Login</a>-->
+<!--                  </div>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </nav>-->
+
+<!--      </div>-->
+
+    </nav>
 
   </div>
 </div>

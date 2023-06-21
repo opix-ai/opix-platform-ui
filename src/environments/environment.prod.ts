@@ -4,5 +4,6 @@ export const environment = {
   REQUESTS_ENDPOINT: '/requests-api',
   INPUT_ENDPOINT: '',
   API_LOGIN: '/oauth2/authorization/opix',
-  projectName: 'Opix'
+  projectName: 'Opix',
+  logoURL: 'https://www.opix.ai/images/Logos/opix%20logo%202.svg'
 };
