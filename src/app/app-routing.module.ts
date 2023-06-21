@@ -4,6 +4,8 @@ import {PaFormComponent} from "./pages/patentAnalytics/inputForm/pa-form.compone
 import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
 import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/bibliometrics-form.component";
 import {SuccessPageComponent} from "./pages/successPage/successPage.component";
+import {PayloadComponent} from "../dataSpaceUI/app/pages/landingpages/payload/payload.component";
+import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
 
 const routes: Routes = [
   {
@@ -28,7 +30,11 @@ const routes: Routes = [
     component: SuccessPageComponent
   },
   {
-    path: 'home',
+    path: 'landingPage/:resourceType/:identifierValue',
+    component: PayloadExtendComponent
+  },
+  {
+    path: '',
     loadChildren: () => import('../dataSpaceUI/app/dataSpaceUI.module').then(m => m.DataSpaceUIModule)
   },
   {

@@ -12,10 +12,12 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
 import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/bibliometrics-form.component";
 import {SuccessPageComponent} from "./pages/successPage/successPage.component";
+import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    PayloadExtendComponent,
     SuccessPageComponent,
     PaFormComponent,
     BibliometricsFormComponent,

@@ -19,7 +19,7 @@ export class PayloadComponent implements OnInit{
   relatedDatasets: {id: string, name: string}[] = [];
 
   constructor(private route: ActivatedRoute, private resourcePayloadService: ResourcePayloadService,
-              private landingPageService: LandingPageService, private authService: AuthenticationService) {
+              private landingPageService: LandingPageService, protected authService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -42,11 +42,5 @@ export class PayloadComponent implements OnInit{
         }
       );
     })
-  }
-
-  hasRole(role: string) {
-    const userRoles: string[] = this.authService.userRoles;
-    return userRoles.includes(role);
-
   }
 }

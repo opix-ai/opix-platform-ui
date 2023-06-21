@@ -9,6 +9,7 @@ import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
 import {RoleAuthGuardComponent} from "./services/role-auth-guard.component";
 import {PayloadComponent} from "./pages/landingpages/payload/payload.component";
 import {ResourceSearchComponent} from "./pages/search/resource-search/resource-search.component";
+import {environment} from "../environments/environment";
 
 const dataSpaceRoutes: Routes = [
   {
@@ -51,12 +52,51 @@ const dataSpaceRoutes: Routes = [
     data: {
       roles: ["OPERATOR_DATASET-INGESTOR", "OPERATOR_DEVELOPER"]
     }
-    // loadChildren: () => import('../pages/pages/dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule)
+  }
+];
+
+const opixRoutes: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'search',
+    component: IntelcompSearchComponent
+  },
+  {
+    path: 'search/:resourceType',
+    component: ResourceSearchComponent
+  },
+  {
+    path: 'dataset/:id',
+    component: DatasetLandingPageComponent
+  },
+  {
+    path: 'request-data',
+    component: RequestDataComponent
+  },
+  {
+    path: 'browseJobs',
+    component: BrowseJobsComponent
+  },
+  {
+    path: 'form/:resourceTypeModel',
+    component: FormComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR_DATASET-INGESTOR", "OPERATOR_DEVELOPER"]
+    }
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(dataSpaceRoutes)],
+  imports: [RouterModule.forChild(environment.projectName === 'Opix' ? opixRoutes : dataSpaceRoutes)],
   exports: [RouterModule]
 })
 
