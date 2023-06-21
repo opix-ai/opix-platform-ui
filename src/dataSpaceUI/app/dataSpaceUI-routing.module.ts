@@ -10,6 +10,7 @@ import {RoleAuthGuardComponent} from "./services/role-auth-guard.component";
 import {PayloadComponent} from "./pages/landingpages/payload/payload.component";
 import {ResourceSearchComponent} from "./pages/search/resource-search/resource-search.component";
 import {environment} from "../environments/environment";
+import {HomeDashboardComponent} from "./pages/home/dashboard/home-dashboard.component";
 
 const dataSpaceRoutes: Routes = [
   {
@@ -64,6 +65,10 @@ const opixRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'dashboard',
+    component: HomeDashboardComponent
   },
   {
     path: 'search',

@@ -21,10 +21,12 @@ import {CommonModule} from "@angular/common";
 import {RoleAuthGuardComponent} from "./services/role-auth-guard.component";
 import {PayloadComponent} from "./pages/landingpages/payload/payload.component";
 import {ResourceSearchComponent} from "./pages/search/resource-search/resource-search.component";
+import {HomeDashboardComponent} from "./pages/home/dashboard/home-dashboard.component";
 
 @NgModule({
   declarations: [
     HomeComponent,
+    HomeDashboardComponent,
     IntelcompFooterComponent,
     IntelcompSearchComponent,
     DatasetLandingPageComponent,

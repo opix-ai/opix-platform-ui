@@ -44,6 +44,10 @@ export class TopMenuLandingComponent implements OnInit {
     return firstLetters;
   }
 
+  hasRoles() {
+    return this.authentication.userRoles.length > 0
+  }
+
   logInButton() {
     this.authentication.login();
   }

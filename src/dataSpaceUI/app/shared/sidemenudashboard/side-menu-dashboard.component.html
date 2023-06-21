@@ -4,16 +4,10 @@
 
   <div class="menu_section uk-margin-medium-top">
     <ul>
-      <li [routerLinkActive]="['current_section']" [routerLinkActiveOptions]="{exact: true}">
-        <a [routerLink]="['/search']" class="uk-flex uk-flex-middle">
-          <span class="material-icons uk-margin-right">search</span>
-          <span class="menu_title">Browse Datasets</span>
-        </a>
-      </li>
       <li [routerLinkActive]="['current_section']">
-        <a [routerLink]="['/search/tool']" class="uk-flex uk-flex-middle">
-          <span class="material-icons uk-margin-right">search</span>
-          <span class="menu_title">Browse Tools</span>
+        <a [routerLink]="['/dashboard']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">home</span>
+          <span class="menu_title">Home</span>
         </a>
       </li>
     </ul>
@@ -75,6 +69,18 @@
         <a [routerLink]="['/form/ai_model']" class="uk-flex uk-flex-middle">
           <span class="material-icons uk-margin-right">description</span>
           <span class="menu_title">Register model</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="userInfo?.roles && hasRole('OPERATOR-WORKFLOW_PROCESSOR')" class="menu_section border_top">
+    <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Workflows</div>
+    <ul>
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['/workflowSearch']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">description</span>
+          <span class="menu_title">Search workflows</span>
         </a>
       </li>
     </ul>
