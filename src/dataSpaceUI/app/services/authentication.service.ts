@@ -37,6 +37,8 @@ export class AuthenticationService {
   }
 
   get userRoles(): string[] {
+    if (!sessionStorage.getItem('userRoles'))
+      return [];
     return sessionStorage.getItem('userRoles').split(',');
   }
 
