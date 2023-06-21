@@ -16,12 +16,12 @@
 
       </div>
 
-      <div class="uk-width-1-3">
+      <div class="uk-width-1-3 uk-flex uk-flex-bottom uk-flex-right">
 <!--        <div class="uk-padding-remove uk-overlay uk-overlay-default service-image">-->
 <!--          <img src="{{dataset['metadata']['logo']}}" style="max-height: 200px;">-->
 <!--        </div>-->
         <button *ngIf="projectName === 'Opix' && hasRole('OPERATOR-WORKFLOW_PROCESSOR') && (payload?.identifier?.value === 'bibliometric-analysis' || payload?.identifier?.value === 'patent-analytics')"
-                uk-toggle="target: #modal-full" class="uk-button uk-button-primary uk-flex">Button</button>
+                uk-toggle="target: #modal-full" class="uk-button uk-button-primary">Start analysis</button>
       </div>
 
     </div>
@@ -129,12 +129,15 @@
   </div>
 </div>
 
-<div id="modal-full" class="uk-modal-full" uk-modal>
+<div id="modal-full" class="uk-modal-full modal-secondary" uk-modal>
 
   <div class="uk-modal-dialog" style="min-height: 100svh">
     <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
     <div class="uk-modal-header">
-      <h2 class="uk-modal-title">Title</h2>
+      <h4 class="uk-modal-title">
+        <ng-container *ngIf="payload?.identifier?.value === 'bibliometric-analysis'">Bibliometric Analysis</ng-container>
+        <ng-container *ngIf="payload?.identifier?.value === 'patent-analytics'">Patent Analytics</ng-container>
+      </h4>
     </div>
     <div class="uk-modal-body">
       <app-bibliometric-input-form *ngIf="payload?.identifier?.value === 'bibliometric-analysis'"></app-bibliometric-input-form>

@@ -1,54 +1,85 @@
 <div class="uk-section uk-section-default">
-  <div *ngIf="jobs.length > 0" class="uk-container uk-container-large uk-margin">
+  <div class="uk-container uk-container-large uk-margin">
 
-    <h4 class="uk-margin">My Job Requests</h4>
+    <h5 class="">Analyses history</h5>
 
-    <div *ngIf="jobs.length > 0; else elseBlock" class="uk-card uk-card-default uk-card-body uk-margin-medium-top">
-      <table class="uk-table uk-table-divider">
+    <div class="uk-card uk-card-default uk-margin-medium-top">
+      <table class="uk-table uk-table-divider card-table">
         <thead>
         <tr>
-          <th>Dataset</th>
-          <th>Entity</th>
+          <th class="extra-left-padding">Type</th>
+          <th>Filters</th>
+          <th>Submitted on</th>
+          <th>Finished at</th>
           <th>Status</th>
-          <th>Action</th>
+          <th class="extra-right-padding"></th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let job of jobs">
-          <td>
-            <div>{{getValueFromObject(job.callerAttributesObj, 'name')}}</div>
-            <div>({{getValueFromObject(job.callerAttributesObj, 'version')}})</div>
-          </td>
-          <td>
-            <div>{{getValueFromObject(job.callerAttributesObj, 'entity')}}</div>
-            <div class="uk-margin-top uk-text-meta">Filters</div>
-            <div *ngFor="let attr of getJobArguments(job.callerAttributesObj)">
-              <ng-container *ngIf="attr['name'] !== 'datasetId'">
-                {{attr['name']}}: {{attr['value']}}
+        <ng-container *ngIf="jobs?.length == 0">
+          <tr>
+            <td colspan="5" class="extra-left-padding extra-right-padding">No past analyses to show</td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="jobs?.length > 0">
+          <tr *ngFor="let job of jobs">
+            <td class="extra-left-padding">
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalytics'">Patent Analytics</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)!=='patentAnalytics'">Bibliometrics Analysis</ng-container>
+            </td>
+            <td>
+              <a class="uk-link">{{this.getNumberOfFilters(job.callerAttributesObj)}} filters selected</a>
+              <div uk-dropdown="mode: click; pos: bottom-left" class="filters-dropdown" style="max-width: 300px !important;">
+                <div class="uk-padding-small">
+                  <h6>Filters</h6>
+                  <div *ngFor="let filter of getFiltersAsAMap(job.callerAttributesObj) | keyvalue" class="uk-margin-top">
+                    <span>{{filter.key}}: </span>
+                    <span>{{filter.value}}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="job.createdAt" class="uk-margin-bottom">
+<!--                <div class="uk-text-muted">{{job.createdAt | date:'medium'}}</div>-->
+                {{job.createdAt | date:'medium'}}
+              </div>
+
+            </td>
+            <td>
+              <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FINISHED' || job.status[0].status=='finished' || job.status[0].status=='FAILED' || job.status[0].status=='failed'); else elseBlock">
+                {{job.status[0].timestamp | date:'medium'}}
+              </div>
+              <ng-template #elseBlock>--</ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="job.mergedStatus==='FINISHED'"><label class="uk-label uk-label-success">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='FAILED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='QUEUED'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
+            </td>
+            <td class="extra-right-padding">
+              <ng-container>
+                <a uk-tooltip="Coming soon.." class="uk-margin-right">
+                  <span class="material-icons">delete</span>
+                </a>
               </ng-container>
-            </div>
-          </td>
-          <td>
-            <div class="uk-margin-bottom"><strong>{{job.mergedStatus}}</strong></div>
-            <div *ngIf="job.createdAt">Created: {{job.createdAt | date:'medium'}}</div>
-            <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FINISHED' || job.status[0].status=='finished')">Finished: {{job.status[0].timestamp | date:'medium'}}</div>
-            <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FAILED' || job.status[0].status=='failed')">Failed: {{job.status[0].timestamp | date:'medium'}}</div>
-          </td>
-          <td>
-            <ng-container *ngIf="job.mergedStatus === 'FINISHED'">
-              <a [routerLink]="['/result', job.id]" class="uk-button uk-button-primary">results</a>
-            </ng-container>
-          </td>
-        </tr>
+              <ng-container *ngIf="job.mergedStatus === 'FINISHED'">
+                <a [routerLink]="['/result', job.id]" uk-tooltip="View results..">
+                  <span class="material-icons icons-secondary">arrow_forward</span>
+                </a>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-container>
         </tbody>
       </table>
     </div>
 
-    <ng-template #elseBlock>
-      <div class="uk-card uk-card-default uk-card-body uk-margin-medium-top">
-        <p class="uk-alert-warning">We couldn't find any job request at the moment.</p>
-      </div>
-    </ng-template>
+<!--    <ng-template #elseBlock>-->
+<!--      <div class="uk-card uk-card-default uk-card-body uk-margin-medium-top">-->
+<!--        <p class="uk-alert-warning">We couldn't find any job request at the moment.</p>-->
+<!--      </div>-->
+<!--    </ng-template>-->
 
   </div>
 

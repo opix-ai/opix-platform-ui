@@ -128,6 +128,14 @@ body {
 }
 
 /* ========================================================================
+  Link - overrides
+========================================================================== */
+
+//a, .uk-link {
+//  color: var(--intelcomp-dark-color);
+//}
+
+/* ========================================================================
    Sidebar - overrides
  ========================================================================== */
 
@@ -149,6 +157,26 @@ body {
 }
 
 /* ========================================================================
+   Modal - custom
+ ========================================================================== */
+
+.uk-modal.modal-secondary .uk-modal-header {
+  background-color: var(--intelcomp-dark-color);
+}
+
+.uk-modal.modal-secondary .uk-modal-header h4.uk-modal-title {
+  color: var(--white);
+}
+
+.uk-modal.modal-secondary .uk-modal-close-full {
+  background: transparent;
+}
+
+.uk-modal.modal-secondary .uk-close {
+  color: var(--white);
+}
+
+/* ========================================================================
    Dropdown - custom
  ========================================================================== */
 
@@ -161,16 +189,32 @@ body {
    Table - custom
  ========================================================================== */
 
-.table-simple.uk-table thead tr {
+//.table-simple.uk-table thead tr {
+//  background-color: var(--primary-color-background);
+//  border-radius: 6px;
+//}
+//
+//.table-simple.uk-table th {
+//  text-transform: none;
+//}
+
+.card-table.uk-table thead tr {
   background-color: var(--primary-color-background);
-  border-radius: 6px;
 }
 
-.table-simple.uk-table th {
+.card-table.uk-table th {
   text-transform: none;
 }
 
-.table-simple td {
+.card-table.uk-table th.extra-left-padding, .card-table.uk-table td.extra-left-padding {
+  padding-left: 30px;
+}
+
+.card-table.uk-table th.extra-right-padding, .card-table.uk-table td.extra-right-padding {
+  padding-right: 30px;
+}
+
+.card-table td {
   font-size: 14px;
 }
 
