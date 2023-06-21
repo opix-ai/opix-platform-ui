@@ -29,7 +29,7 @@
               </div>
             </div>
           </li>
-          <li class="uk-parent" *ngIf="hasRoles" [routerLinkActive]="['uk-active']">
+          <li class="uk-parent" *ngIf="hasRoles()" [routerLinkActive]="['uk-active']">
             <a class="" [routerLink]="['/dashboard']" aria-expanded="false">My data</a>
           </li>
 

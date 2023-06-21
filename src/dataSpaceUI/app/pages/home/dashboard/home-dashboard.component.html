@@ -2,5 +2,12 @@
   <div class="uk-container uk-container-large">
     <h4>Dashboard</h4>
     <p>Lorem ipsum...</p>
+    <p>Tool count: {{toolsCount}}</p>
+    <p>Dataset count: {{datasetCount}}</p>
+
+    <div *ngFor="let job of jobs | slice:0:3">
+      {{job.id}}
+    </div>
+
   </div>
 </div>

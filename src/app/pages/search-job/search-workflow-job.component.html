@@ -3,7 +3,7 @@
 
     <h4 class="uk-margin">My Job Requests</h4>
 
-    <div class="uk-card uk-card-default uk-card-body uk-margin-medium-top">
+    <div *ngIf="jobs.length > 0; else elseBlock" class="uk-card uk-card-default uk-card-body uk-margin-medium-top">
       <table class="uk-table uk-table-divider">
         <thead>
         <tr>
@@ -43,6 +43,12 @@
         </tbody>
       </table>
     </div>
+
+    <ng-template #elseBlock>
+      <div class="uk-card uk-card-default uk-card-body uk-margin-medium-top">
+        <p class="uk-alert-warning">We couldn't find any job request at the moment.</p>
+      </div>
+    </ng-template>
 
   </div>
 

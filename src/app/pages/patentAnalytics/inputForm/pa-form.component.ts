@@ -78,6 +78,7 @@ export class PaFormComponent implements OnInit {
         this.success.timer(1/12);
       },error => {
         console.error(error);
+        this.message = 'Sorry something went wrong. Please try again later.'
       }
     );
 
