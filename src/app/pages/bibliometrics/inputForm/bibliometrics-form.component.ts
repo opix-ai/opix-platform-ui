@@ -1,9 +1,12 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Bibliometrics} from "../../../domain/patentAnalytics";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {Router} from "@angular/router";
+import {SuccessPageComponent} from "../../successPage/successPage.component";
+
+declare var UIkit: any;
 
 @Component({
   selector: 'app-bibliometric-input-form',
@@ -11,6 +14,8 @@ import {Router} from "@angular/router";
 })
 
 export class BibliometricsFormComponent implements OnInit {
+
+  @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
 
   bibliometricForm: FormGroup = Bibliometrics.toFormGroup(this.fb);
   bibliometric: object = null;
@@ -70,7 +75,9 @@ export class BibliometricsFormComponent implements OnInit {
 
     this.inputService.postJob(this.job).subscribe(
       res => {
-        this.router.navigate(['/success']);
+        // this.router.navigate(['/success']);
+        UIkit.modal('#modal-success').show();
+        this.success.timer(1/12);
       },error => {
         console.error(error);
       }

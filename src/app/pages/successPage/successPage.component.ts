@@ -1,5 +1,7 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
+
+declare var UIkit: any;
 
 @Component({
   selector: 'app-success-page',
@@ -7,11 +9,11 @@ import {Router} from "@angular/router";
 })
 
 export class SuccessPageComponent {
-  display: number = 0;
+  display: number = null;
   timerInterval: any;
 
   constructor(private router: Router) {
-    this.timer(0.1);
+
   }
 
   timer(minute) {
@@ -22,6 +24,7 @@ export class SuccessPageComponent {
 
     const prefix = minute < 10 ? '0' : '';
 
+    this.display = seconds;
     this.timerInterval = setInterval(() => {
       seconds--;
       // if (statSec != 0) statSec--;
@@ -37,6 +40,7 @@ export class SuccessPageComponent {
       if (seconds == -1) {
         // console.log('finished');
         clearInterval(this.timerInterval);
+        UIkit.modal('#modal-success').hide();
         this.router.navigate(['/workflowSearch']);
       }
     }, 1000);

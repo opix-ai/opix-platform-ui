@@ -1,10 +1,13 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {PatentAnalytics} from "../../../domain/patentAnalytics";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {Router} from "@angular/router";
 import {timeout} from "rxjs";
+import {SuccessPageComponent} from "../../successPage/successPage.component";
+
+declare var UIkit: any;
 
 @Component({
   selector: 'app-pa-input-form',
@@ -12,6 +15,8 @@ import {timeout} from "rxjs";
 })
 
 export class PaFormComponent implements OnInit {
+
+  @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
 
   paForm: FormGroup = PatentAnalytics.toFormGroup(this.fb);
   patents: object = null;
@@ -41,9 +46,12 @@ export class PaFormComponent implements OnInit {
 
   submitJob() {
     if (this.paForm.invalid) {
-      console.log('Invalid Form');
+      // console.log('Invalid Form');
       this.message = 'Fields with * are mandatory.'
       window.scrollTo(0,0);
+
+      UIkit.modal('#modal-success').show();
+      this.success.timer(1/12);
       return;
     }
     for (let control in this.paForm.controls) {
@@ -64,11 +72,13 @@ export class PaFormComponent implements OnInit {
     jobArguments.push({'jobArguments': this.job.jobArguments});
     this.job.callerAttributes = JSON.stringify(jobArguments);
     this.job.serviceArguments.processId = 'patent-workflow';
-    console.log(this.job);
+    // console.log(this.job);
 
     this.inputService.postJob(this.job).subscribe(
       res => {
-        this.router.navigate(['/success']);
+        // this.router.navigate(['/success']);
+        UIkit.modal('#modal-success').show();
+        this.success.timer(1/12);
       },error => {
         console.error(error);
       }
