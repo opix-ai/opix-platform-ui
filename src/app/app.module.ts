@@ -15,16 +15,18 @@ import {SuccessPageComponent} from "./pages/successPage/successPage.component";
 import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
 import {ResultComponent} from "./pages/result/result.component";
 import {SharedModule} from "../dataSpaceUI/catalogue-ui/shared/shared.module";
+import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     PayloadExtendComponent,
+    HomeDashboardOpixComponent,
     SuccessPageComponent,
     PaFormComponent,
     BibliometricsFormComponent,
     SearchWorkflowJobComponent,
-    ResultComponent
+    ResultComponent,
   ],
   imports: [
     BrowserModule,

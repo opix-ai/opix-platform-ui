@@ -1,5 +1,5 @@
 <div class="uk-section uk-section-small">
-  <div class="uk-container uk-container-expand">
+  <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
 
     <div *ngIf="message" class="uk-alert-danger" uk-alert>
       <a class="uk-alert-close" (click)="clearMessage()" uk-close></a>
@@ -14,7 +14,7 @@
           <div class="uk-margin-small-bottom">
             <label  class="" for="dataSource">Data Source</label>
           </div>
-          <ng-select #dataSource labelForId="dataSource" [searchable]="false" formControlName="dataSource">
+          <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
             <ng-option [value]="'OpenAIRE Graph'">OpenAIRE Graph</ng-option>
             <ng-option [value]="'SemanticScholar'" [disabled]="true">SemanticScholar</ng-option>
           </ng-select>
@@ -232,18 +232,7 @@
 <!--    <pre>{{bibliometricForm.getRawValue() | json}}</pre>-->
 <!--    <pre>{{bibliometricForm.valid}}</pre>-->
   </div>
-</div>
-
-<div id="modal-success" class="uk-modal-full" uk-modal="esc-close: false; bg-close: false">
-
-  <div class="uk-modal-dialog" style="min-height: 100svh">
-    <!--    <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>-->
-    <!--    <div class="uk-modal-header">-->
-    <!--      <h2 class="uk-modal-title">Title</h2>-->
-    <!--    </div>-->
-    <div class="uk-modal-body">
-      <app-success-page></app-success-page>
-    </div>
+  <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
+    <app-success-page></app-success-page>
   </div>
-
 </div>

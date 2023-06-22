@@ -23,6 +23,10 @@ const dataSpaceRoutes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'dashboard',
+    component: HomeDashboardComponent
+  },
+  {
     path: 'search',
     component: IntelcompSearchComponent
   },
@@ -65,10 +69,6 @@ const opixRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent
-  },
-  {
-    path: 'dashboard',
-    component: HomeDashboardComponent
   },
   {
     path: 'search',

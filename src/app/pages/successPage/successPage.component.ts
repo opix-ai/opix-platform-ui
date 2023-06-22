@@ -12,9 +12,7 @@ export class SuccessPageComponent {
   display: number = null;
   timerInterval: any;
 
-  constructor(private router: Router) {
-
-  }
+  constructor(private router: Router) {}
 
   timer(minute) {
     // let minute = 1;
@@ -40,7 +38,7 @@ export class SuccessPageComponent {
       if (seconds == -1) {
         // console.log('finished');
         clearInterval(this.timerInterval);
-        UIkit.modal('#modal-success').hide();
+        UIkit.modal('#modal-input').hide();
         this.router.navigate(['/workflowSearch']);
       }
     }, 1000);

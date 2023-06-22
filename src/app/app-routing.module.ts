@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
 import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
 import {ResultComponent} from "./pages/result/result.component";
+import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'landingPage/:resourceType/:identifierValue',
     component: PayloadExtendComponent
+  },
+  {
+    path: 'dashboard',
+    component: HomeDashboardOpixComponent
   },
   {
     path: 'result/:id',

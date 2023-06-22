@@ -4,7 +4,6 @@ import {PatentAnalytics} from "../../../domain/patentAnalytics";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {Router} from "@angular/router";
-import {timeout} from "rxjs";
 import {SuccessPageComponent} from "../../successPage/successPage.component";
 
 declare var UIkit: any;
@@ -30,6 +29,7 @@ export class PaFormComponent implements OnInit {
   allTopics: boolean = false;
   job: Job = new Job();
   message: string = null;
+  submitSuccess: boolean = false;
 
   constructor(private fb: FormBuilder,private router: Router, private inputService: InputService) {
   }
@@ -51,15 +51,13 @@ export class PaFormComponent implements OnInit {
       window.scrollTo(0,0);
       return;
     }
+    this.job.jobArguments = [];
     for (let control in this.paForm.controls) {
-      if (this.paForm.controls[control].value instanceof Array) {
-        // console.log(this.paForm.controls[control].value);
-        for (let element of this.paForm.controls[control].value) {
-          let jobArgument: JobArgument = new JobArgument(control, element);
-          this.job.jobArguments.push(jobArgument);
-        }
-      } else if (this.paForm.controls[control].value) {
+      if (this.paForm.controls[control].value instanceof Array && this.paForm.controls[control].value) {
         let jobArgument: JobArgument = new JobArgument(control, this.paForm.controls[control].value);
+        this.job.jobArguments.push(jobArgument);
+      } else if (this.paForm.controls[control].value) {
+        let jobArgument: JobArgument = new JobArgument(control, [this.paForm.controls[control].value]);
         this.job.jobArguments.push(jobArgument);
       }
     }
@@ -73,9 +71,8 @@ export class PaFormComponent implements OnInit {
 
     this.inputService.postJob(this.job).subscribe(
       res => {
-        // this.router.navigate(['/success']);
-        UIkit.modal('#modal-success').show();
         this.success.timer(1/12);
+        this.submitSuccess = true;
       },error => {
         console.error(error);
         this.message = 'Sorry something went wrong. Please try again later.'

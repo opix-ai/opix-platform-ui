@@ -13,10 +13,10 @@ export class Job {
 
 export class JobArgument {
   name: string;
-  value: string;
+  value: string[] | string;
 
 
-  constructor(name: string, value: string) {
+  constructor(name: string, value: string[] | string) {
     this.name = name;
     this.value = value;
   }

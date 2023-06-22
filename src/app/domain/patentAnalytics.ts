@@ -5,10 +5,9 @@ export class PatentAnalytics {
   dataSource: string = null;
   domain: string = null;
   category: string = null;
-  from: number = null;
-  to: number = null;
+  from: string = null;
+  to: string = null;
   topics: string[] = [];
-  continent: string[] = [];
   countries: string[] = [];
   indicators: string = null;
 
@@ -21,14 +20,13 @@ export class PatentAnalytics {
     formPrepare.controls['category'].disable();
     formPrepare.setControl('topics', fb.control([], Validators.required));
     formPrepare.controls['topics'].disable();
-    formPrepare.setControl('continent', fb.control([]));
     formPrepare.setControl('countries', fb.control([]));
     formPrepare.controls['countries'].setValue(["AD", "AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY",
       "CZ", "DE", "DK", "EE", "ES", "FI", "FO", "FR", "GB", "GE", "GG", "GI", "GL", "GR", "HR", "HU", "IE", "IM", "IS",
       "IT", "JE", "LI", "LT", "LU", "LV", "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "SE", "SI",
       "SK", "SM", "UA", "VA"]);
     formPrepare.setControl('indicators', fb.control([], Validators.required));
-    formPrepare.controls['to'].setValue(2022);
+    formPrepare.controls['to'].setValue('2022');
 
     return formPrepare;
   }
@@ -38,10 +36,9 @@ export class Bibliometrics {
   dataSource: string = null;
   domain: string = null;
   category: string = null;
-  from: number = null;
-  to: number = null;
+  from: string = null;
+  to: string = null;
   topics: string[] = [];
-  continent: string[] = [];
   countries: string[] = [];
   accessRights: string[] = [];
   publicationType: string = null;
@@ -56,11 +53,10 @@ export class Bibliometrics {
     formPrepare.controls['category'].disable();
     formPrepare.setControl('topics', fb.control([], Validators.required));
     formPrepare.controls['topics'].disable();
-    formPrepare.setControl('continent', fb.control([]));
     formPrepare.setControl('countries', fb.control([]));
     // formPrepare.controls['countries'].setValue(['Europe']);
     formPrepare.setControl('indicators', fb.control([], Validators.required));
-    formPrepare.controls['to'].setValue(2022);
+    formPrepare.controls['to'].setValue('2022');
 
     return formPrepare;
   }
