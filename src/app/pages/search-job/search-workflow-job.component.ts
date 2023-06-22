@@ -14,6 +14,9 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
 
   subscriptions = [];
   jobs: BrowseJob[] = [];
+  filteredJobs: BrowseJob[] = [];
+  status: string = '';
+  workflowType: string = '';
 
   constructor(private inputService: InputService) {
   }
@@ -21,7 +24,7 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.inputService.getJobs().subscribe(
-        res => {this.jobs = res},
+        res => {this.jobs = this.filteredJobs = res},
         error => {console.log(error)},
         () => {
           for (const job of this.jobs) {
@@ -109,6 +112,28 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
       }
     }
     return null;
+  }
+
+  filter() {
+    if ((this.status === '' || this.status === null) && (this.workflowType === '' || this.workflowType === null)) {
+      this.filteredJobs = this.jobs;
+      return;
+    }
+    if (this.status === '' || this.status === null) {
+      this.filteredJobs = this.jobs.filter(job => {
+        let attributes = JSON.parse(job.callerAttributes);
+        return attributes[1]['workflowType'] === this.workflowType;
+      });
+      return
+    }
+    if (this.workflowType === '' || this.workflowType === null) {
+      this.filteredJobs = this.jobs.filter(job => job.mergedStatus === this.status);
+      return
+    }
+    this.filteredJobs = this.jobs.filter(job => {
+      let attributes = JSON.parse(job.callerAttributes);
+      return (attributes[1]['workflowType'] === this.workflowType) && job.mergedStatus === this.status;
+    });
   }
 
 }

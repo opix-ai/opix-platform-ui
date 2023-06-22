@@ -3,6 +3,24 @@
 
     <h5 class="">Analyses history</h5>
 
+    <div uk-grid>
+      <div class="uk-width-1-4">
+        <ng-select labelForId="dataSource" [searchable]="false" [(ngModel)]="status" (change)="filter()">
+          <ng-option [value]="''">All statuses</ng-option>
+          <ng-option [value]="'FINISHED'">Finished</ng-option>
+          <ng-option [value]="'QUEUED'">Queued</ng-option>
+          <ng-option [value]="'RUNNING'">Running</ng-option>
+        </ng-select>
+      </div>
+      <div class="uk-width-1-4">
+        <ng-select labelForId="dataSource" [searchable]="false" [(ngModel)]="workflowType" (change)="filter()">
+          <ng-option [value]="''">All workflows</ng-option>
+          <ng-option [value]="'bibliometricAnalysis'">bibliometricAnalysis</ng-option>
+          <ng-option [value]="'patentAnalytics'">patentAnalytics</ng-option>
+        </ng-select>
+      </div>
+    </div>
+
     <div class="uk-card uk-card-default uk-margin-medium-top">
       <table class="uk-table uk-table-divider card-table">
         <thead>
@@ -22,7 +40,7 @@
           </tr>
         </ng-container>
         <ng-container *ngIf="jobs?.length > 0">
-          <tr *ngFor="let job of jobs">
+          <tr *ngFor="let job of filteredJobs">
             <td class="extra-left-padding">
               <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalytics'">Patent Analytics</ng-container>
               <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)!=='patentAnalytics'">Bibliometrics Analysis</ng-container>
@@ -40,11 +58,7 @@
               </div>
             </td>
             <td>
-              <div *ngIf="job.createdAt" class="uk-margin-bottom">
-<!--                <div class="uk-text-muted">{{job.createdAt | date:'medium'}}</div>-->
-                {{job.createdAt | date:'medium'}}
-              </div>
-
+              <div *ngIf="job.createdAt" class="uk-margin-bottom">{{job.createdAt | date:'medium'}}</div>
             </td>
             <td>
               <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FINISHED' || job.status[0].status=='finished' || job.status[0].status=='FAILED' || job.status[0].status=='failed'); else elseBlock">
@@ -75,15 +89,8 @@
       </table>
     </div>
 
-<!--    <ng-template #elseBlock>-->
-<!--      <div class="uk-card uk-card-default uk-card-body uk-margin-medium-top">-->
-<!--        <p class="uk-alert-warning">We couldn't find any job request at the moment.</p>-->
-<!--      </div>-->
-<!--    </ng-template>-->
-
   </div>
 
-  <!--<pre>{{jobs | json}}</pre>-->
 </div>
 
 
