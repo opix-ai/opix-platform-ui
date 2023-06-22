@@ -7,3 +7,11 @@
   width: auto !important;
   min-width: 100%;
 }
+
+.ng-select.auto-height {
+  height: auto !important;
+}
+
+.ng-select.auto-height .ng-select-container {
+  height: auto !important;
+}
