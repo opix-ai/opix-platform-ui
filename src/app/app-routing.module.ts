@@ -4,6 +4,10 @@ import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job
 import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
 import {ResultComponent} from "./pages/result/result.component";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
+import {LoginGuardComponent} from "../dataSpaceUI/app/services/login-guard.component";
+import {RoleAuthGuardComponent} from "../dataSpaceUI/app/services/role-auth-guard.component";
+import {PaFormComponent} from "./pages/patentAnalytics/inputForm/pa-form.component";
+import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/bibliometrics-form.component";
 
 const routes: Routes = [
   {
@@ -13,7 +17,27 @@ const routes: Routes = [
   },
   {
     path: 'workflowSearch',
-    component: SearchWorkflowJobComponent
+    component: SearchWorkflowJobComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
+    }
+  },
+  {
+    path: 'patentAnalytics',
+    component: PaFormComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
+    }
+  },
+  {
+    path: 'bibliometricAnalysis',
+    component: BibliometricsFormComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
+    }
   },
   {
     path: 'landingPage/:resourceType/:identifierValue',
@@ -21,7 +45,8 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: HomeDashboardOpixComponent
+    component: HomeDashboardOpixComponent,
+    canActivate: [LoginGuardComponent]
   },
   {
     path: 'result/:id',

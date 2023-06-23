@@ -18,9 +18,9 @@
       </div>
       <div class="uk-width-1-4">
         <ng-select labelForId="dataSource" [searchable]="false" [(ngModel)]="workflowType" (change)="filter()">
-          <ng-option [value]="''">All workflows</ng-option>
-          <ng-option [value]="'bibliometricAnalysis'">bibliometricAnalysis</ng-option>
-          <ng-option [value]="'patentAnalytics'">patentAnalytics</ng-option>
+          <ng-option [value]="''">All workflow types</ng-option>
+          <ng-option [value]="'bibliometricAnalysis'">Bibliometric analysis</ng-option>
+          <ng-option [value]="'patentAnalytics'">Patent analytics</ng-option>
         </ng-select>
       </div>
     </div>

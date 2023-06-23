@@ -42,6 +42,7 @@ export class PaFormComponent implements OnInit {
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
+    UIkit.modal('#modal-input').show()
   }
 
   submitJob() {

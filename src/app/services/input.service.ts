@@ -37,6 +37,9 @@ export class InputService {
   getJobs() {
     return this.http.post<BrowseJob[]>(this.api + '/jobs', {})
   }
+  getJobById(id: string[]) {
+    return this.http.post<BrowseJob[]>(this.api + '/jobs', {ids: id})
+  }
 
   postJob(job: Job) {
     return this.http.post(this.api + '/jobs/execute', job);

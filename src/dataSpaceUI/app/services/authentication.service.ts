@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 import {deleteCookie, getCookie} from "../../catalogue-ui/shared/reusable-components/cookie-management";
 import {environment} from "../../../environments/environment";
-import {Router} from "@angular/router";
 import {UserService} from "./user.service";
 
 
@@ -44,6 +44,11 @@ export class AuthenticationService {
   }
 
   get authenticated(): boolean {
+    if (getCookie(this.cookieName) === null) {
+      sessionStorage.clear();
+      deleteCookie(this.cookieName);
+      this.userService.clearUserInfo();
+    }
     return getCookie(this.cookieName) !== null;
   }
 

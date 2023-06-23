@@ -11,6 +11,7 @@ import {PayloadComponent} from "./pages/landingpages/payload/payload.component";
 import {ResourceSearchComponent} from "./pages/search/resource-search/resource-search.component";
 import {environment} from "../environments/environment";
 import {HomeDashboardComponent} from "./pages/home/dashboard/home-dashboard.component";
+import {LoginGuardComponent} from "./services/login-guard.component";
 
 const dataSpaceRoutes: Routes = [
   {
@@ -24,7 +25,8 @@ const dataSpaceRoutes: Routes = [
   },
   {
     path: 'dashboard',
-    component: HomeDashboardComponent
+    component: HomeDashboardComponent,
+    canActivate: [LoginGuardComponent]
   },
   {
     path: 'search',
