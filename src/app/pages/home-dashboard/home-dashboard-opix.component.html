@@ -123,7 +123,11 @@
                   <td>
                     <ng-container *ngIf="job.mergedStatus==='FINISHED'"><label class="uk-label uk-label-success">{{job.mergedStatus}}</label></ng-container>
                     <ng-container *ngIf="job.mergedStatus==='FAILED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+                    <ng-container *ngIf="job.mergedStatus==='ERROR'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+                    <ng-container *ngIf="job.mergedStatus==='KILLED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
                     <ng-container *ngIf="job.mergedStatus==='QUEUED'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
+                    <ng-container *ngIf="job.mergedStatus==='RUNNING'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
+                    <ng-container *ngIf="job.mergedStatus==='CANCELLED'"><label class="uk-label uk-label-secondary">{{job.mergedStatus}}</label></ng-container>
                   </td>
                   <td>
                     <ng-container *ngIf="job.mergedStatus === 'FINISHED'">
