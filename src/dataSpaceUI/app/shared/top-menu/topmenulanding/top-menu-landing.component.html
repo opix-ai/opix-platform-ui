@@ -41,7 +41,7 @@
 
       <div class="uk-navbar-right">
         <div id="navigation">
-          <ul *ngIf="userInfo" class="uk-navbar-nav user_actions">
+          <ul *ngIf="isLoggedIn() && userInfo; else elseBlock" class="uk-navbar-nav user_actions">
             <li>
               <div>
                 <a class="uk-icon ng-star-inserted" aria-expanded="false">
@@ -60,13 +60,15 @@
               </div>
             </li>
           </ul>
-          <ul *ngIf="!userInfo" class="uk-navbar-nav user_actions">
-            <li>
-              <div>
-                <a class="uk-button uk-button-link" (click)="logInButton()">Login</a>
-              </div>
-            </li>
-          </ul>
+          <ng-template #elseBlock>
+            <ul class="uk-navbar-nav user_actions">
+              <li>
+                <div>
+                  <a class="uk-button uk-button-link" (click)="logInButton()">Login</a>
+                </div>
+              </li>
+            </ul>
+          </ng-template>
         </div>
       </div>
 

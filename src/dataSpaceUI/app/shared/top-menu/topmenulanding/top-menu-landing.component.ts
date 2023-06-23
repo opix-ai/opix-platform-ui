@@ -55,4 +55,8 @@ export class TopMenuLandingComponent implements OnInit {
   logout() {
     this.authentication.logout();
   }
+
+  isLoggedIn() {
+    return this.authentication.authenticated;
+  }
 }
