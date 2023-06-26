@@ -1,5 +1,4 @@
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {BibliometricsFormComponent} from "../pages/bibliometrics/inputForm/bibliometrics-form.component";
 
 export class PatentAnalytics {
   dataSource: string = null;

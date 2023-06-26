@@ -6,8 +6,8 @@ import {ResultComponent} from "./pages/result/result.component";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
 import {LoginGuardComponent} from "../dataSpaceUI/app/services/login-guard.component";
 import {RoleAuthGuardComponent} from "../dataSpaceUI/app/services/role-auth-guard.component";
-import {PaFormComponent} from "./pages/patentAnalytics/inputForm/pa-form.component";
-import {BibliometricsFormComponent} from "./pages/bibliometrics/inputForm/bibliometrics-form.component";
+import {PaFormComponent} from "./pages/inputForms/patentAnalytics/pa-form.component";
+import {BibliometricsFormComponent} from "./pages/inputForms/bibliometrics/bibliometrics-form.component";
 
 const routes: Routes = [
   {
