@@ -26,7 +26,7 @@
     </div>
 
     <div class="uk-card uk-card-default uk-margin-medium-top">
-      <table class="uk-table uk-table-divider card-table">
+      <table class="uk-table uk-table-divider uk-table-middle card-table">
         <thead>
         <tr>
           <th class="extra-left-padding">Type</th>
@@ -62,7 +62,7 @@
               </div>
             </td>
             <td>
-              <div *ngIf="job.createdAt" class="uk-margin-bottom">{{job.createdAt | date:'medium'}}</div>
+              <div *ngIf="job.createdAt" class="">{{job.createdAt | date:'medium'}}</div>
             </td>
             <td>
               <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FINISHED' || job.status[0].status=='finished' || job.status[0].status=='FAILED' || job.status[0].status=='failed'); else elseBlock">

@@ -61,3 +61,17 @@ export class Bibliometrics {
   }
 
 }
+
+export class Patent {
+  file: string;
+  from: string;
+  to: string;
+  analysis: string[];
+
+  constructor() {
+    this.file = null;
+    this.from = null;
+    this.to = null;
+    this.analysis = [];
+  }
+}

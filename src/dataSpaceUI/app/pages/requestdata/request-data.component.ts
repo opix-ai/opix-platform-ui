@@ -48,12 +48,15 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+
+    console.log('running on init');
     this.dataForm = this.fb.group(this.formPrepare);
 
     this.subscriptions.push(
       this.navigationService.dataRequestIds.subscribe(
         dataRequestIds => {
-          if (dataRequestIds?.datasetId !== null && dataRequestIds?.instanceVersion !== null) {
+          console.log(dataRequestIds);
+          if (dataRequestIds?.datasetId != null && dataRequestIds?.instanceVersion != null) {
             this.subscriptions.push(
               this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
                 res => {
@@ -66,6 +69,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
                           this.catalogueService.getInternalId(this.dataset['name'], dataRequestIds.instanceVersion).subscribe(
                             res => {
                               this.internalId = res.toString();
+                              this.navigationService.setDataRequestIds(null, null);
                             },
                             error => {console.log(error);}
                           )
@@ -90,7 +94,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.navigationService.setDataRequestIds(null, null);
+    // this.navigationService.setDataRequestIds(null, null);
     this.instance = null;
     this.dataset = null;
     this.subscriptions.forEach(subscription => {

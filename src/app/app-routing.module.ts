@@ -8,6 +8,7 @@ import {LoginGuardComponent} from "../dataSpaceUI/app/services/login-guard.compo
 import {RoleAuthGuardComponent} from "../dataSpaceUI/app/services/role-auth-guard.component";
 import {PaFormComponent} from "./pages/inputForms/patentAnalytics/pa-form.component";
 import {BibliometricsFormComponent} from "./pages/inputForms/bibliometrics/bibliometrics-form.component";
+import {PatentFormComponent} from "./pages/inputForms/patent/patent-form.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,14 @@ const routes: Routes = [
   {
     path: 'workflowSearch',
     component: SearchWorkflowJobComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
+    }
+  },
+  {
+    path: 'patent',
+    component: PatentFormComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {
       roles: ["OPERATOR-WORKFLOW_PROCESSOR"]

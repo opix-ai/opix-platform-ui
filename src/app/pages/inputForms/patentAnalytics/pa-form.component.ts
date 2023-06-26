@@ -42,7 +42,7 @@ export class PaFormComponent implements OnInit {
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
-    UIkit.modal('#modal-input').show()
+    UIkit.modal('#modal-input').show();
   }
 
   submitJob() {
@@ -67,6 +67,7 @@ export class PaFormComponent implements OnInit {
     jobArguments.push({'workflowType':'patentAnalytics'});
     jobArguments.push({'jobArguments': this.job.jobArguments});
     this.job.callerAttributes = JSON.stringify(jobArguments);
+    this.job.serviceArguments.infraId = 'patent-workflow';
     this.job.serviceArguments.processId = 'patent-workflow';
     // console.log(this.job);
 

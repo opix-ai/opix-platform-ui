@@ -16,6 +16,7 @@ import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-
 import {ResultComponent} from "./pages/result/result.component";
 import {SharedModule} from "../dataSpaceUI/catalogue-ui/shared/shared.module";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
+import {PatentFormComponent} from "./pages/inputForms/patent/patent-form.component";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-
     HomeDashboardOpixComponent,
     SuccessPageComponent,
     PaFormComponent,
+    PatentFormComponent,
     BibliometricsFormComponent,
     SearchWorkflowJobComponent,
     ResultComponent,
