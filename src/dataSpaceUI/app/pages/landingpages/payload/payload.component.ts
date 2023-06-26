@@ -24,7 +24,6 @@ export class PayloadComponent implements OnInit{
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log(params);
       this.resourcePayloadService.getItem(params['resourceType'], params['identifierValue']).subscribe(
         next => {this.payload = next;},
         error => {console.log(error);},

@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {PatentAnalytics} from "../../../domain/patentAnalytics";
-import {InputService} from "../../../services/input.service";
-import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {Router} from "@angular/router";
+import {InputService} from "../../../services/input.service";
+import {PatentAnalytics} from "../../../domain/patentAnalytics";
+import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {SuccessPageComponent} from "../../successPage/successPage.component";
 
 declare var UIkit: any;
@@ -114,7 +114,8 @@ export class PaFormComponent implements OnInit {
           this.indicators.push({label: key, id: res[key]});
         }
         // console.log(this.indicators);
-        this.indicators = [...this.indicators];      }
+        this.indicators = [...this.indicators];
+      }
     );
   }
 
@@ -239,9 +240,17 @@ export class PaFormComponent implements OnInit {
   }
 
   clearMessage() {
-    setTimeout(()=>{
+    setTimeout(()=> {
       this.message = null;
     }, 300);
+  }
+
+  navigateBack() {
+    if (sessionStorage.getItem('returnUrl')) {
+      this.router.navigate([sessionStorage.getItem('returnUrl')]);
+      return;
+    }
+    this.router.navigate(['/dashboard']);
   }
 
 }

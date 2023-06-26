@@ -14,7 +14,6 @@ export class HomeDashboardOpixComponent implements OnInit {
 
   toolsCount = 0;
   datasetCount = 0;
-  workFlowType: string = null;
   jobs: BrowseJob[] = []
 
   constructor(private resourceService: ResourcePayloadService, private catalogueService: CatalogueService,
@@ -88,4 +87,9 @@ export class HomeDashboardOpixComponent implements OnInit {
     }
     return myMap;
   }
+
+  setReturnUrl() {
+    sessionStorage.setItem('returnUrl', location.pathname);
+  }
+
 }

@@ -48,6 +48,7 @@ export class BibliometricsFormComponent implements OnInit {
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
+    UIkit.modal('#modal-input').show();
   }
 
   submitJob() {
@@ -291,4 +292,13 @@ export class BibliometricsFormComponent implements OnInit {
       this.message = null;
     }, 300);
   }
+
+  navigateBack() {
+    if (sessionStorage.getItem('returnUrl')) {
+      this.router.navigate([sessionStorage.getItem('returnUrl')]);
+      return;
+    }
+    this.router.navigate(['/dashboard']);
+  }
+
 }

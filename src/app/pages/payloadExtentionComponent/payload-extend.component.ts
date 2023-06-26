@@ -15,6 +15,9 @@ export class PayloadExtendComponent extends PayloadComponent implements OnInit{
   hasRole(role: string) {
     const userRoles: string[] = this.authService.userRoles;
     return userRoles.includes(role);
+  }
 
+  setReturnUrl() {
+    sessionStorage.setItem('returnUrl', location.pathname);
   }
 }

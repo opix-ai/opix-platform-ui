@@ -45,8 +45,9 @@
           </div>
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
             <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/patent-analytics']">Learn more</button>
-            <button class="uk-button uk-button-primary" (click)="workFlowType = 'patent-analytics'"
-                    uk-toggle="target: #modal-input">Start now</button>
+            <button class="uk-button uk-button-primary" [routerLink]="['/patentAnalytics']" (click)="setReturnUrl()">
+              Start now
+            </button>
           </div>
         </div>
       </div>
@@ -63,8 +64,8 @@
           </div>
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
             <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/bibliometric-analysis']">Learn more</button>
-            <button class="uk-button uk-button-primary" (click)="workFlowType = 'bibliometric-analysis'"
-                    uk-toggle="target: #modal-input">Start now
+            <button class="uk-button uk-button-primary" [routerLink]="['/bibliometricAnalysis']" (click)="setReturnUrl()">
+              Start now
             </button>
           </div>
         </div>
@@ -156,23 +157,4 @@
 <!--    </div>-->
 
   </div>
-</div>
-
-
-<div id="modal-input" class="uk-modal-full modal-secondary" uk-modal>
-
-  <div class="uk-modal-dialog" style="min-height: 100svh" *ngIf="workFlowType">
-    <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
-    <div class="uk-modal-header">
-      <h4 class="uk-modal-title">
-        <ng-container *ngIf="workFlowType === 'bibliometric-analysis'">Bibliometric Analysis</ng-container>
-        <ng-container *ngIf="workFlowType === 'patent-analytics'">Patent Analytics</ng-container>
-      </h4>
-    </div>
-    <div class="uk-modal-body">
-      <app-bibliometric-input-form *ngIf="workFlowType === 'bibliometric-analysis'"></app-bibliometric-input-form>
-      <app-pa-input-form *ngIf="workFlowType === 'patent-analytics'"></app-pa-input-form>
-    </div>
-  </div>
-
 </div>

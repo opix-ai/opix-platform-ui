@@ -1,5 +1,12 @@
-<div class="uk-section uk-section-small">
-  <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
+<div id="modal-input" class="uk-modal-full modal-secondary" uk-modal="esc-close=false; bg-close=false">
+
+  <div class="uk-modal-dialog" style="min-height: 100svh">
+    <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
+    <div class="uk-modal-header">
+      <h4 class="uk-modal-title">Bibliometric Analysis</h4>
+    </div>
+    <div class="uk-modal-body">
+      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
 
     <div *ngIf="message" class="uk-alert-danger" uk-alert>
       <a class="uk-alert-close" (click)="clearMessage()" uk-close></a>
@@ -232,7 +239,9 @@
 <!--    <pre>{{bibliometricForm.getRawValue() | json}}</pre>-->
 <!--    <pre>{{bibliometricForm.valid}}</pre>-->
   </div>
-  <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
-    <app-success-page></app-success-page>
+      <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
+        <app-success-page></app-success-page>
+      </div>
+    </div>
   </div>
 </div>
