@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {BrowseJob} from "../../../dataSpaceUI/app/domain/job";
-import {Subscriber} from "rxjs";
+import {from, Subscriber} from "rxjs";
 import {InputService} from "../../services/input.service";
 
 
@@ -17,13 +17,25 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
   status: string = '';
   workflowType: string = '';
 
+  // Paging
+  currentPage: number = 0;
+  totalPages: number = null;
+  total: number = null;
+  pages: number[] = [];
+  pageSize: number = 10;
+  from: number = 0;
+  to: number = 10;
+
   constructor(private inputService: InputService) {
   }
 
   ngOnInit() {
     this.subscriptions.push(
       this.inputService.getJobs().subscribe(
-        res => {this.jobs = this.filteredJobs = res},
+        res => {
+          this.jobs = this.filteredJobs = res;
+          this.pagingInit();
+        },
         error => {console.log(error)},
         () => {
           for (const job of this.jobs) {
@@ -113,9 +125,38 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
     return null;
   }
 
+  /** Paging **/
+  pagingInit() {
+    this.pages = [...Array(Math.ceil(this.filteredJobs.length/this.pageSize)).keys()];
+    this.total = this.filteredJobs.length;
+    this.totalPages = Math.ceil(this.filteredJobs.length/this.pageSize);
+    this.from = this.total === 0 ? -1 : 0;
+    this.to = this.pageSize > this.total ? this.total : this.pageSize;
+    this.currentPage = 0;
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.from = this.pageSize * this.currentPage;
+    this.to = this.pageSize * (this.currentPage+1) > this.total ? this.total : this.pageSize * (this.currentPage+1);
+  }
+
+  previousPage() {
+    if (this.currentPage > 0)
+      this.goToPage(this.currentPage - 1);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages)
+      this.goToPage(this.currentPage + 1);
+  }
+
+
+  /** Filtering **/
   filter() {
     if ((this.status === '' || this.status === null) && (this.workflowType === '' || this.workflowType === null)) {
       this.filteredJobs = this.jobs;
+      this.pagingInit();
       return;
     }
     if (this.status === '' || this.status === null) {
@@ -123,16 +164,19 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
         let attributes = JSON.parse(job.callerAttributes);
         return attributes[1]['workflowType'] === this.workflowType;
       });
+      this.pagingInit();
       return
     }
     if (this.workflowType === '' || this.workflowType === null) {
       this.filteredJobs = this.jobs.filter(job => job.mergedStatus === this.status);
+      this.pagingInit();
       return
     }
     this.filteredJobs = this.jobs.filter(job => {
       let attributes = JSON.parse(job.callerAttributes);
       return (attributes[1]['workflowType'] === this.workflowType) && job.mergedStatus === this.status;
     });
+    this.pagingInit();
   }
 
 }

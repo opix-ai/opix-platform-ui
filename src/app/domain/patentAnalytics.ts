@@ -67,11 +67,13 @@ export class Patent {
   from: string;
   to: string;
   analysis: string[];
+  metadata: string[];
 
   constructor() {
     this.file = null;
     this.from = null;
     this.to = null;
     this.analysis = [];
+    this.metadata = [];
   }
 }

@@ -7,6 +7,96 @@
     </div>
     <div class="uk-modal-body">
 
+      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
+
+        <div class="uk-margin-medium-bottom">
+          <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Input</div>
+          <span class="">Upload a file</span>
+          <!--        TODO: fine tune accept file type-->
+          <input type="file" id="fileUpload" name="file" accept="*/*" #fileSelect
+                 (change)="onFileSelect($event)" style="display: none">
+          <div class="uk-margin-small-left ">
+            <a class="material-icons md-36" (click)="fileSelect.click()">upload_file</a>
+            <span>{{file?.name ? file.name : 'No file selected.'}}</span>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="uk-margin-remove-top" uk-grid>
+          <div class="uk-margin-bottom uk-width-1-5">
+            <div class="uk-margin-small-bottom">
+              <label for="from">Year from</label>
+            </div>
+            <ng-select #from labelForId="from" [searchable]="false" [(ngModel)]="patentInputs.from">
+              <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+            </ng-select>
+          </div>
+
+          <div class="uk-margin-bottom uk-width-1-5">
+            <div class="uk-margin-small-bottom">
+              <label for="to">Year to</label>
+            </div>
+            <ng-select #to labelForId="to" [searchable]="false" [(ngModel)]="patentInputs.to">
+              <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="uk-margin-medium-bottom">
+          <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Output</div>
+          <div class="uk-margin-small-bottom">
+            <label for="analysis">Analysis*</label>
+            <label>
+              <input #allAnalysis type="checkbox" class="uk-margin-left" (change)="selectAllAnalysis($event)">
+              <span class="uk-text-muted">Select all</span>
+            </label>
+          </div>
+          <ng-select #topic labelForId="analysis" [items]="analysis" [multiple]="true" [closeOnSelect]="false"
+                     [searchable]="false" bindValue="id" bindLabel="label" [(ngModel)]="patentInputs.analysis"
+                     (clear)="allAnalysis.checked ? allAnalysis.click() : ''" class="auto-height"
+                     (remove)="(removeCheck('analysis') && allAnalysis.checked)?allAnalysis.click():''">
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.label}}
+            </ng-template>
+            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+              <div class="ng-value" *ngFor="let item of items">
+                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                <span class="ng-value-label">{{item['label']}}</span>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div class="uk-margin-medium-bottom">
+          <div class="uk-margin-small-bottom">
+            <label for="metadata">Metadata*</label>
+            <label>
+              <input #allMetadata type="checkbox" class="uk-margin-left" (change)="selectAllAnalysis($event)">
+              <span class="uk-text-muted">Select all</span>
+            </label>
+          </div>
+          <ng-select #topic labelForId="metadata" [items]="analysis" [multiple]="true" [closeOnSelect]="false"
+                     [searchable]="false" bindValue="id" bindLabel="label" [(ngModel)]="patentInputs.metadata"
+                     (clear)="allMetadata.checked ? allMetadata.click() : ''" class="auto-height"
+                     (remove)="(removeCheck('metadata') && allMetadata.checked)?allMetadata.click():''">
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.label}}
+            </ng-template>
+            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+              <div class="ng-value" *ngFor="let item of items">
+                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                <span class="ng-value-label">{{item['label']}}</span>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
+          <app-success-page></app-success-page>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
