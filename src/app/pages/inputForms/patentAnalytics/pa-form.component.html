@@ -13,165 +13,380 @@
           <p>{{message}}</p>
         </div>
 
-        <form [formGroup]="paForm">
-
-          <div class="uk-margin-medium-bottom">
-            <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Input</div>
-            <div class="uk-margin-bottom">
-              <div class="uk-margin-small-bottom">
-                <label  class="" for="dataSource">Data Source*</label>
-              </div>
-              <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
-                <ng-option [value]="'EPO'">EPO</ng-option>
-                <ng-option [value]="'USPTO'" [disabled]="true">USPTO</ng-option>
-              </ng-select>
-            </div>
+        <div class="uk-margin-large-top" uk-grid>
+          <div class="uk-width-1-6">
+            <ul class="uk-tab-left" uk-tab uk-switcher="connect: .switcher-container">
+              <li class="uk-active"><a href="#">Item 1</a></li>
+              <li><a href="#">Item 2</a></li>
+              <li><a href="#">Item 3</a></li>
+              <li><a href="#">Item 4</a></li>
+            </ul>
           </div>
 
-          <hr>
-
-          <div class="uk-margin-medium-bottom">
-            <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Filters</div>
-            <div uk-grid>
-              <div class="uk-margin-bottom uk-width-1-5">
-                <div class="uk-margin-small-bottom">
-                  <label for="domain">Domain*</label>
-                </div>
-                <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true" [searchable]="false"
-                           formControlName="domain">
-                </ng-select>
-              </div>
-
-              <div class="uk-margin-bottom uk-width-1-5">
-                <div class="uk-margin-small-bottom">
-                  <label for="category">Category*</label>
-                </div>
-                <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true" [searchable]="false"
-                           formControlName="category">
-                </ng-select>
-              </div>
-
-              <div class="uk-margin-bottom uk-width-3-5">
-                <div class="uk-margin-small-bottom">
-                  <label for="topics">Topics*</label>
-                  <label>
-                    <input #selectAll type="checkbox" class="uk-margin-left" [disabled]="!paForm.get('topics').enabled"
-                           [checked]="allTopics" (change)="selectAllTopics($event)">
-                    <span class="uk-text-muted">Select all</span>
-                  </label>
-                </div>
-                <ng-select #topic labelForId="topics" [items]="topics" [multiple]="true" [closeOnSelect]="false"
-                           [searchable]="false" bindValue="topic" formControlName="topics" class="auto-height"
-                           (clear)="selectAll.checked ? selectAll.click() : ''"
-                           (remove)="(removeCheck('topics') && selectAll.checked) ? selectAll.click() : ''">
-                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/>
-                    {{(item.code ? '(' + item.code + ') ' : '') + item.label}}
-                  </ng-template>
-                  <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                    <div class="ng-value" *ngFor="let item of items">
-                      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                      <span class="ng-value-label">{{(item['code'] ? '(' + item['code'] + ') ' : '') + item['label']}}</span>
+          <div class="uk-width-expand">
+            <ul class="uk-switcher switcher-container uk-margin">
+              <li>
+                <form [formGroup]="paForm">
+                  <div class="uk-margin-medium-bottom">
+                    <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Input</div>
+                    <div class="uk-margin-bottom">
+                      <div class="uk-margin-small-bottom">
+                        <label  class="" for="dataSource">Data Source*</label>
+                      </div>
+                      <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
+                        <ng-option [value]="'EPO'">EPO</ng-option>
+                        <ng-option [value]="'USPTO'" [disabled]="true">USPTO</ng-option>
+                      </ng-select>
                     </div>
-    <!--                <div class="ng-value" *ngIf="items.length > 1">-->
-    <!--                  <span class="ng-value-label">{{items.length - 1}} more...</span>-->
-    <!--                </div>-->
-                  </ng-template>
-                </ng-select>
-              </div>
-            </div>
-            <div class="uk-margin-remove-top" uk-grid>
-              <div class="uk-margin-bottom uk-width-1-5">
-                <div class="uk-margin-small-bottom">
-                  <label for="from">Year from</label>
-                </div>
-                <ng-select #from labelForId="from" [searchable]="false" formControlName="from">
-                  <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
-                </ng-select>
-              </div>
-
-              <div class="uk-margin-bottom uk-width-1-5">
-                <div class="uk-margin-small-bottom">
-                  <label for="to">Year to</label>
-                </div>
-                <ng-select #to labelForId="to" [searchable]="false" formControlName="to">
-                  <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
-                </ng-select>
-              </div>
-
-              <div class="uk-margin-bottom uk-width-3-5">
-                <div class="uk-margin-small-bottom">
-                  <label for="countries">Countries</label>
-                  <label>
-                    <input #allCountries type="checkbox" class="uk-margin-left" (change)="selectAllCountries($event)">
-                    <span class="uk-text-muted">Select all</span>
-                  </label>
-                </div>
-                <ng-select #countries labelForId="countries" [groupBy]="'continent'" bindValue="country_code" bindLabel="name"
-                           [multiple]="true" [items]="countriesFlat" [selectableGroup]="true" [searchable]="true"
-                           [closeOnSelect]="false" [clearSearchOnAdd]="true" [virtualScroll]="true"
-                           [selectableGroupAsModel]="false" [compareWith]="compareAccounts" formControlName="countries"
-                           (clear)="allCountries.checked ? allCountries.click() : ''" class="auto-height"
-                           (remove)="(removeCheck('countries') && allCountries.checked) ? allCountries.click() : ''">
-                  <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.continent | uppercase}}
-                  </ng-template>
-                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item['name']}}
-                  </ng-template>
-                  <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                    <div class="ng-value" *ngFor="let item of items | slice:0:5">
-                      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                      <span class="ng-value-label">{{item['name'] ? item['name'] : item['continent']}}</span>
-                    </div>
-                    <div class="ng-value" *ngIf="items.length > 5">
-                      <span class="ng-value-label">{{items.length - 5}} more...</span>
-                    </div>
-                  </ng-template>
-                </ng-select>
-              </div>
-            </div>
-
-          </div>
-          <hr>
-
-          <div class="uk-margin-medium-bottom">
-            <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Output</div>
-            <div class="uk-margin-bottom">
-              <div class="uk-margin-small-bottom">
-                <label for="indicators">Indicators*</label>
-                <label>
-                  <input #allIndicators type="checkbox" class="uk-margin-left" (change)="selectAllIndicators($event)">
-                  <span class="uk-text-muted">Select all</span>
-                </label>
-              </div>
-              <ng-select #topic labelForId="indicators" [items]="indicators" [multiple]="true" [closeOnSelect]="false"
-                         [searchable]="false" bindValue="id" bindLabel="label" formControlName="indicators"
-                         (clear)="allIndicators.checked ? allIndicators.click() : ''" class="auto-height"
-                         (remove)="(removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''">
-                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.label}}
-                </ng-template>
-                <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                  <div class="ng-value" *ngFor="let item of items">
-                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                    <span class="ng-value-label">{{item['label']}}</span>
                   </div>
-    <!--              <div class="ng-value" *ngIf="items.length > 2">-->
-    <!--                <span class="ng-value-label">{{items.length - 2}} more...</span>-->
-    <!--              </div>-->
-                </ng-template>
-              </ng-select>
-            </div>
+                </form>
+                <a href="#" uk-switcher-item="next">Next</a>
+              </li>
+              <li>
+                <form [formGroup]="paForm">
+                  <div class="uk-margin-medium-bottom">
+                    <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Filters</div>
+                    <div uk-grid>
+                      <div class="uk-margin-bottom uk-width-1-5">
+                        <div class="uk-margin-small-bottom">
+                          <label for="domain">Domain*</label>
+                        </div>
+                        <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true" [searchable]="false"
+                                   formControlName="domain">
+                        </ng-select>
+                      </div>
+
+                      <div class="uk-margin-bottom uk-width-1-5">
+                        <div class="uk-margin-small-bottom">
+                          <label for="category">Category*</label>
+                        </div>
+                        <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true" [searchable]="false"
+                                   formControlName="category">
+                        </ng-select>
+                      </div>
+
+                      <div class="uk-margin-bottom uk-width-3-5">
+                        <div class="uk-margin-small-bottom">
+                          <label for="topics">Topics*</label>
+                          <label>
+                            <input #selectAll type="checkbox" class="uk-margin-left" [disabled]="!paForm.get('topics').enabled"
+                                   [checked]="allTopics" (change)="selectAllTopics($event)">
+                            <span class="uk-text-muted">Select all</span>
+                          </label>
+                        </div>
+                        <ng-select #topic labelForId="topics" [items]="topics" [multiple]="true" [closeOnSelect]="false"
+                                   [searchable]="false" bindValue="topic" formControlName="topics" class="auto-height"
+                                   (clear)="selectAll.checked ? selectAll.click() : ''"
+                                   (remove)="(removeCheck('topics') && selectAll.checked) ? selectAll.click() : ''">
+                          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/>
+                            {{(item.code ? '(' + item.code + ') ' : '') + item.label}}
+                          </ng-template>
+                          <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                            <div class="ng-value" *ngFor="let item of items">
+                              <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                              <span class="ng-value-label">{{(item['code'] ? '(' + item['code'] + ') ' : '') + item['label']}}</span>
+                            </div>
+                            <!--                <div class="ng-value" *ngIf="items.length > 1">-->
+                            <!--                  <span class="ng-value-label">{{items.length - 1}} more...</span>-->
+                            <!--                </div>-->
+                          </ng-template>
+                        </ng-select>
+                      </div>
+                    </div>
+                    <div class="uk-margin-remove-top" uk-grid>
+                      <div class="uk-margin-bottom uk-width-1-5">
+                        <div class="uk-margin-small-bottom">
+                          <label for="from">Year from</label>
+                        </div>
+                        <ng-select #from labelForId="from" [searchable]="false" formControlName="from">
+                          <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+                        </ng-select>
+                      </div>
+
+                      <div class="uk-margin-bottom uk-width-1-5">
+                        <div class="uk-margin-small-bottom">
+                          <label for="to">Year to</label>
+                        </div>
+                        <ng-select #to labelForId="to" [searchable]="false" formControlName="to">
+                          <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+                        </ng-select>
+                      </div>
+
+                      <div class="uk-margin-bottom uk-width-3-5">
+                        <div class="uk-margin-small-bottom">
+                          <label for="countries">Countries</label>
+                          <label>
+                            <input #allCountries type="checkbox" class="uk-margin-left" (change)="selectAllCountries($event)">
+                            <span class="uk-text-muted">Select all</span>
+                          </label>
+                        </div>
+                        <ng-select #countries labelForId="countries" [groupBy]="'continent'" bindValue="country_code" bindLabel="name"
+                                   [multiple]="true" [items]="countriesFlat" [selectableGroup]="true" [searchable]="true"
+                                   [closeOnSelect]="false" [clearSearchOnAdd]="true" [virtualScroll]="true"
+                                   [selectableGroupAsModel]="false" [compareWith]="compareAccounts" formControlName="countries"
+                                   (clear)="allCountries.checked ? allCountries.click() : ''" class="auto-height"
+                                   (remove)="(removeCheck('countries') && allCountries.checked) ? allCountries.click() : ''">
+                          <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.continent | uppercase}}
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item['name']}}
+                          </ng-template>
+                          <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                            <div class="ng-value" *ngFor="let item of items | slice:0:5">
+                              <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                              <span class="ng-value-label">{{item['name'] ? item['name'] : item['continent']}}</span>
+                            </div>
+                            <div class="ng-value" *ngIf="items.length > 5">
+                              <span class="ng-value-label">{{items.length - 5}} more...</span>
+                            </div>
+                          </ng-template>
+                        </ng-select>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+                <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>
+                <a href="#" uk-switcher-item="next">Next</a>
+              <li>
+                <form [formGroup]="paForm">
+                  <div class="uk-margin-medium-bottom">
+                    <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Output</div>
+                    <div class="uk-margin-small-bottom">
+                      <label for="indicators">Indicators*</label>
+                      <label>
+                        <input #allIndicators type="checkbox" class="uk-margin-left" (change)="selectAllIndicators($event)">
+                        <span class="uk-text-muted">Select all</span>
+                      </label>
+                    </div>
+                    <ng-select #topic labelForId="indicators" [items]="indicators" [multiple]="true" [closeOnSelect]="false"
+                               [searchable]="false" bindValue="id" bindLabel="label" formControlName="indicators"
+                               (clear)="allIndicators.checked ? allIndicators.click() : ''" class="auto-height"
+                               (remove)="(removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''">
+                      <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                        <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.label}}
+                      </ng-template>
+                      <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                        <div class="ng-value" *ngFor="let item of items">
+                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                          <span class="ng-value-label">{{item['label']}}</span>
+                        </div>
+                        <!--              <div class="ng-value" *ngIf="items.length > 2">-->
+                        <!--                <span class="ng-value-label">{{items.length - 2}} more...</span>-->
+                        <!--              </div>-->
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                </form>
+                <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>
+                <a href="#" uk-switcher-item="next">Next</a>
+              </li>
+              <li>
+                <div class="uk-margin-medium-bottom">
+                  <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Summary</div>
+                  <div uk-grid>
+                    <div class="uk-width-1-6">Datasource:</div>
+                    <div class="uk-width-5-6">{{paForm.get('dataSource').value}}</div>
+                    <div class="uk-width-1-6">Domain:</div>
+                    <div class="uk-width-5-6">{{paForm.get('domain').value}}</div>
+                    <div class="uk-width-1-6">Category:</div>
+                    <div class="uk-width-5-6">{{paForm.get('category').value}}</div>
+                    <div class="uk-width-1-6">Topics:</div>
+                    <div class="uk-width-5-6">
+                      <p *ngFor="let topic of paForm.get('topics').value">{{topic}}</p>
+                    </div>
+                    <div class="uk-width-1-6">Year from:</div>
+                    <div class="uk-width-5-6">{{paForm.get('from').value}}</div>
+                    <div class="uk-width-1-6">Year to:</div>
+                    <div class="uk-width-5-6">{{paForm.get('to').value}}</div>
+                    <div class="uk-width-1-6">Countries:</div>
+                    <div class="uk-width-5-6">
+                      <p *ngFor="let country of paForm.get('countries').value">{{country}}</p>
+                    </div>
+                    <div class="uk-width-1-6">Countries:</div>
+                    <div class="uk-width-5-6">
+                      <p *ngFor="let indicator of paForm.get('indicators').value">{{indicator}}</p>
+                    </div>
+                  </div>
+<!--                  <pre>{{paForm.value | json}}</pre>-->
+                </div>
+                <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>
+                <div class="uk-width-1-1">
+                  <div class="uk-flex uk-flex-right">
+                    <button type="button" class="uk-button uk-button-primary" (click)="submitJob()">Submit</button>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
-        </form>
-        <div class="uk-width-1-1">
-          <div class="uk-flex uk-flex-right">
-            <button type="button" class="uk-button uk-button-primary" (click)="submitJob()">Submit</button>
-          </div>
+
         </div>
-        <!--    <pre>{{paForm.valid}}</pre>-->
-        <!--  <pre>{{paForm.getRawValue() | json}}</pre>-->
+
+<!--        <div *ngIf="message" class="uk-alert-danger" uk-alert>-->
+<!--          <a class="uk-alert-close" (click)="clearMessage()" uk-close></a>-->
+<!--          <p>{{message}}</p>-->
+<!--        </div>-->
+
+<!--        <form [formGroup]="paForm">-->
+
+<!--          <div class="uk-margin-medium-bottom">-->
+<!--            <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Input</div>-->
+<!--            <div class="uk-margin-bottom">-->
+<!--              <div class="uk-margin-small-bottom">-->
+<!--                <label  class="" for="dataSource">Data Source*</label>-->
+<!--              </div>-->
+<!--              <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">-->
+<!--                <ng-option [value]="'EPO'">EPO</ng-option>-->
+<!--                <ng-option [value]="'USPTO'" [disabled]="true">USPTO</ng-option>-->
+<!--              </ng-select>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <hr>-->
+
+<!--          <div class="uk-margin-medium-bottom">-->
+<!--            <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Filters</div>-->
+<!--            <div uk-grid>-->
+<!--              <div class="uk-margin-bottom uk-width-1-5">-->
+<!--                <div class="uk-margin-small-bottom">-->
+<!--                  <label for="domain">Domain*</label>-->
+<!--                </div>-->
+<!--                <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true" [searchable]="false"-->
+<!--                           formControlName="domain">-->
+<!--                </ng-select>-->
+<!--              </div>-->
+
+<!--              <div class="uk-margin-bottom uk-width-1-5">-->
+<!--                <div class="uk-margin-small-bottom">-->
+<!--                  <label for="category">Category*</label>-->
+<!--                </div>-->
+<!--                <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true" [searchable]="false"-->
+<!--                           formControlName="category">-->
+<!--                </ng-select>-->
+<!--              </div>-->
+
+<!--              <div class="uk-margin-bottom uk-width-3-5">-->
+<!--                <div class="uk-margin-small-bottom">-->
+<!--                  <label for="topics">Topics*</label>-->
+<!--                  <label>-->
+<!--                    <input #selectAll type="checkbox" class="uk-margin-left" [disabled]="!paForm.get('topics').enabled"-->
+<!--                           [checked]="allTopics" (change)="selectAllTopics($event)">-->
+<!--                    <span class="uk-text-muted">Select all</span>-->
+<!--                  </label>-->
+<!--                </div>-->
+<!--                <ng-select #topic labelForId="topics" [items]="topics" [multiple]="true" [closeOnSelect]="false"-->
+<!--                           [searchable]="false" bindValue="topic" formControlName="topics" class="auto-height"-->
+<!--                           (clear)="selectAll.checked ? selectAll.click() : ''"-->
+<!--                           (remove)="(removeCheck('topics') && selectAll.checked) ? selectAll.click() : ''">-->
+<!--                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">-->
+<!--                    <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/>-->
+<!--                    {{(item.code ? '(' + item.code + ') ' : '') + item.label}}-->
+<!--                  </ng-template>-->
+<!--                  <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">-->
+<!--                    <div class="ng-value" *ngFor="let item of items">-->
+<!--                      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>-->
+<!--                      <span class="ng-value-label">{{(item['code'] ? '(' + item['code'] + ') ' : '') + item['label']}}</span>-->
+<!--                    </div>-->
+<!--    &lt;!&ndash;                <div class="ng-value" *ngIf="items.length > 1">&ndash;&gt;-->
+<!--    &lt;!&ndash;                  <span class="ng-value-label">{{items.length - 1}} more...</span>&ndash;&gt;-->
+<!--    &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                  </ng-template>-->
+<!--                </ng-select>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="uk-margin-remove-top" uk-grid>-->
+<!--              <div class="uk-margin-bottom uk-width-1-5">-->
+<!--                <div class="uk-margin-small-bottom">-->
+<!--                  <label for="from">Year from</label>-->
+<!--                </div>-->
+<!--                <ng-select #from labelForId="from" [searchable]="false" formControlName="from">-->
+<!--                  <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>-->
+<!--                </ng-select>-->
+<!--              </div>-->
+
+<!--              <div class="uk-margin-bottom uk-width-1-5">-->
+<!--                <div class="uk-margin-small-bottom">-->
+<!--                  <label for="to">Year to</label>-->
+<!--                </div>-->
+<!--                <ng-select #to labelForId="to" [searchable]="false" formControlName="to">-->
+<!--                  <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>-->
+<!--                </ng-select>-->
+<!--              </div>-->
+
+<!--              <div class="uk-margin-bottom uk-width-3-5">-->
+<!--                <div class="uk-margin-small-bottom">-->
+<!--                  <label for="countries">Countries</label>-->
+<!--                  <label>-->
+<!--                    <input #allCountries type="checkbox" class="uk-margin-left" (change)="selectAllCountries($event)">-->
+<!--                    <span class="uk-text-muted">Select all</span>-->
+<!--                  </label>-->
+<!--                </div>-->
+<!--                <ng-select #countries labelForId="countries" [groupBy]="'continent'" bindValue="country_code" bindLabel="name"-->
+<!--                           [multiple]="true" [items]="countriesFlat" [selectableGroup]="true" [searchable]="true"-->
+<!--                           [closeOnSelect]="false" [clearSearchOnAdd]="true" [virtualScroll]="true"-->
+<!--                           [selectableGroupAsModel]="false" [compareWith]="compareAccounts" formControlName="countries"-->
+<!--                           (clear)="allCountries.checked ? allCountries.click() : ''" class="auto-height"-->
+<!--                           (remove)="(removeCheck('countries') && allCountries.checked) ? allCountries.click() : ''">-->
+<!--                  <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">-->
+<!--                    <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.continent | uppercase}}-->
+<!--                  </ng-template>-->
+<!--                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">-->
+<!--                    <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item['name']}}-->
+<!--                  </ng-template>-->
+<!--                  <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">-->
+<!--                    <div class="ng-value" *ngFor="let item of items | slice:0:5">-->
+<!--                      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>-->
+<!--                      <span class="ng-value-label">{{item['name'] ? item['name'] : item['continent']}}</span>-->
+<!--                    </div>-->
+<!--                    <div class="ng-value" *ngIf="items.length > 5">-->
+<!--                      <span class="ng-value-label">{{items.length - 5}} more...</span>-->
+<!--                    </div>-->
+<!--                  </ng-template>-->
+<!--                </ng-select>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--          </div>-->
+<!--          <hr>-->
+
+<!--          <div class="uk-margin-medium-bottom">-->
+<!--            <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Output</div>-->
+<!--            <div class="uk-margin-bottom">-->
+<!--              <div class="uk-margin-small-bottom">-->
+<!--                <label for="indicators">Indicators*</label>-->
+<!--                <label>-->
+<!--                  <input #allIndicators type="checkbox" class="uk-margin-left" (change)="selectAllIndicators($event)">-->
+<!--                  <span class="uk-text-muted">Select all</span>-->
+<!--                </label>-->
+<!--              </div>-->
+<!--              <ng-select #topic labelForId="indicators" [items]="indicators" [multiple]="true" [closeOnSelect]="false"-->
+<!--                         [searchable]="false" bindValue="id" bindLabel="label" formControlName="indicators"-->
+<!--                         (clear)="allIndicators.checked ? allIndicators.click() : ''" class="auto-height"-->
+<!--                         (remove)="(removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''">-->
+<!--                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">-->
+<!--                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.label}}-->
+<!--                </ng-template>-->
+<!--                <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">-->
+<!--                  <div class="ng-value" *ngFor="let item of items">-->
+<!--                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>-->
+<!--                    <span class="ng-value-label">{{item['label']}}</span>-->
+<!--                  </div>-->
+<!--    &lt;!&ndash;              <div class="ng-value" *ngIf="items.length > 2">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <span class="ng-value-label">{{items.length - 2}} more...</span>&ndash;&gt;-->
+<!--    &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--                </ng-template>-->
+<!--              </ng-select>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--        <div class="uk-width-1-1">-->
+<!--          <div class="uk-flex uk-flex-right">-->
+<!--            <button type="button" class="uk-button uk-button-primary" (click)="submitJob()">Submit</button>-->
+<!--          </div>-->
+<!--        </div>-->
+
       </div>
       <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
         <app-success-page></app-success-page>
