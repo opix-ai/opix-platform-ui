@@ -67,7 +67,6 @@ export class PaFormComponent implements OnInit {
     jobArguments.push({'workflowType':'patentAnalytics'});
     jobArguments.push({'jobArguments': this.job.jobArguments});
     this.job.callerAttributes = JSON.stringify(jobArguments);
-    this.job.serviceArguments.infraId = 'patent-workflow';
     this.job.serviceArguments.processId = 'patent-workflow';
     // console.log(this.job);
 
@@ -130,7 +129,8 @@ export class PaFormComponent implements OnInit {
             this.countriesFlat.push(this.countries[continent][country]);
           }
         }
-        this.countriesFlat = [...this.countriesFlat]
+        this.countriesFlat = [...this.countriesFlat];
+        console.log(this.countriesFlat);
       },
       error => {
         console.error(error);
@@ -238,6 +238,17 @@ export class PaFormComponent implements OnInit {
 
   removeCheck(controlName: string) {
     return this.paForm.controls[controlName].value.length === 0;
+  }
+
+  getCountryName(code: string) {
+    // console.log(code);
+    this.countriesFlat.forEach(country => {
+      // console.log(country['country_code']);
+      // console.log(country['name']);
+      if (country['country_code'] == code)
+        return country['name'];
+    });
+    return '';
   }
 
   clearMessage() {
