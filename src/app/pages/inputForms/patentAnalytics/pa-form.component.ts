@@ -34,6 +34,8 @@ export class PaFormComponent implements OnInit {
   message: string = null;
   submitSuccess: boolean = false;
 
+  headerHeight = 0;
+
   constructor(private fb: FormBuilder,private router: Router, private inputService: InputService) {
   }
 
@@ -46,6 +48,8 @@ export class PaFormComponent implements OnInit {
       this.yearRange.push(i);
     }
     UIkit.modal('#modal-input').show();
+
+    this.headerHeight = document.getElementById('modal-header').offsetHeight;
   }
 
   submitJob() {

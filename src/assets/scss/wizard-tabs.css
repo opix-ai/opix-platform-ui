@@ -1,0 +1,31 @@
+.wizard-tabs.uk-tab-left::before {
+  border-left: none;
+}
+
+.wizard-tabs.uk-tab-left > * {
+  padding-right: 20px;
+  margin-right: 20px;
+}
+
+.wizard-tabs.uk-tab > * > a {
+  padding: 10px 20px;
+  text-transform: none;
+}
+
+.wizard-tabs.uk-tab > .uk-active > a {
+  background-color: #15243C1A;
+  border: none !important;
+  border-radius: 6px;
+}
+
+.wizard-tabs.uk-tab > .uk-active > a .material-icons {
+  color: #000;
+}
+
+.wizard-tabs.uk-tab > * > a .step-header {
+
+}
+
+.wizard-tabs.uk-tab > * > a .step-description {
+
+}
