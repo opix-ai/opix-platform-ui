@@ -5,6 +5,7 @@ import {InputService} from "../../../services/input.service";
 import {PatentAnalytics} from "../../../domain/patentAnalytics";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {SuccessPageComponent} from "../../successPage/successPage.component";
+import {environment} from "../../../../environments/environment";
 
 declare var UIkit: any;
 
@@ -16,6 +17,8 @@ declare var UIkit: any;
 export class PaFormComponent implements OnInit {
 
   @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
+
+  logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
 
   paForm: FormGroup = PatentAnalytics.toFormGroup(this.fb);
   patents: object = null;

@@ -9,12 +9,17 @@ import {RoleAuthGuardComponent} from "../dataSpaceUI/app/services/role-auth-guar
 import {PaFormComponent} from "./pages/inputForms/patentAnalytics/pa-form.component";
 import {BibliometricsFormComponent} from "./pages/inputForms/bibliometrics/bibliometrics-form.component";
 import {PatentFormComponent} from "./pages/inputForms/patent/patent-form.component";
+import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: HomeOpixComponent
   },
   {
     path: 'workflowSearch',

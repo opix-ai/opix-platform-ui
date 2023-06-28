@@ -2,10 +2,12 @@
 
   <div class="uk-modal-dialog" style="min-height: 100svh">
     <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
-    <div class="uk-modal-header">
-      <h4 class="uk-modal-title">Patent Analytics</h4>
+    <div class="uk-modal-header uk-flex uk-flex-middle">
+      <img src="{{logoURL}}" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
+      <h4 class="uk-modal-title uk-margin-remove">Patent Analytics</h4>
     </div>
-    <div class="uk-modal-body">
+    <div class="">
+<!--      <div class="uk-modal-body">-->
       <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
 
         <div *ngIf="message" class="uk-alert-danger" uk-alert>
@@ -13,8 +15,8 @@
           <p>{{message}}</p>
         </div>
 
-        <div class="uk-margin-large-top" uk-grid>
-          <div class="uk-width-1-6">
+        <div class="" uk-grid>
+          <div class="uk-width-1-4 uk-section-default">
             <ul class="uk-tab-left" uk-tab uk-switcher="connect: .switcher-container">
               <li class="uk-active"><a href="#">Item 1</a></li>
               <li><a href="#">Item 2</a></li>
@@ -26,21 +28,23 @@
           <div class="uk-width-expand">
             <ul class="uk-switcher switcher-container uk-margin">
               <li>
-                <form [formGroup]="paForm">
-                  <div class="uk-margin-medium-bottom">
-                    <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Input</div>
-                    <div class="uk-margin-bottom">
-                      <div class="uk-margin-small-bottom">
-                        <label  class="" for="dataSource">Data Source*</label>
+                <div class="uk-container uk-container-small">
+                  <form [formGroup]="paForm">
+                    <div class="uk-margin-medium-bottom">
+                      <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Input</div>
+                      <div class="uk-margin-bottom">
+                        <div class="uk-margin-small-bottom">
+                          <label  class="" for="dataSource">Data Source*</label>
+                        </div>
+                        <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
+                          <ng-option [value]="'EPO'">EPO</ng-option>
+                          <ng-option [value]="'USPTO'" [disabled]="true">USPTO</ng-option>
+                        </ng-select>
                       </div>
-                      <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
-                        <ng-option [value]="'EPO'">EPO</ng-option>
-                        <ng-option [value]="'USPTO'" [disabled]="true">USPTO</ng-option>
-                      </ng-select>
                     </div>
-                  </div>
-                </form>
-                <a href="#" uk-switcher-item="next">Next</a>
+                  </form>
+                  <a href="#" uk-switcher-item="next">Next</a>
+                </div>
               </li>
               <li>
                 <form [formGroup]="paForm">

@@ -17,10 +17,12 @@ import {ResultComponent} from "./pages/result/result.component";
 import {SharedModule} from "../dataSpaceUI/catalogue-ui/shared/shared.module";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
 import {PatentFormComponent} from "./pages/inputForms/patent/patent-form.component";
+import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeOpixComponent,
     PayloadExtendComponent,
     HomeDashboardOpixComponent,
     SuccessPageComponent,

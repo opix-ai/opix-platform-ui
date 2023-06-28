@@ -15,7 +15,7 @@
         <div class="uk-card uk-card-default uk-card-body uk-card-small uk-flex uk-flex-middle">
           <div><span class="material-icons uk-margin-right md-36 icons-secondary">dataset</span></div>
           <div>
-            <div class="uk-margin-small-bottom uk-text-muted">Datasets available</div>
+            <div class="uk-margin-small-bottom uk-text-muted">Resources available</div>
             <div class="uk-text-bold">{{datasetCount}}</div>
           </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="uk-card uk-card-default uk-card-body uk-card-small uk-flex uk-flex-middle">
           <div><span class="material-icons uk-margin-right md-36 icons-secondary">build</span></div>
           <div>
-            <div class="uk-margin-small-bottom uk-text-muted">Tools available</div>
+            <div class="uk-margin-small-bottom uk-text-muted">Tools/Workflows available</div>
             <div class="uk-text-bold">{{toolsCount}}</div>
           </div>
         </div>
@@ -48,9 +48,11 @@
             <button class="uk-button uk-button-primary">
               Start now
             </button>
-            <div class="uk-card uk-card-body uk-card-default uk-width-auto" uk-drop="pos: bottom-right">
-              <div><a [routerLink]="['/patentAnalytics']" (click)="setReturnUrl()">Patent analytics</a></div>
-              <div><a [routerLink]="['/patent']" (click)="setReturnUrl()">Patent</a></div>
+            <div uk-dropdown>
+              <ul class="uk-nav uk-dropdown-nav">
+                <li><a [routerLink]="['/patentAnalytics']" (click)="setReturnUrl()">Patent analytics</a></li>
+                <li><a [routerLink]="['/patent']" (click)="setReturnUrl()">Patent</a></li>
+              </ul>
             </div>
           </div>
         </div>

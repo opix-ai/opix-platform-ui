@@ -4,6 +4,8 @@ import {environment} from "../../../../../environments/environment";
 import {UserService} from "../../../services/user.service";
 import {UserInfo} from "../../../domain/userInfo";
 
+declare var UIkit;
+
 @Component({
   selector: 'app-top-menu-landing',
   templateUrl: 'top-menu-landing.component.html',
@@ -34,6 +36,10 @@ export class TopMenuLandingComponent implements OnInit {
         }
       )
     );
+  }
+
+  closeCanvas(element) {
+    UIkit.offcanvas(element).hide();
   }
 
   parseUsername() {
