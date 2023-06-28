@@ -130,7 +130,6 @@ export class PaFormComponent implements OnInit {
           }
         }
         this.countriesFlat = [...this.countriesFlat];
-        console.log(this.countriesFlat);
       },
       error => {
         console.error(error);
