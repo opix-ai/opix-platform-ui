@@ -14,7 +14,7 @@ declare var UIkit;
 
 export class HomeDashboardOpixComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('bla') mydrop;
+  // @ViewChild('bla') mydrop;
 
   toolsCount = 0;
   datasetCount = 0;
@@ -45,7 +45,7 @@ export class HomeDashboardOpixComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    UIkit.dropdown(this.mydrop.nativeElement);
+    // UIkit.dropdown(this.mydrop.nativeElement);
   }
 
 

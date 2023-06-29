@@ -2,243 +2,414 @@
 
   <div class="uk-modal-dialog" style="min-height: 100svh">
     <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
-    <div class="uk-modal-header">
-      <h4 class="uk-modal-title">Bibliometric Analysis</h4>
+    <div id="modal-header" class="uk-modal-header uk-flex uk-flex-middle">
+      <img src="{{logoURL}}" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
+      <h4 class="uk-modal-title uk-margin-remove">Bibliometrics</h4>
     </div>
-    <div class="uk-modal-body">
-      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
+    <div class="" [ngStyle]="{'height': 'calc(100vh - ' + headerHeight + 'px)'}">
 
-    <div *ngIf="message" class="uk-alert-danger" uk-alert>
-      <a class="uk-alert-close" (click)="clearMessage()" uk-close></a>
-      <p>{{message}}</p>
-    </div>
+      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand" style="height: 100%;">
 
-    <form [formGroup]="bibliometricForm">
-
-      <div class="uk-margin-medium-bottom">
-        <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Input</div>
-        <div class="uk-margin-bottom">
-          <div class="uk-margin-small-bottom">
-            <label  class="" for="dataSource">Data Source</label>
+        <div class="" uk-grid style="height: 100%;">
+          <div class="uk-width-1-3 uk-section-default">
+            <ul id="tabs" class="uk-tab-left wizard-tabs uk-margin-large-top" uk-tab uk-switcher="connect: .switcher-container">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Input</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Select the resource you want to use as input</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(1) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Classification Schema</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Select the classification schema</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(2) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Filters</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Select your filters</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Output</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">What do you want to see as an output?</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(3)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(4) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Summary</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">View a summary of your selections before you proceed</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
           </div>
-          <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
-            <ng-option [value]="'OpenAIRE Graph'">OpenAIRE Graph</ng-option>
-            <ng-option [value]="'SemanticScholar'" [disabled]="true">SemanticScholar</ng-option>
-          </ng-select>
-        </div>
-      </div>
 
-      <hr>
+          <div class="uk-width-expand" style="overflow-y: scroll">
+            <div class="uk-container uk-container-xsmall">
 
-      <div class="uk-margin-medium-bottom">
-        <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Filters</div>
-        <div uk-grid>
-          <div class="uk-margin-bottom uk-width-1-5">
-            <div class="uk-margin-small-bottom">
-              <label for="domain">Domain</label>
-            </div>
-            <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true" [searchable]="false"
-                       formControlName="domain">
-            </ng-select>
-          </div>
+              <div class="uk-grid uk-flex uk-flex-center">
+                <div class="uk-width-2-3">
+                  <ul class="uk-switcher switcher-container uk-margin-large-top">
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Input</div>
+                        <div class="uk-text-light">Select the resource you want to use as input</div>
+                      </div>
+                      <form [formGroup]="bibliometricForm">
+                        <div class="uk-margin-medium-bottom">
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="dataSource">Data Source *</label>
+                            </div>
+                            <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
+                              <ng-option [value]="'OpenAIRE Graph'">OpenAIRE Graph</ng-option>
+                              <ng-option [value]="'SemanticScholar'" [disabled]="true">SemanticScholar</ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(1)">Continue</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Classification schema</div>
+                        <div class="uk-text-light">Select the classification schema</div>
+                      </div>
+                      <form [formGroup]="bibliometricForm">
+                        <div class="uk-margin-medium-bottom">
 
-          <div class="uk-margin-bottom uk-width-1-5">
-            <div class="uk-margin-small-bottom">
-              <label for="category">Category</label>
-            </div>
-            <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true" [searchable]="false"
-                       formControlName="category">
-            </ng-select>
-          </div>
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="domain">Subject *</label>
+                            </div>
+                            <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true"
+                                       [searchable]="false" formControlName="domain">
+                            </ng-select>
+                          </div>
 
-          <div class="uk-margin-bottom uk-width-3-5">
-            <div class="uk-margin-small-bottom">
-              <label for="topics">Topics</label>
-              <label>
-                <input #selectAll type="checkbox" class="uk-margin-left" [disabled]="!bibliometricForm.get('topics').enabled"
-                       [checked]="allTopics" (change)="selectAllTopics($event)">
-                <span class="uk-text-muted">Select all</span>
-              </label>
-            </div>
-            <ng-select #topic labelForId="topics" [items]="topics" [multiple]="true" [closeOnSelect]="false"
-                       [searchable]="false" bindValue="topic" formControlName="topics"
-                       (clear)="selectAll.checked ? selectAll.click() : ''"
-                       (remove)="(removeCheck('topics') && selectAll.checked) ? selectAll.click() : ''">
-              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/>
-                {{(item.code ? '(' + item.code + ') ' : '') + item.label}}
-              </ng-template>
-              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                <div class="ng-value" *ngFor="let item of items | slice:0:1">
-                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                  <span class="ng-value-label">{{(item['code'] ? '(' + item['code'] + ') ' : '') + item['label']}}</span>
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="category" uk-tooltip="(including IPC/CPC sections)">Sector *</label>
+                            </div>
+                            <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true"
+                                       [searchable]="false" formControlName="category">
+                            </ng-select>
+                          </div>
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small"  uk-tooltip="(including IPC/CPC classes)">
+                                Technological group *
+                              </label>
+                              <label>
+                                <input #selectAll type="checkbox" class="uk-margin-left uk-margin-small-right"
+                                       [disabled]="!bibliometricForm.get('topics').enabled"
+                                       [checked]="allTopics" (change)="selectAllTopics($event)">
+                                <span class="uk-text-muted">Select all</span>
+                              </label>
+                            </div>
+                            <div class="checkbox-list">
+                              <div class="uk-padding-small">
+                                <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let topic of topics; let i=index">
+                                  <input [id]="i" type="checkbox" [value]="topic['topic']" class="uk-margin-small-right"
+                                         (change)="topicSelect($event); (removeCheck('topics') && selectAll.checked) ? selectAll.click() : ''"
+                                         [checked]="showChecked('topics', topic['topic'])">
+                                  <label [for]="i">
+                                    {{(topic['code'] ? '(' + topic['code'] + ') ' : '') + topic['label']}}
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </form>
+                      <!--                  <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>-->
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(2)">Continue</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Filters</div>
+                        <div class="uk-text-light">Select your filters</div>
+                      </div>
+                      <form [formGroup]="bibliometricForm">
+                        <div class="uk-margin-medium-bottom">
+
+                          <div class="uk-grid">
+                            <div class="uk-margin-bottom uk-width-1-2">
+                              <div class="uk-margin-small-bottom">
+                                <label class="uk-text-bold uk-text-small" for="from">Year from</label>
+                              </div>
+                              <ng-select #from labelForId="from" [searchable]="false" formControlName="from">
+                                <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+                              </ng-select>
+                            </div>
+
+                            <div class="uk-margin-bottom uk-width-1-2">
+                              <div class="uk-margin-small-bottom">
+                                <label class="uk-text-bold uk-text-small" for="to">Year to</label>
+                              </div>
+                              <ng-select #to labelForId="to" [searchable]="false" formControlName="to">
+                                <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+                              </ng-select>
+                            </div>
+                          </div>
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="countries">Countries</label>
+                              <label>
+                                <input #allCountries type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllCountries($event)">
+                                <span class="uk-text-muted">Select all</span>
+                              </label>
+                            </div>
+                            <ng-select #countries labelForId="countries" [groupBy]="'continent'" bindValue="country_code" bindLabel="name"
+                                       [multiple]="true" [items]="countriesFlat" [selectableGroup]="true" [searchable]="true"
+                                       [closeOnSelect]="false" [clearSearchOnAdd]="true" [virtualScroll]="true"
+                                       [selectableGroupAsModel]="false" [compareWith]="compareAccounts" formControlName="countries"
+                                       (clear)="allCountries.checked ? allCountries.click() : ''" class="auto-height"
+                                       (remove)="(removeCheck('countries') && allCountries.checked) ? allCountries.click() : ''">
+                              <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.continent | uppercase}}
+                              </ng-template>
+                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item['name']}}
+                              </ng-template>
+                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                <div class="ng-value" *ngFor="let item of items | slice:0:5">
+                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                  <span class="ng-value-label">{{item['name'] ? item['name'] : item['continent']}}</span>
+                                </div>
+                                <div class="ng-value" *ngIf="items.length > 5">
+                                  <span class="ng-value-label">{{items.length - 5}} more...</span>
+                                </div>
+                              </ng-template>
+                            </ng-select>
+                          </div>
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="accessRights">Access Rights</label>
+                              <label>
+                                <input #allAccessRights type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllData($event, 'accessRights')">
+                                <span class="uk-text-muted">Select all</span>
+                              </label>
+                            </div>
+                            <ng-select #accessRight labelForId="accessRights" [items]="accessRights" formControlName="accessRights"
+                                       [multiple]="true" (clear)="allAccessRights.checked ? allAccessRights.click() : ''"
+                                       (remove)="(removeCheck('accessRights') && allAccessRights.checked)?allAccessRights.click():''">
+                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
+                              </ng-template>
+                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                  <span class="ng-value-label">{{item}}</span>
+                                </div>
+                                <div class="ng-value" *ngIf="items.length > 2">
+                                  <span class="ng-value-label">{{items.length - 2}} more...</span>
+                                </div>
+                              </ng-template>
+                            </ng-select>
+                          </div>
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="additionalOptions">Additional Options</label>
+                              <label>
+                                <input #allAdditionalOptions type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllData($event, 'additionalOptions')">
+                                <span class="uk-text-muted">Select all</span>
+                              </label>
+                            </div>
+                            <ng-select #additionalOption labelForId="additionalOptions" [items]="additionalOptions" formControlName="additionalOptions"
+                                       [multiple]="true" (clear)="allAdditionalOptions.checked ? allAdditionalOptions.click() : ''"
+                                       (remove)="(removeCheck('additionalOptions') && allAdditionalOptions.checked)?allAdditionalOptions.click():''">
+                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
+                              </ng-template>
+                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                  <span class="ng-value-label">{{item}}</span>
+                                </div>
+                                <div class="ng-value" *ngIf="items.length > 2">
+                                  <span class="ng-value-label">{{items.length - 2}} more...</span>
+                                </div>
+                              </ng-template>
+                            </ng-select>
+                          </div>
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="publicationType">Publication Type</label>
+                            </div>
+                            <ng-select #publicationType labelForId="publicationType" [items]="publicationTypes" [selectOnTab]="true" [searchable]="false"
+                                       formControlName="publicationType">
+                            </ng-select>
+                          </div>
+
+                        </div>
+                      </form>
+                      <!--                  <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>-->
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(3)">Continue</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Output</div>
+                        <div class="uk-text-light">What do you want to see as an output?</div>
+                      </div>
+                      <div class="uk-margin-medium-bottom">
+                        <div class="uk-margin-small-bottom">
+                          <label class="uk-text-bold uk-text-small">Indicators *</label>
+                          <label>
+                            <input #allIndicators type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllIndicators($event)">
+                            <span class="uk-text-muted">Select all</span>
+                          </label>
+                        </div>
+
+                        <div class="checkbox-list">
+                          <div class="uk-padding-small">
+                            <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
+                              <input [id]="i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
+                                     (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
+                                     [checked]="showChecked('indicators', indicator['id'])">
+                              <label [for]="i">{{indicator['label']}}</label>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(4)">Continue</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div *ngIf="message" class="uk-alert-danger" uk-alert>
+                        <a class="uk-alert-close" (click)="clearMessage()" uk-close></a>
+                        <p>{{message}}</p>
+                      </div>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Summary</div>
+                        <div class="uk-text-light">View a summary of your selections before you proceed</div>
+                      </div>
+                      <div class="uk-margin-medium-bottom summarySection">
+
+                        <table>
+                          <tr>
+                            <th>Datasource</th>
+                            <td>
+                              {{bibliometricForm.get('dataSource').value}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Subject</th>
+                            <td>
+                              {{bibliometricForm.get('domain').value}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Sector</th>
+                            <td>
+                              {{bibliometricForm.get('category').value}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Technological groups</th>
+                            <td>
+                              <div *ngFor="let topic of bibliometricForm.get('topics').value">{{topic}}</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Year from</th>
+                            <td>
+                              {{bibliometricForm.get('from').value}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Year to</th>
+                            <td>
+                              {{bibliometricForm.get('to').value}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Countries</th>
+                            <td>
+                              <span *ngFor="let country of bibliometricForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Access rights</th>
+                            <td>
+                              <div *ngFor="let topic of bibliometricForm.get('accessRights').value">{{topic}}</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Additional options</th>
+                            <td>
+                              <div *ngFor="let topic of bibliometricForm.get('additionalOptions').value">{{topic}}</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Publication type</th>
+                            <td>
+                              {{bibliometricForm.get('publicationType').value}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Indicators</th>
+                            <td>
+                              <div *ngFor="let indicator of bibliometricForm.get('indicators').value">{{indicator}}</div>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </div>
+                      <!--                      <a href="#" uk-switcher-item="previous">Previous</a>-->
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <button type="button" class="uk-button uk-button-primary uk-width-1-1" (click)="submitJob()">Submit</button>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
-                <div class="ng-value" *ngIf="items.length > 1">
-                  <span class="ng-value-label">{{items.length - 1}} more...</span>
-                </div>
-              </ng-template>
-            </ng-select>
-          </div>
-        </div>
-        <div class="uk-margin-remove-top" uk-grid>
-          <div class="uk-margin-bottom uk-width-1-5">
-            <div class="uk-margin-small-bottom">
-              <label for="from">Year from</label>
-            </div>
-            <ng-select #from labelForId="from" [searchable]="false" formControlName="from">
-              <ng-option *ngFor="let year of yearRange" [value]="year">{{year}}</ng-option>
-            </ng-select>
-          </div>
-
-          <div class="uk-margin-bottom uk-width-1-5">
-            <div class="uk-margin-small-bottom">
-              <label for="to">Year to</label>
-            </div>
-            <ng-select #to labelForId="to" [searchable]="false" formControlName="to">
-              <ng-option *ngFor="let year of yearRange" [value]="year">{{year}}</ng-option>
-            </ng-select>
-          </div>
-
-          <div class="uk-margin-bottom uk-width-3-5">
-            <div class="uk-margin-small-bottom">
-              <label for="countries">Countries</label>
-              <label>
-                <input #allCountries type="checkbox" class="uk-margin-left" (change)="selectAllCountries($event)">
-                <span class="uk-text-muted">Select all</span>
-              </label>
-            </div>
-            <ng-select #countries labelForId="countries" [groupBy]="'continent'" bindValue="country_code" bindLabel="name"
-                       [multiple]="true" [items]="countriesFlat" [selectableGroup]="true" [searchable]="true"
-                       [closeOnSelect]="false" [clearSearchOnAdd]="true" [virtualScroll]="true"
-                       [selectableGroupAsModel]="false" [compareWith]="compareAccounts" formControlName="countries"
-                       (clear)="allCountries.checked ? allCountries.click() : ''"
-                       (remove)="(removeCheck('countries') && allCountries.checked) ? allCountries.click() : ''">
-              <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.continent | uppercase}}
-              </ng-template>
-              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item['name']}}
-              </ng-template>
-              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                <div class="ng-value" *ngFor="let item of items | slice:0:5">
-                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                  <span class="ng-value-label">{{item['name'] ? item['name'] : item['continent']}}</span>
-                </div>
-                <div class="ng-value" *ngIf="items.length > 5">
-                  <span class="ng-value-label">{{items.length - 5}} more...</span>
-                </div>
-              </ng-template>
-            </ng-select>
-          </div>
-        </div>
-
-        <div class="uk-margin-remove-top" uk-grid>
-
-          <div class="uk-margin-bottom uk-width-1-3">
-            <div class="uk-margin-small-bottom">
-              <label for="accessRights">Access Rights</label>
-              <label>
-                <input #allAccessRights type="checkbox" class="uk-margin-left" (change)="selectAllData($event, 'accessRights')">
-                <span class="uk-text-muted">Select all</span>
-              </label>
-            </div>
-            <ng-select #accessRight labelForId="accessRights" [items]="accessRights" formControlName="accessRights"
-                       [multiple]="true" (clear)="allAccessRights.checked ? allAccessRights.click() : ''"
-                       (remove)="(removeCheck('accessRights') && allAccessRights.checked)?allAccessRights.click():''">
-              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
-              </ng-template>
-              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                  <span class="ng-value-label">{{item}}</span>
-                </div>
-                <div class="ng-value" *ngIf="items.length > 2">
-                  <span class="ng-value-label">{{items.length - 2}} more...</span>
-                </div>
-              </ng-template>
-            </ng-select>
-          </div>
-
-          <div class="uk-margin-bottom uk-width-1-3">
-            <div class="uk-margin-small-bottom">
-              <label for="additionalOptions">Additional Options</label>
-              <label>
-                <input #allAdditionalOptions type="checkbox" class="uk-margin-left" (change)="selectAllData($event, 'additionalOptions')">
-                <span class="uk-text-muted">Select all</span>
-              </label>
-            </div>
-            <ng-select #additionalOption labelForId="additionalOptions" [items]="additionalOptions" formControlName="additionalOptions"
-                       [multiple]="true" (clear)="allAdditionalOptions.checked ? allAdditionalOptions.click() : ''"
-                       (remove)="(removeCheck('additionalOptions') && allAdditionalOptions.checked)?allAdditionalOptions.click():''">
-              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
-              </ng-template>
-              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                  <span class="ng-value-label">{{item}}</span>
-                </div>
-                <div class="ng-value" *ngIf="items.length > 2">
-                  <span class="ng-value-label">{{items.length - 2}} more...</span>
-                </div>
-              </ng-template>
-            </ng-select>
-          </div>
-
-          <div class="uk-margin-bottom uk-width-1-3">
-            <div class="uk-margin-small-bottom">
-              <label for="publicationType">Publication Type</label>
-            </div>
-            <ng-select #publicationType labelForId="publicationType" [items]="publicationTypes" [selectOnTab]="true" [searchable]="false"
-                       formControlName="publicationType">
-            </ng-select>
-          </div>
-
-        </div>
-
-      </div>
-
-      <hr>
-
-      <div class="uk-margin-medium-bottom">
-        <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Output</div>
-        <div class="uk-margin-bottom">
-          <div class="uk-margin-small-bottom">
-            <label for="indicators">Indicators</label>
-            <label>
-              <input #allIndicators type="checkbox" class="uk-margin-left" (change)="selectAllIndicators($event)">
-              <span class="uk-text-muted">Select all</span>
-            </label>
-          </div>
-          <ng-select #topic labelForId="indicators" [items]="indicators" [multiple]="true" [closeOnSelect]="false"
-                     [searchable]="false" bindValue="id" bindLabel="label" formControlName="indicators"
-                     (clear)="allIndicators.checked ? allIndicators.click() : ''"
-                     (remove)="(removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''">
-            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.label}}
-            </ng-template>
-            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-              <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                <span class="ng-value-label">{{item['label']}}</span>
               </div>
-              <div class="ng-value" *ngIf="items.length > 2">
-                <span class="ng-value-label">{{items.length - 2}} more...</span>
-              </div>
-            </ng-template>
-          </ng-select>
+
+            </div>
+          </div>
         </div>
-      </div>
-    </form>
-    <div class="uk-width-1-1">
-      <div class="uk-flex uk-flex-right">
-        <button type="button" class="uk-button uk-button-primary" (click)="submitJob()">Submit</button>
-      </div>
-    </div>
-<!--    <pre>{{bibliometricForm.getRawValue() | json}}</pre>-->
-<!--    <pre>{{bibliometricForm.valid}}</pre>-->
-  </div>
+
       <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
         <app-success-page></app-success-page>
       </div>

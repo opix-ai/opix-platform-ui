@@ -60,6 +60,7 @@ export class PaFormComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked() {
+    console.log('Checking height (patent analytics 1)...');
     this.headerHeight = document.getElementById('modal-header').offsetHeight;
   }
 

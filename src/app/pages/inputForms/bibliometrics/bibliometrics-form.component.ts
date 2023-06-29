@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {AfterContentChecked, Component, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Bibliometrics} from "../../../domain/patentAnalytics";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {Router} from "@angular/router";
 import {SuccessPageComponent} from "../../successPage/successPage.component";
+import {environment} from "../../../../environments/environment";
 
 declare var UIkit: any;
 
@@ -13,9 +14,11 @@ declare var UIkit: any;
   templateUrl: 'bibliometrics-form.component.html'
 })
 
-export class BibliometricsFormComponent implements OnInit {
+export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
 
   @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
+
+  logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
 
   bibliometricForm: FormGroup = Bibliometrics.toFormGroup(this.fb);
   bibliometric: object = null;
@@ -34,6 +37,8 @@ export class BibliometricsFormComponent implements OnInit {
   message: string = null;
   submitSuccess: boolean = false;
 
+  headerHeight = 0;
+
   constructor(private fb: FormBuilder, private router: Router, private inputService: InputService) {
   }
 
@@ -49,6 +54,11 @@ export class BibliometricsFormComponent implements OnInit {
       this.yearRange.push(i);
     }
     UIkit.modal('#modal-input').show();
+  }
+
+  ngAfterContentChecked() {
+    console.log('Checking height (bibliometrics)...');
+    this.headerHeight = document.getElementById('modal-header').offsetHeight;
   }
 
   submitJob() {
@@ -210,6 +220,46 @@ export class BibliometricsFormComponent implements OnInit {
     this.topics = [...this.topics];
   }
 
+  showChecked(name: string, value: string) {
+    return this.bibliometricForm.controls[name].value.includes(value);
+  }
+
+  topicSelect(event) {
+    if (event.target.checked)
+      this.bibliometricForm.controls['topics'].value.push(event.target.value);
+    else {
+      const index = this.bibliometricForm.controls['topics'].value.indexOf(event.target.value);
+      if (index > -1) {
+        this.bibliometricForm.controls['topics'].value.splice(index, 1);
+      }
+    }
+  }
+
+  continue(index: number) {
+    UIkit.switcher('#tabs').show(index);
+  }
+
+  stepComplete(step: number) {
+    if (step === 0) {
+      if (this.bibliometricForm.controls['dataSource'].value)
+        return true;
+    }
+    if (step === 1) {
+      if (this.bibliometricForm.controls['domain'].valid && this.bibliometricForm.controls['category'].valid
+        && this.bibliometricForm.controls['topics'].value.length > 0)
+        return true
+    }
+    if (step === 2) {
+      if (this.bibliometricForm.controls['from'].value)
+        return true;
+    }
+    if (step === 3) {
+      if (this.bibliometricForm.controls['indicators'].value.length > 0)
+        return true;
+    }
+
+    return false;
+  }
 
   compareAccounts = (item, selected) => {
 
@@ -252,6 +302,17 @@ export class BibliometricsFormComponent implements OnInit {
         countryCodes.push(country['country_code']);
       });
       this.bibliometricForm.get('countries').setValue(countryCodes);
+    }
+  }
+
+  indicatorSelect(event) {
+    if (event.target.checked)
+      this.bibliometricForm.controls['indicators'].value.push(event.target.value);
+    else {
+      const index = this.bibliometricForm.controls['indicators'].value.indexOf(event.target.value);
+      if (index > -1) {
+        this.bibliometricForm.controls['indicators'].value.splice(index, 1);
+      }
     }
   }
 
