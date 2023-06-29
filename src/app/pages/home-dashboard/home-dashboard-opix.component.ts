@@ -1,8 +1,10 @@
-import {Component, OnInit} from "@angular/core";
+import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
 import {ResourcePayloadService} from "../../../dataSpaceUI/app/services/resource-payload.service";
 import {CatalogueService} from "../../../dataSpaceUI/app/services/catalogue.service";
 import {BrowseJob} from "../../../dataSpaceUI/app/domain/job";
 import {AuthenticationService} from "../../../dataSpaceUI/app/services/authentication.service";
+
+declare var UIkit;
 
 @Component({
   selector: 'home-dashboard',
@@ -10,7 +12,9 @@ import {AuthenticationService} from "../../../dataSpaceUI/app/services/authentic
   providers: [ResourcePayloadService, CatalogueService]
 })
 
-export class HomeDashboardOpixComponent implements OnInit {
+export class HomeDashboardOpixComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('bla') mydrop;
 
   toolsCount = 0;
   datasetCount = 0;
@@ -38,6 +42,10 @@ export class HomeDashboardOpixComponent implements OnInit {
         }
       );
     }
+  }
+
+  ngAfterViewInit() {
+    UIkit.dropdown(this.mydrop.nativeElement);
   }
 
 
