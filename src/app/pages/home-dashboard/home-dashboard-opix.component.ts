@@ -12,9 +12,9 @@ declare var UIkit;
   providers: [ResourcePayloadService, CatalogueService]
 })
 
-export class HomeDashboardOpixComponent implements OnInit, AfterViewInit {
+export class HomeDashboardOpixComponent implements OnInit {
 
-  // @ViewChild('bla') mydrop;
+  @ViewChild('patentAnalyticsStartingPoint') patentAnalyticsWorkflowSelection;
 
   toolsCount = 0;
   datasetCount = 0;
@@ -43,8 +43,8 @@ export class HomeDashboardOpixComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    // UIkit.dropdown(this.mydrop.nativeElement);
+  showDropdown() {
+    UIkit.dropdown(this.patentAnalyticsWorkflowSelection.nativeElement).show();
   }
 
 
