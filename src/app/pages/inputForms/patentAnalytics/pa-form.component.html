@@ -113,6 +113,7 @@
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
                               <label class="uk-text-bold uk-text-small" for="domain">Subject *</label>
+<!--                              <div class="uk-text-small uk-text-light uk-text-meta">Subject serves as a broad classification framework that groups related subject matters together.</div>-->
                             </div>
                             <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true"
                                        [searchable]="false" formControlName="domain">
@@ -122,6 +123,7 @@
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
                               <label class="uk-text-bold uk-text-small" for="category" uk-tooltip="(including IPC/CPC sections)">Sector *</label>
+<!--                              <div class="uk-text-small uk-text-light uk-text-meta">Sector provides a more targeted classification framework that helps to differentiate between various subfields or disciplines within a broader subject.</div>-->
                             </div>
                             <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true"
                                        [searchable]="false" formControlName="category">
@@ -139,6 +141,7 @@
                                        [checked]="allTopics" (change)="selectAllTopics($event)">
                                 <span class="uk-text-muted">Select all</span>
                               </label>
+<!--                              <div class="uk-text-small uk-text-light uk-text-meta">Technological group enables the organization and retrieval of patents based on specific technical aspects, facilitating more precise searching and examination of related inventions.</div>-->
                             </div>
                             <div class="checkbox-list">
                               <div class="uk-padding-small">
