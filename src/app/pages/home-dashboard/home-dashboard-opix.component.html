@@ -45,14 +45,14 @@
           </div>
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
             <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/patent-analytics']">Learn more</button>
-            <button class="uk-button uk-button-primary">
-              Start now
-            </button>
-            <div uk-dropdown>
-              <ul class="uk-nav uk-dropdown-nav">
-                <li><a [routerLink]="['/patentAnalytics']" (click)="setReturnUrl()">Patent analytics</a></li>
-                <li><a [routerLink]="['/patent']" (click)="setReturnUrl()">Patent</a></li>
-              </ul>
+            <div class="uk-inline">
+              <button class="uk-button uk-button-primary">Start now</button>
+              <div uk-dropdown>
+                <ul class="uk-nav uk-dropdown-nav">
+                  <li><a [routerLink]="['/patentAnalytics']" (click)="setReturnUrl()">Patent analytics</a></li>
+                  <li><a [routerLink]="['/patent']" (click)="setReturnUrl()">Patent</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@
               </tbody>
             </table>
           </div>
-          <div class="uk-margin-top">
+          <div class="uk-margin-top" >
             <a class="uk-link" [routerLink]="['/workflowSearch']">
               <span>Show more ...</span>
 <!--              <span class="material-icons uk-margin-small-left">east</span>-->

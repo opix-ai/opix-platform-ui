@@ -52,15 +52,11 @@ export class HomeDashboardOpixComponent implements OnInit {
   }
 
   getNumberOfFilters(obj: object) {
-    for (const [key, value] of Object.entries(obj)) {
-      for (const [subKey, subValue] of Object.entries(value)) {
-        if (subKey === 'jobArguments') {
-          let subValueObj = subValue as [object];
-          return subValueObj.length;
-        }
-      }
-    }
-    return 0;
+    let sum = 0;
+    obj[2]['jobArguments'].forEach( arg => {
+      sum += arg.value.length;
+    });
+    return sum;
   }
 
   getFiltersAsAMap(obj: object) {

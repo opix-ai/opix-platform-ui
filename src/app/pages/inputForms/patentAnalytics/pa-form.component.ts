@@ -69,6 +69,9 @@ export class PaFormComponent implements OnInit {
         this.job.jobArguments.push(jobArgument);
       }
     }
+    for (let element of this.job.jobArguments.find(el => el.name === 'topics').value) {
+      element = this.paForm.get('domain').value + '.' + this.paForm.get('category').value + '.' + element;
+    }
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
     jobArguments.push({'workflowType':'patentAnalytics'});
@@ -169,7 +172,7 @@ export class PaFormComponent implements OnInit {
   setTopics(category: string) {
     // console.log('setting topics');
     this.topics = [];
-    this.paForm.controls['topics'].reset(null);
+    this.paForm.controls['topics'].reset([]);
     this.allTopics = false;
 
     if (category === null || !this.paForm.controls['domain'].value) {
@@ -198,6 +201,21 @@ export class PaFormComponent implements OnInit {
     return false;
   };
 
+  showChecked(name: string, value: string) {
+    return this.paForm.controls[name].value.includes(value);
+  }
+
+  topicSelect(event) {
+    if (event.target.checked)
+      this.paForm.controls['topics'].value.push(event.target.value);
+    else {
+      const index = this.paForm.controls['topics'].value.indexOf(event.target.value);
+      if (index > -1) {
+        this.paForm.controls['topics'].value.splice(index, 1);
+      }
+    }
+  }
+
   selectAllTopics(event) {
     if (!event.target.checked) {
       this.allTopics = false;
@@ -225,6 +243,17 @@ export class PaFormComponent implements OnInit {
         countryCodes.push(country['country_code']);
       });
       this.paForm.get('countries').setValue(countryCodes);
+    }
+  }
+
+  indicatorSelect(event) {
+    if (event.target.checked)
+      this.paForm.controls['indicators'].value.push(event.target.value);
+    else {
+      const index = this.paForm.controls['indicators'].value.indexOf(event.target.value);
+      if (index > -1) {
+        this.paForm.controls['indicators'].value.splice(index, 1);
+      }
     }
   }
 

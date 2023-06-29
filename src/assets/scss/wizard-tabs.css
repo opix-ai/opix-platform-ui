@@ -29,3 +29,11 @@
 .wizard-tabs.uk-tab > * > a .step-description {
 
 }
+
+.checkbox-list {
+  border: 1px solid black;
+  border-radius: 5px;
+  max-height: 40vh;
+  min-height: 40px;
+  overflow: scroll
+}
