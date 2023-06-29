@@ -45,3 +45,7 @@
   min-height: 40px;
   overflow: scroll
 }
+
+.checkbox-list-small {
+  max-height: 20vh;
+}

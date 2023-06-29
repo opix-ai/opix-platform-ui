@@ -2,101 +2,199 @@
 
   <div class="uk-modal-dialog" style="min-height: 100svh">
     <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
-    <div class="uk-modal-header">
-      <h4 class="uk-modal-title">Patent <span>- starting from inventors/applicants</span></h4>
+    <div id="modal-header" class="uk-modal-header uk-flex uk-flex-middle">
+      <img src="{{logoURL}}" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
+      <div>
+        <h4 class="uk-modal-title uk-margin-remove">Patent Analytics</h4>
+        <span class="uk-text-meta">Starting from inventors/applicants</span>
+      </div>
     </div>
-    <div class="uk-modal-body">
+    <div class="" [ngStyle]="{'height': 'calc(100vh - ' + headerHeight + 'px)'}">
 
-      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
+      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand" style="height: 100%;">
 
-        <div class="uk-margin-medium-bottom">
-          <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Input</div>
-          <span class="">Upload a file</span>
-          <!--        TODO: fine tune accept file type-->
-          <input type="file" id="fileUpload" name="file" accept="*/*" #fileSelect
-                 (change)="onFileSelect($event)" style="display: none">
-          <div class="uk-margin-small-left ">
-            <a class="material-icons md-36" (click)="fileSelect.click()">upload_file</a>
-            <span>{{file?.name ? file.name : 'No file selected.'}}</span>
+        <div class="" uk-grid style="height: 100%;">
+
+          <div class="uk-width-1-3 uk-section-default">
+            <ul id="tabs" class="uk-tab-left wizard-tabs uk-margin-large-top" uk-tab uk-switcher="connect: .switcher-container">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Input</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Upload the file you want to use as input</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(1) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Filters</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Select your filters</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(2) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Output</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">What do you want to see as an output?</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2)}">
+                <a href="#" class="">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Summary</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">View a summary of your selections before you proceed</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
           </div>
-        </div>
 
-        <hr>
+          <div class="uk-width-expand" style="overflow-y: scroll">
+            <div class="uk-container uk-container-xsmall">
 
-        <div class="uk-margin-remove-top" uk-grid>
-          <div class="uk-margin-bottom uk-width-1-5">
-            <div class="uk-margin-small-bottom">
-              <label for="from">Year from</label>
-            </div>
-            <ng-select #from labelForId="from" [searchable]="false" [(ngModel)]="patentInputs.from">
-              <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
-            </ng-select>
-          </div>
+              <div class="uk-grid uk-flex uk-flex-center">
+                <div class="uk-width-2-3">
 
-          <div class="uk-margin-bottom uk-width-1-5">
-            <div class="uk-margin-small-bottom">
-              <label for="to">Year to</label>
-            </div>
-            <ng-select #to labelForId="to" [searchable]="false" [(ngModel)]="patentInputs.to">
-              <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
-            </ng-select>
-          </div>
-        </div>
+                  <ul class="uk-switcher switcher-container uk-margin-large-top">
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Input</div>
+                        <div class="uk-text-light">Upload the file you want to use as input</div>
+                      </div>
+                      <div>
+                        <input type="file" id="fileUpload" name="file" accept="*/*" #fileSelect
+                               (change)="onFileSelect($event)" style="display: none">
+                        <div class="uk-margin-small-left uk-flex uk-flex-middle">
+                          <a class="material-icons md-36" (click)="fileSelect.click()" style="color: #000">upload_file</a>
+                          <span class="uk-margin-small-left">{{file?.name ? file.name : 'No file selected.'}}</span>
+                        </div>
+                      </div>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(1)">Continue</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Filters</div>
+                        <div class="uk-text-light">Select your filters</div>
+                      </div>
+                      <div class="uk-margin-bottom">
+                        <div class="uk-grid">
+                          <div class="uk-margin-bottom uk-width-1-2">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="from">Year from</label>
+                            </div>
+                            <ng-select #from labelForId="from" [searchable]="false" formControlName="from">
+                              <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+                            </ng-select>
+                          </div>
+                          <div class="uk-margin-bottom uk-width-1-2">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="to">Year to</label>
+                            </div>
+                            <ng-select #to labelForId="to" [searchable]="false" formControlName="to">
+                              <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(2)">Continue</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Output</div>
+                        <div class="uk-text-light">What do you want to see as an output?</div>
+                      </div>
+                      <div class="uk-margin-bottom">
+                        <div class="uk-margin-bottom">
+                          <div class="uk-margin-small-bottom">
+                            <label class="uk-text-bold uk-text-small">Indicators *</label>
+                            <label>
+                              <input #allIndicators type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllIndicators($event)">
+                              <span class="uk-text-muted">Select all</span>
+                            </label>
+                          </div>
+                          <div class="checkbox-list checkbox-list-small">
+                            <div class="uk-padding-small">
+                              <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
+                                <input [id]="i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
+                                       (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
+                                       [checked]="showChecked('indicators', indicator['id'])">
+                                <label [for]="i">{{indicator['label']}}</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="uk-margin-small-bottom">
+                            <label class="uk-text-bold uk-text-small">Metadata *</label>
+                            <label>
+                              <input #allIndicators type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllIndicators($event)">
+                              <span class="uk-text-muted">Select all</span>
+                            </label>
+                          </div>
+                          <div class="checkbox-list checkbox-list-small">
+                            <div class="uk-padding-small">
+                              <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
+                                <input [id]="i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
+                                       (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
+                                       [checked]="showChecked('indicators', indicator['id'])">
+                                <label [for]="i">{{indicator['label']}}</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(3)">Continue</a>
+                      </div>
+                    </li>
+                    <li>
+<!--                      <div *ngIf="message" class="uk-alert-danger" uk-alert>-->
+<!--                        <a class="uk-alert-close" (click)="clearMessage()" uk-close></a>-->
+<!--                        <p>{{message}}</p>-->
+<!--                      </div>-->
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Summary</div>
+                        <div class="uk-text-light">View a summary of your selections before you proceed</div>
+                      </div>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <button type="button" class="uk-button uk-button-primary uk-width-1-1" (click)="submitJob()">Submit</button>
+                      </div>
+                    </li>
+                  </ul>
 
-        <hr>
-
-        <div class="uk-margin-medium-bottom">
-          <div class="uk-text-italic uk-text-uppercase uk-text-primary uk-margin-bottom uk-text-large">Output</div>
-          <div class="uk-margin-small-bottom">
-            <label for="analysis">Analysis*</label>
-            <label>
-              <input #allAnalysis type="checkbox" class="uk-margin-left" (change)="selectAllAnalysis($event)">
-              <span class="uk-text-muted">Select all</span>
-            </label>
-          </div>
-          <ng-select #topic labelForId="analysis" [items]="analysis" [multiple]="true" [closeOnSelect]="false"
-                     [searchable]="false" bindValue="id" bindLabel="label" [(ngModel)]="patentInputs.analysis"
-                     (clear)="allAnalysis.checked ? allAnalysis.click() : ''" class="auto-height"
-                     (remove)="(removeCheck('analysis') && allAnalysis.checked)?allAnalysis.click():''">
-            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.label}}
-            </ng-template>
-            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-              <div class="ng-value" *ngFor="let item of items">
-                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                <span class="ng-value-label">{{item['label']}}</span>
+                </div>
               </div>
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="uk-margin-medium-bottom">
-          <div class="uk-margin-small-bottom">
-            <label for="metadata">Metadata*</label>
-            <label>
-              <input #allMetadata type="checkbox" class="uk-margin-left" (change)="selectAllAnalysis($event)">
-              <span class="uk-text-muted">Select all</span>
-            </label>
+
+            </div>
           </div>
-          <ng-select #topic labelForId="metadata" [items]="analysis" [multiple]="true" [closeOnSelect]="false"
-                     [searchable]="false" bindValue="id" bindLabel="label" [(ngModel)]="patentInputs.metadata"
-                     (clear)="allMetadata.checked ? allMetadata.click() : ''" class="auto-height"
-                     (remove)="(removeCheck('metadata') && allMetadata.checked)?allMetadata.click():''">
-            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.label}}
-            </ng-template>
-            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-              <div class="ng-value" *ngFor="let item of items">
-                <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                <span class="ng-value-label">{{item['label']}}</span>
-              </div>
-            </ng-template>
-          </ng-select>
-        </div>
-        <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
-          <app-success-page></app-success-page>
+
         </div>
 
       </div>
+
+      <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
+        <app-success-page></app-success-page>
+      </div>
+
     </div>
   </div>
 </div>
