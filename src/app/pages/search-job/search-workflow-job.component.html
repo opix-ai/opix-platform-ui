@@ -73,8 +73,8 @@
               <div uk-dropdown="mode: click; pos: bottom-left" class="filters-dropdown" style="max-width: 300px !important;">
                 <div class="uk-padding-small">
                   <h6>Filters</h6>
-                  <div *ngFor="let filter of getFiltersAsAMap(job.callerAttributesObj) | keyvalue" class="uk-margin-top">
-                    <span>{{filter.key}}: </span>
+                  <div *ngFor="let filter of getFilters(job.callerAttributesObj)" class="uk-margin-top">
+                    <span>{{filter.name}}: </span>
                     <span>{{filter.value}}</span>
                   </div>
                 </div>

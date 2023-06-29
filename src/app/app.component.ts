@@ -8,7 +8,7 @@ import {AuthenticationService} from "../dataSpaceUI/app/services/authentication.
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'intelcomp-catalogue-ui';
+  title = 'opix-catalogue-ui';
 
   open: boolean = true;
 

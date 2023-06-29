@@ -37,7 +37,6 @@ export class HomeDashboardOpixComponent implements OnInit, AfterViewInit {
           this.jobs = res;
           for (const job of this.jobs) {
             job.callerAttributesObj = JSON.parse(job.callerAttributes);
-            this.getFiltersAsAMap(job.callerAttributesObj);
           }
         }
       );
@@ -67,29 +66,9 @@ export class HomeDashboardOpixComponent implements OnInit, AfterViewInit {
     return sum;
   }
 
-  getFiltersAsAMap(obj: object) {
-    let myMap = new Map<string, string[]>();
-
-    for (const [key, value] of Object.entries(obj)) {
-      // console.log(`key: ${key} value: ${value}`);
-      for (const [subKey, subValue] of Object.entries(value)) {
-        if (subKey === 'jobArguments') {
-          for (const item of subValue as [object]) {
-            // console.log('item[\'name\']: ', item['name']);
-            // console.log('item[\'value\']: ', item['value']);
-            if (myMap.has(item['name'])) {
-              myMap.get(item['name']).push(item['value']);
-            } else {
-              myMap.set(item['name'],[item['value']]);
-            }
-          }
-
-          // console.log(myMap);
-          return myMap;
-        }
-      }
-    }
-    return myMap;
+  getFilters(obj: object) {
+    console.log(obj[2]['jobArguments']);
+    return obj[2]['jobArguments'];
   }
 
   setReturnUrl() {
