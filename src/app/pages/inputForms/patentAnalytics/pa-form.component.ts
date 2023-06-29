@@ -1,4 +1,12 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewChild
+} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {InputService} from "../../../services/input.service";
@@ -14,7 +22,7 @@ declare var UIkit: any;
   templateUrl: 'pa-form.component.html'
 })
 
-export class PaFormComponent implements OnInit {
+export class PaFormComponent implements OnInit, AfterContentChecked {
 
   @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
 
@@ -49,6 +57,9 @@ export class PaFormComponent implements OnInit {
     }
     UIkit.modal('#modal-input').show();
 
+  }
+
+  ngAfterContentChecked() {
     this.headerHeight = document.getElementById('modal-header').offsetHeight;
   }
 
@@ -186,7 +197,6 @@ export class PaFormComponent implements OnInit {
     this.topics = [...this.topics];
   }
 
-
   compareAccounts = (item, selected) => {
 
     if (selected.length === 2) {
@@ -284,6 +294,32 @@ export class PaFormComponent implements OnInit {
         return country['name'];
     });
     return '';
+  }
+
+  continue(index: number) {
+    UIkit.switcher('#tabs').show(index);
+  }
+
+  stepComplete(step: number) {
+    if (step === 0) {
+      if (this.paForm.controls['dataSource'].value)
+        return true;
+    }
+    if (step === 1) {
+      if (this.paForm.controls['domain'].valid && this.paForm.controls['category'].valid
+          && this.paForm.controls['topics'].value.length > 0)
+      return true
+    }
+    if (step === 2) {
+      if (this.paForm.controls['from'].value)
+        return true;
+    }
+    if (step === 3) {
+      if (this.paForm.controls['indicators'].value.length > 0)
+        return true;
+    }
+
+    return false;
   }
 
   clearMessage() {
