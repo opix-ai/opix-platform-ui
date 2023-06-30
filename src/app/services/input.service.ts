@@ -45,9 +45,10 @@ export class InputService {
     return this.http.post(this.api + '/jobs/execute', job);
   }
 
-  postJobCustom(job: string, formData: FormData) {
-    let params = new HttpParams();
-    params.append('job', job)
-    return this.http.post(this.api + '/jobs/execute/custom', formData, {params: params});
+  postJobCustom(formData: FormData) {
+    // let params = new HttpParams();
+    // params.append('job', job);
+    // console.log(params);
+    return this.http.post(this.api + '/jobs/execute/custom', formData);
   }
 }

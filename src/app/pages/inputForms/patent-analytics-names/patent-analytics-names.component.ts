@@ -45,11 +45,16 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
     this.job.jobArguments.push(new JobArgument('to', [this.patentInputs.to]));
     this.job.jobArguments.push(new JobArgument('indicators', this.patentInputs.indicators));
     this.job.jobArguments.push(new JobArgument('metadata', this.patentInputs.metadata));
-    this.job.callerAttributes = JSON.stringify(this.job.jobArguments);
-    // this.formData.append('job', JSON.stringify(this.job));
+    let jobArguments: any[] = [];
+    jobArguments.push({'jobType':'workflow'});
+    jobArguments.push({'workflowType':'patentAnalytics'});
+    jobArguments.push({'jobArguments': this.job.jobArguments});
+    this.job.callerAttributes = JSON.stringify(jobArguments);
+    this.job.serviceArguments.processId = 'patent-names-workflow';
     this.formData.append('file', this.file);
+    this.formData.append('job', JSON.stringify(this.job));
     console.log(this.formData);
-    this.inputService.postJobCustom(JSON.stringify(this.job), this.formData).subscribe(
+    this.inputService.postJobCustom(this.formData).subscribe(
       res => {
         console.log(res);
       }, error => {console.log(error);}
