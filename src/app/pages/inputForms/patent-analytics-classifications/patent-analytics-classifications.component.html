@@ -275,51 +275,35 @@
                         <table>
                           <tr>
                             <th>Datasource</th>
-                            <td>
-                              {{paForm.get('dataSource').value}}
-                            </td>
+                            <td>{{paForm.get('dataSource').value}}</td>
                           </tr>
                           <tr>
                             <th>Subject</th>
-                            <td>
-                              {{paForm.get('domain').value}}
-                            </td>
+                            <td>{{paForm.get('domain').value}}</td>
                           </tr>
                           <tr>
                             <th>Sector</th>
-                            <td>
-                              {{paForm.get('category').value}}
-                            </td>
+                            <td>{{paForm.get('category').value}}</td>
                           </tr>
                           <tr>
                             <th>Technological groups</th>
-                            <td>
-                              <div *ngFor="let topic of paForm.get('topics').value">{{topic}}</div>
-                            </td>
+                            <td><div *ngFor="let topic of paForm.get('topics').value">{{topic}}</div></td>
                           </tr>
                           <tr>
                             <th>Year from</th>
-                            <td>
-                              {{paForm.get('from').value}}
-                            </td>
+                            <td>{{paForm.get('from').value}}</td>
                           </tr>
                           <tr>
                             <th>Year to</th>
-                            <td>
-                              {{paForm.get('to').value}}
-                            </td>
+                            <td>{{paForm.get('to').value}}</td>
                           </tr>
                           <tr>
                             <th>Countries</th>
-                            <td>
-                              <span *ngFor="let country of paForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span>
-                            </td>
+                            <td><span *ngFor="let country of paForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span></td>
                           </tr>
                           <tr>
                             <th>Indicators</th>
-                            <td>
-                              <div *ngFor="let indicator of paForm.get('indicators').value">{{indicator}}</div>
-                            </td>
+                            <td><div *ngFor="let indicator of paForm.get('indicators').value">{{indicator}}</div></td>
                           </tr>
                         </table>
                       </div>

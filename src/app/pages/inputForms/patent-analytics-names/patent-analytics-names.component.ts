@@ -1,8 +1,9 @@
 import {AfterContentChecked, Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {Patent} from "../../../domain/patentAnalytics";
+import {PatentNames} from "../../../domain/patentClassifications";
 import {InputService} from "../../../services/input.service";
 import {environment} from "../../../../environments/environment";
+import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 
 declare var UIkit: any;
 
@@ -13,12 +14,13 @@ declare var UIkit: any;
 
 export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecked {
 
-  logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
-
-  patentInputs: Patent = new Patent();
+  patentInputs: PatentNames = new PatentNames();
+  formData: FormData = new FormData();
+  job: Job = new Job();
   file: File = null;
   yearRange: number[] = [];
-  indicators: any[] = [];
+  indicators: {label: string, id: string}[] = [];
+  metadata: {label: string, id: string}[] = [];
   submitSuccess: boolean = false;
 
   headerHeight = 0;
@@ -39,6 +41,19 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
   }
 
   submitJob() {
+    this.job.jobArguments.push(new JobArgument('from', [this.patentInputs.from]));
+    this.job.jobArguments.push(new JobArgument('to', [this.patentInputs.to]));
+    this.job.jobArguments.push(new JobArgument('indicators', this.patentInputs.indicators));
+    this.job.jobArguments.push(new JobArgument('metadata', this.patentInputs.metadata));
+    this.job.callerAttributes = JSON.stringify(this.job.jobArguments);
+    // this.formData.append('job', JSON.stringify(this.job));
+    this.formData.append('file', this.file);
+    console.log(this.formData);
+    this.inputService.postJobCustom(JSON.stringify(this.job), this.formData).subscribe(
+      res => {
+        console.log(res);
+      }, error => {console.log(error);}
+    );
   }
 
   getIndicators() {
@@ -49,6 +64,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
         }
         // console.log(this.indicators);
         this.indicators = [...this.indicators];
+        this.metadata = [...this.indicators];
       }
     );
   }
@@ -66,19 +82,19 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
   }
 
   indicatorSelect(event) {
-    // if (event.target.checked)
-    //   this.paForm.controls['indicators'].value.push(event.target.value);
-    // else {
-    //   const index = this.paForm.controls['indicators'].value.indexOf(event.target.value);
-    //   if (index > -1) {
-    //     this.paForm.controls['indicators'].value.splice(index, 1);
-    //   }
-    // }
+    if (event.target.checked)
+      this.patentInputs.indicators.push(event.target.value);
+    else {
+      const index = this.patentInputs.indicators.indexOf(event.target.value);
+      if (index > -1) {
+        this.patentInputs.indicators.splice(index, 1);
+      }
+    }
   }
 
-  selectAllIndicators(event) {
+  selectAll(event, name: string) {
     if (!event.target.checked) {
-      this.patentInputs.indicators = [];
+      this.patentInputs[name] = [];
       return;
     }
     if (event.target.checked) {
@@ -86,12 +102,23 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
       this.indicators.forEach(indicator => {
         tmpIndicators.push(indicator.id);
       });
-      this.patentInputs.indicators = tmpIndicators;
+      this.patentInputs[name] = tmpIndicators;
+    }
+  }
+
+  metadataSelect(event) {
+    if (event.target.checked)
+      this.patentInputs.metadata.push(event.target.value);
+    else {
+      const index = this.patentInputs.metadata.indexOf(event.target.value);
+      if (index > -1) {
+        this.patentInputs.metadata.splice(index, 1);
+      }
     }
   }
 
   showChecked(name: string, value: string) {
-    // return this.paForm.controls[name].value.includes(value);
+    return this.patentInputs[name].includes(value);
   }
 
   removeCheck(controlName: string) {
@@ -107,24 +134,18 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
   }
 
   stepComplete(step: number) {
-    // if (step === 0) {
-    //   if (this.paForm.controls['dataSource'].value)
-    //     return true;
-    // }
-    // if (step === 1) {
-    //   if (this.paForm.controls['domain'].valid && this.paForm.controls['category'].valid
-    //     && this.paForm.controls['topics'].value.length > 0)
-    //     return true
-    // }
-    // if (step === 2) {
-    //   if (this.paForm.controls['from'].value)
-    //     return true;
-    // }
-    // if (step === 3) {
-    //   if (this.paForm.controls['indicators'].value.length > 0)
-    //     return true;
-    // }
-    //
+    if (step === 0) {
+      if (this.patentInputs.file)
+        return true;
+    }
+    if (step === 1) {
+      if (this.patentInputs.from && this.patentInputs.to)
+        return true
+    }
+    if (step === 2) {
+      if (this.patentInputs.indicators.length > 0 && this.patentInputs.metadata.length > 0)
+        return true;
+    }
     return false;
   }
 

@@ -2,7 +2,7 @@ import {AfterContentChecked, Component, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {InputService} from "../../../services/input.service";
-import {PatentAnalytics} from "../../../domain/patentAnalytics";
+import {PatentClassifications} from "../../../domain/patentClassifications";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {SuccessPageComponent} from "../../successPage/successPage.component";
 import {environment} from "../../../../environments/environment";
@@ -20,7 +20,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, AfterCon
 
   logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
 
-  paForm: FormGroup = PatentAnalytics.toFormGroup(this.fb);
+  paForm: FormGroup = PatentClassifications.toFormGroup(this.fb);
   patents: object = null;
   countries: object = null;
   indicators: {label: string, id: string}[] = [];

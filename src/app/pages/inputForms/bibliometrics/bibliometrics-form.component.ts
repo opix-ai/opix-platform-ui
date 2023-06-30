@@ -1,6 +1,6 @@
 import {AfterContentChecked, Component, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Bibliometrics} from "../../../domain/patentAnalytics";
+import {Bibliometrics} from "../../../domain/patentClassifications";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {Router} from "@angular/router";
@@ -17,8 +17,6 @@ declare var UIkit: any;
 export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
 
   @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
-
-  logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
 
   bibliometricForm: FormGroup = Bibliometrics.toFormGroup(this.fb);
   bibliometric: object = null;

@@ -1,6 +1,6 @@
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
-export class PatentAnalytics {
+export class PatentClassifications {
   dataSource: string = null;
   domain: string = null;
   category: string = null;
@@ -11,7 +11,7 @@ export class PatentAnalytics {
   indicators: string = null;
 
   public static toFormGroup(fb: FormBuilder) {
-    const formPrepare: FormGroup = fb.group(new PatentAnalytics());
+    const formPrepare: FormGroup = fb.group(new PatentClassifications());
     formPrepare.setControl('dataSource', fb.control('EPO', Validators.required));
     // formPrepare.controls['dataSource'].disable();
     formPrepare.setControl('domain', fb.control(null, Validators.required));
@@ -67,7 +67,7 @@ export class Bibliometrics {
 
 }
 
-export class Patent {
+export class PatentNames {
   file: string;
   from: string;
   to: string;
@@ -76,9 +76,10 @@ export class Patent {
 
   constructor() {
     this.file = null;
-    this.from = null;
-    this.to = null;
+    this.from = '2000';
+    this.to = '2022';
     this.indicators = [];
     this.metadata = [];
   }
+
 }

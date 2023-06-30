@@ -67,7 +67,6 @@ export class HomeDashboardOpixComponent implements OnInit {
   }
 
   getFilters(obj: object) {
-    console.log(obj[2]['jobArguments']);
     return obj[2]['jobArguments'];
   }
 

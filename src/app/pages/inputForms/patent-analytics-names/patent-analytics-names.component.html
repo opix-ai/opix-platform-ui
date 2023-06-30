@@ -39,7 +39,7 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1)}">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1) && stepComplete(0)}">
                 <a href="#" class="">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(2) ? 'check_circle':'circle'}}</span>
@@ -99,7 +99,7 @@
                             <div class="uk-margin-small-bottom">
                               <label class="uk-text-bold uk-text-small" for="from">Year from</label>
                             </div>
-                            <ng-select #from labelForId="from" [searchable]="false" formControlName="from">
+                            <ng-select #from labelForId="from" [searchable]="false" [(ngModel)]="patentInputs.from">
                               <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
                             </ng-select>
                           </div>
@@ -107,7 +107,7 @@
                             <div class="uk-margin-small-bottom">
                               <label class="uk-text-bold uk-text-small" for="to">Year to</label>
                             </div>
-                            <ng-select #to labelForId="to" [searchable]="false" formControlName="to">
+                            <ng-select #to labelForId="to" [searchable]="false" [(ngModel)]="patentInputs.to">
                               <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
                             </ng-select>
                           </div>
@@ -127,17 +127,18 @@
                           <div class="uk-margin-small-bottom">
                             <label class="uk-text-bold uk-text-small">Indicators *</label>
                             <label>
-                              <input #allIndicators type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllIndicators($event)">
+                              <input #allIndicators type="checkbox" class="uk-margin-left uk-margin-small-right"
+                                     (change)="selectAll($event, 'indicators')">
                               <span class="uk-text-muted">Select all</span>
                             </label>
                           </div>
                           <div class="checkbox-list checkbox-list-small">
                             <div class="uk-padding-small">
                               <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                                <input [id]="i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
+                                <input [id]="'indicator'+i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
                                        (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
                                        [checked]="showChecked('indicators', indicator['id'])">
-                                <label [for]="i">{{indicator['label']}}</label>
+                                <label [for]="'indicator'+i">{{indicator['label']}}</label>
                               </div>
                             </div>
                           </div>
@@ -146,17 +147,18 @@
                           <div class="uk-margin-small-bottom">
                             <label class="uk-text-bold uk-text-small">Metadata *</label>
                             <label>
-                              <input #allIndicators type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllIndicators($event)">
+                              <input #allMetadata type="checkbox" class="uk-margin-left uk-margin-small-right"
+                                     (change)="selectAll($event, 'metadata')">
                               <span class="uk-text-muted">Select all</span>
                             </label>
                           </div>
                           <div class="checkbox-list checkbox-list-small">
                             <div class="uk-padding-small">
-                              <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                                <input [id]="i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
-                                       (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
-                                       [checked]="showChecked('indicators', indicator['id'])">
-                                <label [for]="i">{{indicator['label']}}</label>
+                              <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let entry of metadata; let i=index">
+                                <input [id]="'metadata'+i" type="checkbox" [value]="entry['id']" class="uk-margin-small-right"
+                                       (change)="metadataSelect($event); (removeCheck('metadata') && allMetadata.checked)?allMetadata.click():''"
+                                       [checked]="showChecked('metadata', entry['id'])">
+                                <label [for]="'metadata'+i">{{entry['label']}}</label>
                               </div>
                             </div>
                           </div>
@@ -185,8 +187,8 @@
               </div>
 
             </div>
+<!--            <pre>{{patentInputs | json}}</pre>-->
           </div>
-
         </div>
 
       </div>

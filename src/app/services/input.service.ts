@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {BrowseJob, Job} from "../../dataSpaceUI/app/domain/job";
 
 @Injectable()
@@ -43,5 +43,11 @@ export class InputService {
 
   postJob(job: Job) {
     return this.http.post(this.api + '/jobs/execute', job);
+  }
+
+  postJobCustom(job: string, formData: FormData) {
+    let params = new HttpParams();
+    params.append('job', job)
+    return this.http.post(this.api + '/jobs/execute/custom', formData, {params: params});
   }
 }
