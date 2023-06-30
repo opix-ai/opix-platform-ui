@@ -6,7 +6,6 @@ import {DataSpaceUIModule} from "../dataSpaceUI/app/dataSpaceUI.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {ReusableComponentsModule} from "../dataSpaceUI/app/shared/reusablecomponents/reusable-components.module";
-import {PaFormComponent} from "./pages/inputForms/patentAnalytics/pa-form.component";
 import {InputService} from "./services/input.service";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
@@ -16,8 +15,9 @@ import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-
 import {ResultComponent} from "./pages/result/result.component";
 import {SharedModule} from "../dataSpaceUI/catalogue-ui/shared/shared.module";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
-import {PatentFormComponent} from "./pages/inputForms/patent/patent-form.component";
+import {PatentAnalyticsNamesComponent} from "./pages/inputForms/patent-analytics-names/patent-analytics-names.component";
 import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
+import {PatentAnalyticsClassificationsComponent} from "./pages/inputForms/patent-analytics-classifications/patent-analytics-classifications.component";
 
 @NgModule({
   declarations: [
@@ -26,8 +26,8 @@ import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
     PayloadExtendComponent,
     HomeDashboardOpixComponent,
     SuccessPageComponent,
-    PaFormComponent,
-    PatentFormComponent,
+    PatentAnalyticsClassificationsComponent,
+    PatentAnalyticsNamesComponent,
     BibliometricsFormComponent,
     SearchWorkflowJobComponent,
     ResultComponent,

@@ -6,10 +6,10 @@ import {ResultComponent} from "./pages/result/result.component";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
 import {LoginGuardComponent} from "../dataSpaceUI/app/services/login-guard.component";
 import {RoleAuthGuardComponent} from "../dataSpaceUI/app/services/role-auth-guard.component";
-import {PaFormComponent} from "./pages/inputForms/patentAnalytics/pa-form.component";
 import {BibliometricsFormComponent} from "./pages/inputForms/bibliometrics/bibliometrics-form.component";
-import {PatentFormComponent} from "./pages/inputForms/patent/patent-form.component";
+import {PatentAnalyticsNamesComponent} from "./pages/inputForms/patent-analytics-names/patent-analytics-names.component";
 import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
+import {PatentAnalyticsClassificationsComponent} from "./pages/inputForms/patent-analytics-classifications/patent-analytics-classifications.component";
 
 const routes: Routes = [
   {
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'patent',
-    component: PatentFormComponent,
+    component: PatentAnalyticsNamesComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {
       roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
@@ -39,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'patentAnalytics',
-    component: PaFormComponent,
+    component: PatentAnalyticsClassificationsComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {
       roles: ["OPERATOR-WORKFLOW_PROCESSOR"]

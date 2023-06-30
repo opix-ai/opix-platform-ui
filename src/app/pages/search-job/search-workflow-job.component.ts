@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {BrowseJob} from "../../../dataSpaceUI/app/domain/job";
-import {from, Subscriber} from "rxjs";
+import {Subscriber} from "rxjs";
 import {InputService} from "../../services/input.service";
 
 

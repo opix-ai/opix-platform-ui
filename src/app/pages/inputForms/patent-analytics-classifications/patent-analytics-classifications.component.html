@@ -3,7 +3,7 @@
   <div class="uk-modal-dialog" style="min-height: 100svh">
     <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
     <div id="modal-header" class="uk-modal-header uk-flex uk-flex-middle">
-      <img src="{{logoURL}}" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
+      <img src="assets/images/logos/opix%20logo%202_notag.png" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
       <div>
         <h4 class="uk-modal-title uk-margin-remove">Patent Analytics</h4>
         <span class="uk-text-meta">Starting from classification schema</span>
@@ -49,7 +49,7 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2)}">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2) && stepComplete(1)}">
                 <a href="#" class="">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
@@ -322,32 +322,6 @@
                             </td>
                           </tr>
                         </table>
-
-
-<!--                        <div uk-grid>-->
-<!--                          <div class="uk-width-1-6">Datasource:</div>S-->
-<!--                          <div class="uk-width-5-6">{{paForm.get('dataSource').value}}</div>-->
-<!--                          <div class="uk-width-1-6">Subject:</div>-->
-<!--                          <div class="uk-width-5-6">{{paForm.get('domain').value}}</div>-->
-<!--                          <div class="uk-width-1-6">Sector:</div>-->
-<!--                          <div class="uk-width-5-6">{{paForm.get('category').value}}</div>-->
-<!--                          <div class="uk-width-1-6">Technological groups:</div>-->
-<!--                          <div class="uk-width-5-6">-->
-<!--                            <p *ngFor="let topic of paForm.get('topics').value">{{topic}}</p>-->
-<!--                          </div>-->
-<!--                          <div class="uk-width-1-6">Year from:</div>-->
-<!--                          <div class="uk-width-5-6">{{paForm.get('from').value}}</div>-->
-<!--                          <div class="uk-width-1-6">Year to:</div>-->
-<!--                          <div class="uk-width-5-6">{{paForm.get('to').value}}</div>-->
-<!--                          <div class="uk-width-1-6">Countries:</div>-->
-<!--                          <div class="uk-width-5-6">-->
-<!--                            <span *ngFor="let country of paForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span>-->
-<!--                          </div>-->
-<!--                          <div class="uk-width-1-6">Indicators:</div>-->
-<!--                          <div class="uk-width-5-6">-->
-<!--                            <p *ngFor="let indicator of paForm.get('indicators').value">{{indicator}}</p>-->
-<!--                          </div>-->
-<!--                        </div>-->
                       </div>
 <!--                      <a href="#" uk-switcher-item="previous">Previous</a>-->
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">

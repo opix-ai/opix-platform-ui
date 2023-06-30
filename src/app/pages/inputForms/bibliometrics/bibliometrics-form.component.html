@@ -3,7 +3,7 @@
   <div class="uk-modal-dialog" style="min-height: 100svh">
     <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
     <div id="modal-header" class="uk-modal-header uk-flex uk-flex-middle">
-      <img src="{{logoURL}}" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
+      <img src="assets/images/logos/opix%20logo%202_notag.png" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
       <h4 class="uk-modal-title uk-margin-remove">Bibliometrics</h4>
     </div>
     <div class="" [ngStyle]="{'height': 'calc(100vh - ' + headerHeight + 'px)'}">
@@ -46,7 +46,7 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2)}">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2) && stepComplete(1)}">
                 <a href="#" class="">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
@@ -303,10 +303,10 @@
                         <div class="checkbox-list">
                           <div class="uk-padding-small">
                             <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                              <input [id]="i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
+                              <input [id]="'indicator'+i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
                                      (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
                                      [checked]="showChecked('indicators', indicator['id'])">
-                              <label [for]="i">{{indicator['label']}}</label>
+                              <label [for]="'indicator'+i">{{indicator['label']}}</label>
                             </div>
                           </div>
                         </div>
@@ -330,79 +330,57 @@
                         <table>
                           <tr>
                             <th>Datasource</th>
-                            <td>
-                              {{bibliometricForm.get('dataSource').value}}
-                            </td>
+                            <td>{{bibliometricForm.get('dataSource').value}}</td>
                           </tr>
                           <tr>
                             <th>Subject</th>
-                            <td>
-                              {{bibliometricForm.get('domain').value}}
-                            </td>
+                            <td>{{bibliometricForm.get('domain').value}}</td>
                           </tr>
                           <tr>
                             <th>Sector</th>
-                            <td>
-                              {{bibliometricForm.get('category').value}}
-                            </td>
+                            <td>{{bibliometricForm.get('category').value}}</td>
                           </tr>
                           <tr>
                             <th>Technological groups</th>
-                            <td>
-                              <div *ngFor="let topic of bibliometricForm.get('topics').value">{{topic}}</div>
-                            </td>
+                            <td><div *ngFor="let topic of bibliometricForm.get('topics').value">{{topic}}</div></td>
                           </tr>
                           <tr>
                             <th>Year from</th>
-                            <td>
-                              {{bibliometricForm.get('from').value}}
-                            </td>
+                            <td>{{bibliometricForm.get('from').value}}</td>
                           </tr>
                           <tr>
                             <th>Year to</th>
-                            <td>
-                              {{bibliometricForm.get('to').value}}
-                            </td>
+                            <td>{{bibliometricForm.get('to').value}}</td>
                           </tr>
                           <tr>
                             <th>Countries</th>
-                            <td>
-                              <span *ngFor="let country of bibliometricForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span>
-                            </td>
+                            <td><span *ngFor="let country of bibliometricForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span></td>
                           </tr>
                           <tr>
                             <th>Access rights</th>
-                            <td>
-                              <div *ngFor="let topic of bibliometricForm.get('accessRights').value">{{topic}}</div>
-                            </td>
+                            <td><div *ngFor="let right of bibliometricForm.get('accessRights').value">{{right}}</div></td>
                           </tr>
                           <tr>
                             <th>Additional options</th>
-                            <td>
-                              <div *ngFor="let topic of bibliometricForm.get('additionalOptions').value">{{topic}}</div>
-                            </td>
+                            <td><div *ngFor="let topic of bibliometricForm.get('additionalOptions').value">{{topic}}</div></td>
                           </tr>
                           <tr>
                             <th>Publication type</th>
-                            <td>
-                              {{bibliometricForm.get('publicationType').value}}
-                            </td>
+                            <td>{{bibliometricForm.get('publicationType').value}}</td>
                           </tr>
                           <tr>
                             <th>Indicators</th>
-                            <td>
-                              <div *ngFor="let indicator of bibliometricForm.get('indicators').value">{{indicator}}</div>
-                            </td>
+                            <td><div *ngFor="let indicator of bibliometricForm.get('indicators').value">{{indicator}}</div></td>
                           </tr>
                         </table>
 
                       </div>
-                      <!--                      <a href="#" uk-switcher-item="previous">Previous</a>-->
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
                         <button type="button" class="uk-button uk-button-primary uk-width-1-1" (click)="submitJob()">Submit</button>
                       </div>
                     </li>
                   </ul>
+                  <pre>{{bibliometricForm.getRawValue() | json}}</pre>
                 </div>
               </div>
 

@@ -57,7 +57,6 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked() {
-    console.log('Checking height (bibliometrics)...');
     this.headerHeight = document.getElementById('modal-header').offsetHeight;
   }
 
@@ -68,19 +67,19 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
       window.scrollTo(0,0);
       return;
     }
+    this.job.jobArguments = [];
     for (let control in this.bibliometricForm.controls) {
-      // if (this.bibliometricForm.controls[control].value instanceof Array) {
-      //   // console.log(this.paForm.controls[control].value);
-      //   for (let element of this.bibliometricForm.controls[control].value) {
-      //     let jobArgument: JobArgument = new JobArgument(control, element);
-      //     this.job.jobArguments.push(jobArgument);
-      //   }
-      // } else
-      if (this.bibliometricForm.controls[control].value) {
+      if (this.bibliometricForm.controls[control].value instanceof Array && this.bibliometricForm.controls[control].value) {
         let jobArgument: JobArgument = new JobArgument(control, this.bibliometricForm.controls[control].value);
+        this.job.jobArguments.push(jobArgument);
+      } else if (this.bibliometricForm.controls[control].value) {
+        let jobArgument: JobArgument = new JobArgument(control, [this.bibliometricForm.controls[control].value]);
         this.job.jobArguments.push(jobArgument);
       }
     }
+    // for (let element of this.job.jobArguments.find(el => el.name === 'topics').value) {
+    //   element = this.bibliometricForm.get('domain').value + '.' + this.bibliometricForm.get('category').value + '.' + element;
+    // }
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
     jobArguments.push({'workflowType':'bibliometricAnalysis'});
@@ -206,7 +205,7 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
   setTopics(category: string) {
     // console.log('setting topics');
     this.topics = [];
-    this.bibliometricForm.controls['topics'].reset(null);
+    this.bibliometricForm.controls['topics'].reset([]);
     this.allTopics = false;
 
     if (category === null || !this.bibliometricForm.controls['domain'].value) {
@@ -225,12 +224,18 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
   }
 
   topicSelect(event) {
-    if (event.target.checked)
-      this.bibliometricForm.controls['topics'].value.push(event.target.value);
+    let tmpArr: string[] = [];
+    if (event.target.checked) {
+      tmpArr = this.bibliometricForm.controls['topics'].value;
+      tmpArr.push(event.target.value);
+      this.bibliometricForm.controls['topics'].setValue(tmpArr);
+    }
     else {
       const index = this.bibliometricForm.controls['topics'].value.indexOf(event.target.value);
       if (index > -1) {
-        this.bibliometricForm.controls['topics'].value.splice(index, 1);
+        tmpArr = this.bibliometricForm.controls['topics'].value;
+        tmpArr.splice(index, 1);
+        this.bibliometricForm.controls['topics'].setValue(tmpArr);
       }
     }
   }
@@ -246,8 +251,8 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
     }
     if (step === 1) {
       if (this.bibliometricForm.controls['domain'].valid && this.bibliometricForm.controls['category'].valid
-        && this.bibliometricForm.controls['topics'].value.length > 0)
-        return true
+        && this.bibliometricForm.controls['topics'].valid)
+        return true;
     }
     if (step === 2) {
       if (this.bibliometricForm.controls['from'].value)
@@ -306,8 +311,12 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
   }
 
   indicatorSelect(event) {
-    if (event.target.checked)
-      this.bibliometricForm.controls['indicators'].value.push(event.target.value);
+    let tmpArr: string[] = [];
+    if (event.target.checked) {
+      tmpArr = this.bibliometricForm.controls['indicators'].value;
+      tmpArr.push(event.target.value);
+      this.bibliometricForm.controls['indicators'].setValue(tmpArr);
+    }
     else {
       const index = this.bibliometricForm.controls['indicators'].value.indexOf(event.target.value);
       if (index > -1) {

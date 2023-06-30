@@ -1,12 +1,4 @@
-import {
-  AfterContentChecked,
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  OnInit,
-  ViewChild
-} from "@angular/core";
+import {AfterContentChecked, Component, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {InputService} from "../../../services/input.service";
@@ -18,11 +10,11 @@ import {environment} from "../../../../environments/environment";
 declare var UIkit: any;
 
 @Component({
-  selector: 'app-pa-input-form',
-  templateUrl: 'pa-form.component.html'
+  selector: 'patent-analytics-classifications-input',
+  templateUrl: 'patent-analytics-classifications.component.html'
 })
 
-export class PaFormComponent implements OnInit, AfterContentChecked {
+export class PatentAnalyticsClassificationsComponent implements OnInit, AfterContentChecked {
 
   @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
 
@@ -60,13 +52,16 @@ export class PaFormComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked() {
-    console.log('Checking height (patent analytics 1)...');
     this.headerHeight = document.getElementById('modal-header').offsetHeight;
   }
 
   submitJob() {
     if (this.paForm.invalid) {
       // console.log('Invalid Form');
+      for (let controlsKey in this.paForm.controls) {
+        console.log(controlsKey);
+        console.log(this.paForm.controls[controlsKey].valid);
+      }
       this.message = 'Fields with * are mandatory.'
       window.scrollTo(0,0);
       return;
@@ -81,9 +76,9 @@ export class PaFormComponent implements OnInit, AfterContentChecked {
         this.job.jobArguments.push(jobArgument);
       }
     }
-    for (let element of this.job.jobArguments.find(el => el.name === 'topics').value) {
-      element = this.paForm.get('domain').value + '.' + this.paForm.get('category').value + '.' + element;
-    }
+    // for (let element of this.job.jobArguments.find(el => el.name === 'topics').value) {
+    //   element = this.paForm.get('domain').value + '.' + this.paForm.get('category').value + '.' + element;
+    // }
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
     jobArguments.push({'workflowType':'patentAnalytics'});
@@ -192,7 +187,7 @@ export class PaFormComponent implements OnInit, AfterContentChecked {
       return;
     }
     for (let topicKey in this.patents[this.paForm.controls['domain'].value][category]) {
-      this.patents[this.paForm.controls['domain'].value][category][topicKey].label =  topicKey;
+      this.patents[this.paForm.controls['domain'].value][category][topicKey].label = topicKey;
       this.topics.push(this.patents[this.paForm.controls['domain'].value][category][topicKey]);
     }
     this.topics = [...this.topics];
@@ -217,12 +212,18 @@ export class PaFormComponent implements OnInit, AfterContentChecked {
   }
 
   topicSelect(event) {
-    if (event.target.checked)
-      this.paForm.controls['topics'].value.push(event.target.value);
+    let tmpArr: string[] = [];
+    if (event.target.checked) {
+      tmpArr = this.paForm.controls['topics'].value;
+      tmpArr.push(event.target.value);
+      this.paForm.controls['topics'].setValue(tmpArr);
+    }
     else {
       const index = this.paForm.controls['topics'].value.indexOf(event.target.value);
       if (index > -1) {
-        this.paForm.controls['topics'].value.splice(index, 1);
+        tmpArr = this.paForm.controls['topics'].value;
+        tmpArr.splice(index, 1);
+        this.paForm.controls['topics'].setValue(tmpArr);
       }
     }
   }
@@ -258,12 +259,18 @@ export class PaFormComponent implements OnInit, AfterContentChecked {
   }
 
   indicatorSelect(event) {
-    if (event.target.checked)
-      this.paForm.controls['indicators'].value.push(event.target.value);
+    let tmpArr: string[] = [];
+    if (event.target.checked) {
+      tmpArr = this.paForm.controls['indicators'].value;
+      tmpArr.push(event.target.value);
+      this.paForm.controls['indicators'].setValue(tmpArr);
+    }
     else {
       const index = this.paForm.controls['indicators'].value.indexOf(event.target.value);
       if (index > -1) {
-        this.paForm.controls['indicators'].value.splice(index, 1);
+        tmpArr = this.paForm.controls['indicators'].value;
+        tmpArr.splice(index, 1);
+        this.paForm.controls['indicators'].setValue(tmpArr);
       }
     }
   }
@@ -312,7 +319,7 @@ export class PaFormComponent implements OnInit, AfterContentChecked {
       return true
     }
     if (step === 2) {
-      if (this.paForm.controls['from'].value)
+      if (this.paForm.controls['from'].valid && this.paForm.controls['from'].valid && this.paForm.controls['countries'].valid)
         return true;
     }
     if (step === 3) {

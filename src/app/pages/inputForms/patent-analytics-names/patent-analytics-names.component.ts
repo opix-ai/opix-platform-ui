@@ -7,11 +7,11 @@ import {environment} from "../../../../environments/environment";
 declare var UIkit: any;
 
 @Component({
-  selector: 'patent-with-file-upload',
-  templateUrl: 'patent-form.component.html'
+  selector: 'patent-analytics-names',
+  templateUrl: 'patent-analytics-names.component.html'
 })
 
-export class PatentFormComponent implements OnInit, AfterContentChecked {
+export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecked {
 
   logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
 
