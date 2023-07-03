@@ -18,7 +18,9 @@
           <li class="uk-parent" [routerLinkActive]="['uk-active']">
             <a class="" [routerLink]="['/home']" aria-expanded="false">Home</a>
           </li>
-          <li class="uk-parent" [routerLinkActive]="['uk-active']">
+          <li *ngIf="(userInfo?.roles && (hasRole('OPERATOR_DATASET-OWNER') || hasRole('OPERATOR_DATASET-INGESTOR')
+          || hasRole('OPERATOR_DATA-PROCESSOR') || hasRole('OPERATOR_DEVELOPER'))) || projectName !== 'Opix'"
+            class="uk-parent" [routerLinkActive]="['uk-active']">
             <a href="#" class="" aria-expanded="false">
               Browse catalogue
             </a>
