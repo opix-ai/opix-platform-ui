@@ -100,7 +100,6 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
         this.message = 'Sorry something went wrong. Please try again later.'
       }
     );
-    console.log(this.job);
 
   }
 

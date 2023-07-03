@@ -10,6 +10,7 @@ import {BibliometricsFormComponent} from "./pages/inputForms/bibliometrics/bibli
 import {PatentAnalyticsNamesComponent} from "./pages/inputForms/patent-analytics-names/patent-analytics-names.component";
 import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
 import {PatentAnalyticsClassificationsComponent} from "./pages/inputForms/patent-analytics-classifications/patent-analytics-classifications.component";
+import {GlossaryComponent} from "./pages/glossary/glossary.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeOpixComponent
+  },
+  {
+    path: 'glossary',
+    component: GlossaryComponent
   },
   {
     path: 'workflowSearch',

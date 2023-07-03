@@ -1,9 +1,10 @@
-import {AfterContentChecked, Component, OnDestroy, OnInit} from "@angular/core";
+import {AfterContentChecked, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Router} from "@angular/router";
 import {PatentNames} from "../../../domain/patentClassifications";
 import {InputService} from "../../../services/input.service";
 import {environment} from "../../../../environments/environment";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
+import {SuccessPageComponent} from "../../successPage/successPage.component";
 
 declare var UIkit: any;
 
@@ -14,6 +15,8 @@ declare var UIkit: any;
 
 export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
+  @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
+
   patentInputs: PatentNames = new PatentNames();
   formData: FormData = new FormData();
   job: Job = new Job();
@@ -21,6 +24,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   yearRange: number[] = [];
   indicators: {label: string, code: string}[] = [];
   metadata: {label: string, code: string, info: string}[] = [];
+  message: string = null;
   submitSuccess: boolean = false;
   tabs
 
@@ -60,11 +64,14 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
     this.job.serviceArguments.processId = 'patent-names-workflow';
     this.formData.append('file', this.file);
     this.formData.append('job', JSON.stringify(this.job));
-    console.log(this.formData);
     this.inputService.postJobCustom(this.formData).subscribe(
       res => {
-        console.log(res);
-      }, error => {console.log(error);}
+        this.success.timer(1/12);
+        this.submitSuccess = true;
+      }, error => {
+        console.log(error);
+        this.message = 'Sorry something went wrong. Please try again later.'
+      }
     );
   }
 
@@ -75,7 +82,6 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
           this.indicators.push({label: key, code: res[key]});
         }
         this.indicators = [...this.indicators];
-        console.log(this.indicators);
       }
     );
   }
@@ -87,7 +93,6 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
           this.metadata.push({label: key, code: res[key]['code'], info: res[key]['info']});
         }
         this.metadata = [...this.metadata];
-        console.log(this.metadata);
       }
     );
   }
@@ -176,5 +181,10 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
     this.tabs.show(index);
   }
 
-  protected readonly parent = parent;
+  clearMessage() {
+    setTimeout(()=>{
+      this.message = null;
+    }, 300);
+  }
+
 }
