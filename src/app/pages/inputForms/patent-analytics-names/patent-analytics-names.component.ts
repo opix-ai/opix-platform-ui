@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, OnInit} from "@angular/core";
+import {AfterContentChecked, Component, OnDestroy, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {PatentNames} from "../../../domain/patentClassifications";
 import {InputService} from "../../../services/input.service";
@@ -12,7 +12,7 @@ declare var UIkit: any;
   templateUrl: 'patent-analytics-names.component.html'
 })
 
-export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecked {
+export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
   patentInputs: PatentNames = new PatentNames();
   formData: FormData = new FormData();
@@ -22,8 +22,9 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
   indicators: {label: string, id: string}[] = [];
   metadata: {label: string, id: string}[] = [];
   submitSuccess: boolean = false;
+  tabs
 
-  headerHeight = 0;
+  headerHeight = 91;
 
   constructor(private router: Router, private inputService: InputService) {
   }
@@ -33,11 +34,16 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
-    UIkit.modal('#modal-input').show();
+    UIkit.modal('#modal-input').show().then(
+      setTimeout( ()=> {
+        this.tabs = UIkit.tab(document.getElementById('tabs'), {connect: '.switcher-container'})
+        this.headerHeight = document.getElementById('modal-header').offsetHeight;
+      }, 0)
+    );
   }
 
-  ngAfterContentChecked() {
-    this.headerHeight = document.getElementById('modal-header').offsetHeight;
+  ngOnDestroy() {
+    this.tabs.$destroy(true);
   }
 
   submitJob() {
@@ -47,7 +53,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
     this.job.jobArguments.push(new JobArgument('metadata', this.patentInputs.metadata));
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
-    jobArguments.push({'workflowType':'patentAnalytics'});
+    jobArguments.push({'workflowType':'patentAnalyticsNames'});
     jobArguments.push({'jobArguments': this.job.jobArguments});
     this.job.callerAttributes = JSON.stringify(jobArguments);
     this.job.serviceArguments.processId = 'patent-names-workflow';
@@ -155,7 +161,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, AfterContentChecke
   }
 
   continue(index: number) {
-    UIkit.switcher('#tabs').show(index);
+    this.tabs.show(index);
   }
 
   protected readonly parent = parent;

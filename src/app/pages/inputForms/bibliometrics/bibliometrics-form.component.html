@@ -1,4 +1,4 @@
-<div id="modal-input" class="uk-modal-full modal-secondary" uk-modal='{"esc-close": false}'>
+<div id="modal-input" class="uk-modal-full modal-secondary" uk-modal='{"esc-close": false, "bg-close": false}'>
 
   <div class="uk-modal-dialog" style="min-height: 100svh">
     <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
@@ -6,13 +6,13 @@
       <img src="assets/images/logos/opix%20logo%202_notag.png" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
       <h4 class="uk-modal-title uk-margin-remove">Bibliometrics</h4>
     </div>
-    <div class="" [ngStyle]="{'height': 'calc(100vh - ' + headerHeight + 'px)'}">
+    <div class="">
 
-      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand" style="height: 100%;">
+      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
 
-        <div class="" uk-grid style="height: 100%;">
-          <div class="uk-width-1-3 uk-section-default">
-            <ul id="tabs" class="uk-tab-left wizard-tabs uk-margin-large-top" uk-tab uk-switcher="connect: .switcher-container">
+        <div class="" uk-grid>
+          <div class="uk-width-1-3 uk-section-default" [ngStyle]="{'min-height': 'calc(100vh - ' + headerHeight + 'px)'}">
+            <ul id="tabs" class="uk-tab uk-tab-left wizard-tabs uk-margin-large-top">
               <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
                 <a href="#" class="">
                   <div class="step-icon uk-margin-right">

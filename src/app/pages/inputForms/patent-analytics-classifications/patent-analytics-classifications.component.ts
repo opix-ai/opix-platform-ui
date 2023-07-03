@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, OnInit, ViewChild} from "@angular/core";
+import {AfterContentChecked, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {InputService} from "../../../services/input.service";
@@ -14,11 +14,9 @@ declare var UIkit: any;
   templateUrl: 'patent-analytics-classifications.component.html'
 })
 
-export class PatentAnalyticsClassificationsComponent implements OnInit, AfterContentChecked {
+export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestroy {
 
   @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
-
-  logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
 
   paForm: FormGroup = PatentClassifications.toFormGroup(this.fb);
   patents: object = null;
@@ -33,8 +31,9 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, AfterCon
   job: Job = new Job();
   message: string = null;
   submitSuccess: boolean = false;
+  tabs
 
-  headerHeight = 0;
+  headerHeight = 91;
 
   constructor(private fb: FormBuilder,private router: Router, private inputService: InputService) {
   }
@@ -47,12 +46,17 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, AfterCon
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
-    UIkit.modal('#modal-input').show();
-
+    UIkit.modal('#modal-input').show().then(
+      setTimeout( ()=> {
+        this.tabs = UIkit.tab(document.getElementById('tabs'), {connect: '.switcher-container'});
+        this.headerHeight = document.getElementById('modal-header').offsetHeight;
+        console.log(this.headerHeight);
+      }, 0)
+    );
   }
 
-  ngAfterContentChecked() {
-    this.headerHeight = document.getElementById('modal-header').offsetHeight;
+  ngOnDestroy() {
+    this.tabs.$destroy(true);
   }
 
   submitJob() {
@@ -304,8 +308,8 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, AfterCon
     return '';
   }
 
-  continue(index: number) {
-    UIkit.switcher('#tabs').show(index);
+  showSwitcherTab(index: number) {
+    this.tabs.show(index);
   }
 
   stepComplete(step: number) {

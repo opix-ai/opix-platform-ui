@@ -1,4 +1,4 @@
-<div id="modal-input" class="uk-modal-full modal-secondary" uk-modal='{"esc-close": false}'>
+<div id="modal-input" class="uk-modal-full modal-secondary" uk-modal='{"esc-close": false, "bg-close": false}'>
 
   <div class="uk-modal-dialog" style="min-height: 100svh">
     <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
@@ -9,13 +9,12 @@
         <span class="uk-text-meta">Starting from classification schema</span>
       </div>
     </div>
-    <div class="" [ngStyle]="{'height': 'calc(100vh - ' + headerHeight + 'px)'}">
-<!--      <div class="uk-modal-body">-->
-      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand" style="height: 100%;">
+    <div class="" >
+      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
 
-        <div class="" uk-grid style="height: 100%;">
-          <div class="uk-width-1-3 uk-section-default">
-            <ul id="tabs" class="uk-tab-left wizard-tabs uk-margin-large-top" uk-tab uk-switcher="connect: .switcher-container">
+        <div class="" uk-grid>
+          <div class="uk-width-1-3 uk-section-default" [ngStyle]="{'min-height': 'calc(100svh - ' + headerHeight + 'px)'}">
+            <ul id="tabs" class="uk-tab-left wizard-tabs uk-margin-large-top">
               <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
                 <a href="#" class="">
                   <div class="step-icon uk-margin-right">
@@ -79,7 +78,7 @@
 
               <div class="uk-grid uk-flex uk-flex-center">
                 <div class="uk-width-2-3">
-                  <ul class="uk-switcher switcher-container uk-margin-large-top">
+                  <ul class="uk-switcher uk-margin-large-top switcher-container">
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
                         <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Input</div>
@@ -99,7 +98,7 @@
                         </div>
                       </form>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(1)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(1)">Continue</a>
                       </div>
                     </li>
                     <li>
@@ -159,9 +158,8 @@
 
                         </div>
                       </form>
-                      <!--                  <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>-->
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(2)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(2)">Continue</a>
                       </div>
                     </li>
                     <li>
@@ -228,7 +226,7 @@
                       </form>
                       <!--                  <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>-->
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(3)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(3)">Continue</a>
                       </div>
                     </li>
                     <li>
@@ -258,7 +256,7 @@
 
                       </div>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(4)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(4)">Continue</a>
                       </div>
                     </li>
                     <li>

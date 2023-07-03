@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, OnInit, ViewChild} from "@angular/core";
+import {AfterContentChecked, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Bibliometrics} from "../../../domain/patentClassifications";
 import {InputService} from "../../../services/input.service";
@@ -14,7 +14,7 @@ declare var UIkit: any;
   templateUrl: 'bibliometrics-form.component.html'
 })
 
-export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
+export class BibliometricsFormComponent implements OnInit, OnDestroy {
 
   @ViewChild(SuccessPageComponent) success:SuccessPageComponent;
 
@@ -34,8 +34,9 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
   job: Job = new Job();
   message: string = null;
   submitSuccess: boolean = false;
+  tabs
 
-  headerHeight = 0;
+  headerHeight = 91;
 
   constructor(private fb: FormBuilder, private router: Router, private inputService: InputService) {
   }
@@ -51,11 +52,16 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
-    UIkit.modal('#modal-input').show();
+    UIkit.modal('#modal-input').show().then(
+      setTimeout( ()=> {
+        this.tabs = UIkit.tab(document.getElementById('tabs'), {connect: '.switcher-container'})
+        this.headerHeight = document.getElementById('modal-header').offsetHeight;
+      }, 0)
+    );
   }
 
-  ngAfterContentChecked() {
-    this.headerHeight = document.getElementById('modal-header').offsetHeight;
+  ngOnDestroy() {
+    this.tabs.$destroy(true);
   }
 
   submitJob() {
@@ -239,7 +245,7 @@ export class BibliometricsFormComponent implements OnInit, AfterContentChecked {
   }
 
   continue(index: number) {
-    UIkit.switcher('#tabs').show(index);
+    this.tabs.show(index);
   }
 
   stepComplete(step: number) {
