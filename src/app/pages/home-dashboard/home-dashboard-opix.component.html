@@ -46,7 +46,7 @@
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
             <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/patent-analytics']">Learn more</button>
             <div class="uk-inline">
-              <button class="uk-button uk-button-primary" type="button" (click)="showDropdown()">Start now</button>
+              <button class="uk-button uk-button-primary" type="button" (click)="showDropdown()">Start</button>
               <div #patentAnalyticsStartingPoint uk-dropdown="mode: click; pos: bottom-left">
                 <ul class="uk-nav uk-navbar-dropdown-nav">
                   <li><a [routerLink]="['/patent-analytics-classifications']" (click)="setReturnUrl()">Starting from classification schema</a></li>
@@ -71,7 +71,7 @@
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
             <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/bibliometric-analysis']">Learn more</button>
             <button class="uk-button uk-button-primary" [routerLink]="['/bibliometricAnalysis']" (click)="setReturnUrl()">
-              Start now
+              Start
             </button>
           </div>
         </div>

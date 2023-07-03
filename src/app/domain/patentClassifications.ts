@@ -26,7 +26,7 @@ export class PatentClassifications {
       "SK", "SM", "UA", "VA"]);
     formPrepare.setControl('indicators', fb.control([], Validators.required));
     formPrepare.controls['to'].setValue('2022');
-    formPrepare.controls['from'].setValue('2000');
+    formPrepare.controls['from'].setValue('2021');
 
     return formPrepare;
   }
@@ -76,7 +76,7 @@ export class PatentNames {
 
   constructor() {
     this.file = null;
-    this.from = '2000';
+    this.from = '2021';
     this.to = '2022';
     this.indicators = [];
     this.metadata = [];
