@@ -30,7 +30,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'patent',
+    path: 'patent-analytics-names',
     component: PatentAnalyticsNamesComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {
@@ -38,7 +38,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'patentAnalytics',
+    path: 'patent-analytics-classifications',
     component: PatentAnalyticsClassificationsComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {

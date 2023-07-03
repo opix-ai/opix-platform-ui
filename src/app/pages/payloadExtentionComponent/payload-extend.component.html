@@ -23,7 +23,7 @@
         <ng-container *ngIf="projectName === 'Opix' && hasRole('OPERATOR-WORKFLOW_PROCESSOR')">
           <button *ngIf="payload?.identifier?.value === 'bibliometric-analysis'" [routerLink]="['/bibliometricAnalysis']"
                   (click)="setReturnUrl()" class="uk-button uk-button-primary">Start analysis</button>
-          <button *ngIf="payload?.identifier?.value === 'patent-analytics'" [routerLink]="['/patentAnalytics']"
+          <button *ngIf="payload?.identifier?.value === 'patent-analytics'" [routerLink]="['/patent-analytics-classifications']"
                   (click)="setReturnUrl()" class="uk-button uk-button-primary">Start analysis</button>
         </ng-container>
       </div>
@@ -132,21 +132,3 @@
 
   </div>
 </div>
-
-<!--<div id="modal-input" class="uk-modal-full modal-secondary" uk-modal>-->
-
-<!--  <div class="uk-modal-dialog" style="min-height: 100svh">-->
-<!--    <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>-->
-<!--    <div class="uk-modal-header">-->
-<!--      <h4 class="uk-modal-title">-->
-<!--        <ng-container *ngIf="payload?.identifier?.value === 'bibliometric-analysis'">Bibliometric Analysis</ng-container>-->
-<!--        <ng-container *ngIf="payload?.identifier?.value === 'patent-analytics'">Patent Analytics</ng-container>-->
-<!--      </h4>-->
-<!--    </div>-->
-<!--    <div class="uk-modal-body">-->
-<!--      <app-bibliometric-input-form *ngIf="payload?.identifier?.value === 'bibliometric-analysis'"></app-bibliometric-input-form>-->
-<!--      <app-pa-input-form *ngIf="payload?.identifier?.value === 'patent-analytics'"></app-pa-input-form>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--</div>-->

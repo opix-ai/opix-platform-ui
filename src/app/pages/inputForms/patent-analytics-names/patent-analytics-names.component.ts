@@ -19,8 +19,8 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   job: Job = new Job();
   file: File = null;
   yearRange: number[] = [];
-  indicators: {label: string, id: string}[] = [];
-  metadata: {label: string, id: string}[] = [];
+  indicators: {label: string, code: string}[] = [];
+  metadata: {label: string, code: string, info: string}[] = [];
   submitSuccess: boolean = false;
   tabs
 
@@ -31,6 +31,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getIndicators();
+    this.getMetadata();
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
@@ -43,7 +44,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.tabs.$destroy(true);
+    this.tabs?.$destroy(true);
   }
 
   submitJob() {
@@ -71,11 +72,22 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
     this.inputService.getIndicators('Patents').subscribe(
       res=> {
         for (let key in res) {
-          this.indicators.push({label: key, id: res[key]});
+          this.indicators.push({label: key, code: res[key]});
         }
-        // console.log(this.indicators);
         this.indicators = [...this.indicators];
-        this.metadata = [...this.indicators];
+        console.log(this.indicators);
+      }
+    );
+  }
+
+  getMetadata() {
+    this.inputService.getMetadata('Patents').subscribe(
+      res=> {
+        for (let key in res) {
+          this.metadata.push({label: key, code: res[key]['code'], info: res[key]['info']});
+        }
+        this.metadata = [...this.metadata];
+        console.log(this.metadata);
       }
     );
   }
@@ -109,11 +121,11 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
       return;
     }
     if (event.target.checked) {
-      let tmpIndicators: string[] = [];
-      this.indicators.forEach(indicator => {
-        tmpIndicators.push(indicator.id);
+      let tmpArray: string[] = [];
+      this[name].forEach(element => {
+        tmpArray.push(element.code);
       });
-      this.patentInputs[name] = tmpIndicators;
+      this.patentInputs[name] = tmpArray;
     }
   }
 

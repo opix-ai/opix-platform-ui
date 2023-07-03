@@ -61,7 +61,7 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.tabs.$destroy(true);
+    this.tabs?.$destroy(true);
   }
 
   submitJob() {

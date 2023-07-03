@@ -18,6 +18,10 @@ export class InputService {
     return this.http.get(this.base + `/indicators?service=${service}`);
   }
 
+  getMetadata(service: string) {
+    return this.http.get(this.base + `/metadata?service=${service}`);
+  }
+
   getCountries() {
     return this.http.get(this.base + '/countries');
   }

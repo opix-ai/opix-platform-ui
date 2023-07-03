@@ -155,9 +155,9 @@
                           <div class="checkbox-list checkbox-list-small">
                             <div class="uk-padding-small">
                               <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let entry of metadata; let i=index">
-                                <input [id]="'metadata'+i" type="checkbox" [value]="entry['id']" class="uk-margin-small-right"
+                                <input [id]="'metadata'+i" type="checkbox" [value]="entry['code']" class="uk-margin-small-right"
                                        (change)="metadataSelect($event); (removeCheck('metadata') && allMetadata.checked)?allMetadata.click():''"
-                                       [checked]="showChecked('metadata', entry['id'])">
+                                       [checked]="showChecked('metadata', entry['code'])">
                                 <label [for]="'metadata'+i">{{entry['label']}}</label>
                               </div>
                             </div>

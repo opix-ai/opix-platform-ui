@@ -56,7 +56,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   }
 
   ngOnDestroy() {
-    this.tabs.$destroy(true);
+    this.tabs?.$destroy(true);
   }
 
   submitJob() {
