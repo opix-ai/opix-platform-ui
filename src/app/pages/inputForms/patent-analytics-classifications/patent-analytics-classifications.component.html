@@ -98,7 +98,9 @@
                         </div>
                       </form>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(1)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(1)"
+                           [ngClass]="{'uk-disabled': !stepComplete(0)}">Continue
+                        </a>
                       </div>
                     </li>
                     <li>
@@ -159,7 +161,8 @@
                         </div>
                       </form>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(2)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(2)"
+                           [ngClass]="{'uk-disabled': !stepComplete(1)}">Continue</a>
                       </div>
                     </li>
                     <li>
@@ -226,7 +229,9 @@
                       </form>
                       <!--                  <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>-->
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(3)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(3)"
+                           [ngClass]="{'uk-disabled': !(stepComplete(1) && stepComplete(2))}">Continue
+                        </a>
                       </div>
                     </li>
                     <li>
@@ -256,7 +261,9 @@
 
                       </div>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(4)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(4)"
+                           [ngClass]="{'uk-disabled': !stepComplete(3)}">Continue
+                        </a>
                       </div>
                     </li>
                     <li>
@@ -313,16 +320,16 @@
 
                   <ul class="uk-dotnav uk-flex uk-flex-center">
                     <li [ngClass]="{'uk-active': tabIndex === 0}"><a (click)="showSwitcherTab(0)">Item 1</a></li>
-                    <li [ngClass]="{'uk-active': tabIndex === 1, 'uk-disable': stepComplete(0)}">
+                    <li [ngClass]="{'uk-active': tabIndex === 1, 'uk-disabled': !stepComplete(0)}">
                       <a (click)="showSwitcherTab(1)">Item 2</a>
                     </li>
-                    <li [ngClass]="{'uk-active': tabIndex === 2, 'uk-disable': stepComplete(1)}">
+                    <li [ngClass]="{'uk-active': tabIndex === 2, 'uk-disabled': !stepComplete(1)}">
                       <a (click)="showSwitcherTab(2)">Item 3</a>
                     </li>
-                    <li [ngClass]="{'uk-active': tabIndex === 3, 'uk-disable': (stepComplete(1) && stepComplete(2))}">
+                    <li [ngClass]="{'uk-active': tabIndex === 3, 'uk-disabled': !(stepComplete(1) && stepComplete(2))}">
                       <a (click)="showSwitcherTab(3)">Item 4</a>
                     </li>
-                    <li [ngClass]="{'uk-active': tabIndex === 4, 'uk-disable': stepComplete(3)}">
+                    <li [ngClass]="{'uk-active': tabIndex === 4, 'uk-disabled': !stepComplete(3)}">
                       <a (click)="showSwitcherTab(4)">Item 5</a>
                     </li>
                   </ul>
