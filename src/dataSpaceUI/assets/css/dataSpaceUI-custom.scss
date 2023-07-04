@@ -730,14 +730,16 @@ a.service-menu-item:hover {
 .uk-dotnav > * > * {
   width: 16px;
   height: 16px;
-  background-color: var(--catalogue-light-purple) !important;
+  background-color: var(--intelcomp-dark-color) !important;
   opacity: 0.4;
   border: none !important;
 }
 
 .uk-dotnav > .uk-active > * {
-  background-color: var(--catalogue-light-purple) !important;
+  background-color: var(--intelcomp-dark-color) !important;
   opacity: 1;
+  width: 30px;
+  border-radius: 45%;
 }
 
 .slider-image {
