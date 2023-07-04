@@ -10,6 +10,7 @@ import { ForbiddenPageComponent } from './403-forbidden-page.component';
 import { ReadMoreComponent, ReadMoreTextComponent } from './read-more.component';
 import { SideMenuDashboardComponent } from "../sidemenudashboard/side-menu-dashboard.component";
 import { TopMenuLandingComponent } from "../top-menu/topmenulanding/top-menu-landing.component";
+import { DashboardNavigationMobileComponent } from "../dashboard-navigation-mobile/dashboard-navigation-mobile.component";
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { TopMenuLandingComponent } from "../top-menu/topmenulanding/top-menu-lan
   declarations: [
     TopMenuLandingComponent,
     SideMenuDashboardComponent,
+    DashboardNavigationMobileComponent,
     // FooterComponent,
     ForbiddenPageComponent,
     ReadMoreComponent,
@@ -32,6 +34,7 @@ import { TopMenuLandingComponent } from "../top-menu/topmenulanding/top-menu-lan
   exports: [
     TopMenuLandingComponent,
     SideMenuDashboardComponent,
+    DashboardNavigationMobileComponent,
     // SideMenuComponent,
     // FooterComponent,
     ForbiddenPageComponent,
