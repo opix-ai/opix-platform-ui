@@ -1,8 +1,7 @@
-import {AfterContentChecked, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Router} from "@angular/router";
 import {PatentNames} from "../../../domain/patentClassifications";
 import {InputService} from "../../../services/input.service";
-import {environment} from "../../../../environments/environment";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {SuccessPageComponent} from "../../successPage/successPage.component";
 
@@ -27,6 +26,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   message: string = null;
   submitSuccess: boolean = false;
   tabs
+  tabIndex: number = 0;
 
   headerHeight = 91;
 
@@ -35,7 +35,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getIndicators();
-    this.getMetadata();
+    // this.getMetadata();
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
@@ -52,27 +52,32 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   }
 
   submitJob() {
-    this.job.jobArguments.push(new JobArgument('from', [this.patentInputs.from]));
-    this.job.jobArguments.push(new JobArgument('to', [this.patentInputs.to]));
-    this.job.jobArguments.push(new JobArgument('indicators', this.patentInputs.indicators));
-    this.job.jobArguments.push(new JobArgument('metadata', this.patentInputs.metadata));
-    let jobArguments: any[] = [];
-    jobArguments.push({'jobType':'workflow'});
-    jobArguments.push({'workflowType':'patentAnalyticsNames'});
-    jobArguments.push({'jobArguments': this.job.jobArguments});
-    this.job.callerAttributes = JSON.stringify(jobArguments);
-    this.job.serviceArguments.processId = 'patent-names-workflow';
-    this.formData.append('file', this.file);
-    this.formData.append('job', JSON.stringify(this.job));
-    this.inputService.postJobCustom(this.formData).subscribe(
-      res => {
-        this.success.timer(1/12);
-        this.submitSuccess = true;
-      }, error => {
-        console.log(error);
-        this.message = 'Sorry something went wrong. Please try again later.'
-      }
-    );
+    if (this.file?.name || this.patentInputs.indicators.length > 0) {
+      this.job.jobArguments.push(new JobArgument('from', [this.patentInputs.from]));
+      this.job.jobArguments.push(new JobArgument('to', [this.patentInputs.to]));
+      this.job.jobArguments.push(new JobArgument('indicators', this.patentInputs.indicators));
+      this.job.jobArguments.push(new JobArgument('metadata', this.patentInputs.metadata));
+      let jobArguments: any[] = [];
+      jobArguments.push({'jobType':'workflow'});
+      jobArguments.push({'workflowType':'patentAnalyticsNames'});
+      jobArguments.push({'jobArguments': this.job.jobArguments});
+      this.job.callerAttributes = JSON.stringify(jobArguments);
+      this.job.serviceArguments.processId = 'patent-names-workflow';
+      this.formData.append('file', this.file);
+      this.formData.append('job', JSON.stringify(this.job));
+      this.inputService.postJobCustom(this.formData).subscribe(
+        res => {
+          this.success.timer(1/12);
+          this.submitSuccess = true;
+        }, error => {
+          console.log(error);
+          this.message = 'Sorry something went wrong. Please try again later.'
+        }
+      );
+
+    } else {
+      this.message = 'File and Indicator are mandatory'
+    }
   }
 
   getIndicators() {
@@ -171,7 +176,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
         return true
     }
     if (step === 2) {
-      if (this.patentInputs.indicators.length > 0 && this.patentInputs.metadata.length > 0)
+      if (this.patentInputs.indicators.length > 0)
         return true;
     }
     return false;
@@ -179,6 +184,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
   continue(index: number) {
     this.tabs.show(index);
+    this.tabIndex = index;
   }
 
   clearMessage() {

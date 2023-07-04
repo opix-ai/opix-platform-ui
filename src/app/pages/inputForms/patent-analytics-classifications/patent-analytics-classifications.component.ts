@@ -1,11 +1,10 @@
-import {AfterContentChecked, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {InputService} from "../../../services/input.service";
 import {PatentClassifications} from "../../../domain/patentClassifications";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {SuccessPageComponent} from "../../successPage/successPage.component";
-import {environment} from "../../../../environments/environment";
 
 declare var UIkit: any;
 
@@ -51,7 +50,6 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
       setTimeout( ()=> {
         this.tabs = UIkit.tab(document.getElementById('tabs'), {connect: '.switcher-container'});
         this.headerHeight = document.getElementById('modal-header').offsetHeight;
-        console.log(this.headerHeight);
       }, 0)
     );
   }
