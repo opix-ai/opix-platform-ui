@@ -32,6 +32,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   message: string = null;
   submitSuccess: boolean = false;
   tabs
+  tabIndex: number = 0;
 
   headerHeight = 91;
 
@@ -310,6 +311,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
 
   showSwitcherTab(index: number) {
     this.tabs.show(index);
+    this.tabIndex = index;
   }
 
   stepComplete(step: number) {
@@ -319,7 +321,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
     }
     if (step === 1) {
       if (this.paForm.controls['domain'].valid && this.paForm.controls['category'].valid
-          && this.paForm.controls['topics'].value.length > 0)
+          && this.paForm.controls['topics'].valid)
       return true
     }
     if (step === 2) {

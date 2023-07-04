@@ -16,7 +16,7 @@
           <div class="uk-width-1-3 uk-section-default" [ngStyle]="{'min-height': 'calc(100svh - ' + headerHeight + 'px)'}">
             <ul id="tabs" class="uk-tab-left wizard-tabs uk-margin-large-top">
               <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
-                <a href="#" class="">
+                <a href="#" class="" (click)="tabIndex = 0">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -26,8 +26,8 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
-                <a href="#" class="">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0), 'uk-disabled': !stepComplete(0)}">
+                <a href="#" class="" (click)="tabIndex = 1">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(1) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -37,8 +37,8 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1)}">
-                <a href="#" class="">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1), 'uk-disabled': !stepComplete(1)}">
+                <a href="#" class="" (click)="tabIndex = 2">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(2) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -48,8 +48,8 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2) && stepComplete(1)}">
-                <a href="#" class="">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2) && stepComplete(1), 'uk-disabled': !(stepComplete(2) && stepComplete(1))}">
+                <a href="#" class="" (click)="tabIndex = 3">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -59,8 +59,8 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(3)}">
-                <a href="#" class="">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(3), 'uk-disabled': !stepComplete(3)}">
+                <a href="#" class="" (click)="tabIndex = 4">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(4) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -310,6 +310,23 @@
                       </div>
                     </li>
                   </ul>
+
+                  <ul class="uk-dotnav uk-flex uk-flex-center">
+                    <li [ngClass]="{'uk-active': tabIndex === 0}"><a (click)="showSwitcherTab(0)">Item 1</a></li>
+                    <li [ngClass]="{'uk-active': tabIndex === 1, 'uk-disable': stepComplete(0)}">
+                      <a (click)="showSwitcherTab(1)">Item 2</a>
+                    </li>
+                    <li [ngClass]="{'uk-active': tabIndex === 2, 'uk-disable': stepComplete(1)}">
+                      <a (click)="showSwitcherTab(2)">Item 3</a>
+                    </li>
+                    <li [ngClass]="{'uk-active': tabIndex === 3, 'uk-disable': (stepComplete(1) && stepComplete(2))}">
+                      <a (click)="showSwitcherTab(3)">Item 4</a>
+                    </li>
+                    <li [ngClass]="{'uk-active': tabIndex === 4, 'uk-disable': stepComplete(3)}">
+                      <a (click)="showSwitcherTab(4)">Item 5</a>
+                    </li>
+                  </ul>
+
                 </div>
               </div>
 
