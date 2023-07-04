@@ -101,6 +101,13 @@
             <text dy=".4em" font-size="16" text-anchor="middle" x="50%" y="50%" class="ng-star-inserted"> {{parseUsername()}} </text>
           </svg>
         </a>
+        <div class="uk-padding-remove-horizontal ng-star-inserted uk-dropdown" uk-dropdown="mode: click; offset: -2; delay-hide: 0; flip: false; pos: bottom-right">
+          <ul class="uk-nav uk-dropdown-nav">
+            <li>
+              <a id="logout-mobile" (click)="logout()">Log out</a>
+            </li>
+          </ul>
+        </div>
       </div>
       <ng-template #elseMobileBlock>
         <a class="navbar-user-icon" (click)="logInButton()">
