@@ -33,8 +33,11 @@
                     <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Input</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">Upload the file you want to use as input</div>
+                    <div class="step-header uk-text-bold">Companies / Inventors</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">
+                      Upload your csv file (the first column must have the companies/inventors’ names, one name per row;
+                      you may have as many columns as you need)
+                    </div>
                   </div>
                 </a>
               </li>
@@ -45,7 +48,7 @@
                   </div>
                   <div>
                     <div class="step-header uk-text-bold">Filters</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">Select your filters</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Filter by Year</div>
                   </div>
                 </a>
               </li>
@@ -55,13 +58,24 @@
                     <span class="material-icons">{{stepComplete(2) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Output</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">What do you want to see as an output?</div>
+                    <div class="step-header uk-text-bold">Indicators</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Pick the indicators to show in your dashboard</div>
                   </div>
                 </a>
               </li>
               <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2), 'uk-disabled': !stepComplete(2)}">
                 <a href="#" class="" (click)="tabIndex = 3">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(2) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Output</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Configure your output with the right metadata</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(3), 'uk-disabled': !stepComplete(3)}">
+                <a href="#" class="" (click)="tabIndex = 4">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -83,8 +97,11 @@
                   <ul class="uk-switcher switcher-container uk-margin-large-top">
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Input</div>
-                        <div class="uk-text-light">Upload the file you want to use as input</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Companies / Inventors</div>
+                        <div class="uk-text-light">
+                          Upload your csv file (the first column must have the companies/inventors’ names, one name per
+                          row; you may have as many columns as you need)
+                        </div>
                       </div>
                       <div>
 
@@ -153,8 +170,8 @@
                     </li>
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Output</div>
-                        <div class="uk-text-light">What do you want to see as an output?</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Indicators</div>
+                        <div class="uk-text-light">Pick the indicators to show in your dashboard</div>
                       </div>
                       <div class="uk-margin-bottom">
                         <div class="uk-margin-bottom">
@@ -177,12 +194,25 @@
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(3)"
+                           [ngClass]="{'uk-disabled': !stepComplete(2)}" >Continue
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Output</div>
+                        <div class="uk-text-light">Configure your output with the right metadata</div>
+                      </div>
+                      <div class="uk-margin-bottom">
                         <div>
                           <div class="uk-margin-small-bottom">
                             <label class="uk-text-bold uk-text-small">Metadata *</label>
                             <label>
                               <input #allMetadata type="checkbox" class="uk-margin-left uk-margin-small-right"
-                                     [disabled]="true" (change)="selectAll($event, 'metadata')">
+                                     (change)="selectAll($event, 'metadata')">
                               <span class="uk-text-muted">Select all</span>
                             </label>
                           </div>
@@ -191,7 +221,7 @@
                               <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let entry of metadata; let i=index">
                                 <input [id]="'metadata'+i" type="checkbox" [value]="entry['code']" class="uk-margin-small-right"
                                        (change)="metadataSelect($event); (removeCheck('metadata') && allMetadata.checked)?allMetadata.click():''"
-                                       [checked]="showChecked('metadata', entry['code'])" [disabled]="true">
+                                       [checked]="showChecked('metadata', entry['code'])">
                                 <label [for]="'metadata'+i">{{entry['label']}}</label>
                               </div>
                             </div>
@@ -199,8 +229,8 @@
                         </div>
                       </div>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(3)"
-                           [ngClass]="{'uk-disabled': !stepComplete(2)}" >Continue
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(4)"
+                           [ngClass]="{'uk-disabled': !stepComplete(3)}" >Continue
                         </a>
                       </div>
                     </li>
@@ -233,10 +263,10 @@
                             <th>Indicators</th>
                             <td><span *ngFor="let indicator of patentInputs.indicators; let i=index">{{(i == 0 ? '' : ', ') + indicator}}</span></td>
                           </tr>
-<!--                          <tr>-->
-<!--                            <th>Metadata</th>-->
-<!--                            <td><span *ngFor="let metadata of patentInputs.metadata; let i=index">{{(i == 0 ? '' : ', ') + metadata}}</span></td>-->
-<!--                          </tr>-->
+                          <tr>
+                            <th>Metadata</th>
+                            <td><span *ngFor="let metadata of patentInputs.metadata; let i=index">{{(i == 0 ? '' : ', ') + metadata}}</span></td>
+                          </tr>
                         </table>
                       </div>
 
@@ -256,6 +286,9 @@
                     </li>
                     <li [ngClass]="{'uk-active': tabIndex === 3, 'uk-disabled': !stepComplete(2)}">
                       <a (click)="showSwitcherTab(3)">Item 4</a>
+                    </li>
+                    <li [ngClass]="{'uk-active': tabIndex === 4, 'uk-disabled': !stepComplete(3)}">
+                      <a (click)="showSwitcherTab(4)">Item 4</a>
                     </li>
                   </ul>
 

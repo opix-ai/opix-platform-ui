@@ -87,7 +87,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
     // }
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
-    jobArguments.push({'workflowType':'patentAnalytics'});
+    jobArguments.push({'workflowType':'patentAnalyticsClassification'});
     jobArguments.push({'jobArguments': this.job.jobArguments});
     this.job.callerAttributes = JSON.stringify(jobArguments);
     this.job.serviceArguments.processId = 'patent-workflow';
