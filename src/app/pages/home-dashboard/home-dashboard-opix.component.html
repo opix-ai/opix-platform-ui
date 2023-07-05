@@ -117,8 +117,9 @@
               <ng-container *ngIf="jobs?.length > 0">
                 <tr *ngFor="let job of jobs | slice:0:3">
                   <td>
-                    <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalytics'">Patent Analytics</ng-container>
-                    <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)!=='patentAnalytics'">Bibliometrics Analysis</ng-container>
+                    <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patent analytics classification</ng-container>
+                    <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patent analytics names</ng-container>
+                    <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='bibliometricAnalysis'">Bibliometrics Analysis</ng-container>
                   </td>
                   <td>
                     <a class="uk-link">{{this.getNumberOfFilters(job.callerAttributesObj)}} filters selected</a>
