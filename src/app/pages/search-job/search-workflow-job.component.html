@@ -20,7 +20,8 @@
         <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" [(ngModel)]="workflowType" (change)="filter()">
           <ng-option [value]="''">All workflow types</ng-option>
           <ng-option [value]="'bibliometricAnalysis'">Bibliometric analysis</ng-option>
-          <ng-option [value]="'patentAnalytics'">Patent analytics</ng-option>
+          <ng-option [value]="'patentAnalyticsClassification'">Patent analytics classification</ng-option>
+          <ng-option [value]="'patentAnalyticsNames'">Patent analytics names</ng-option>
         </ng-select>
       </div>
       <div class="uk-width-expand">
@@ -65,7 +66,7 @@
         <ng-container *ngIf="jobs?.length > 0">
           <tr *ngFor="let job of filteredJobs | slice: from : to">
             <td class="extra-left-padding">
-              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalytics'">Patent analytics classification</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patent analytics classification</ng-container>
               <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patent analytics names</ng-container>
               <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='bibliometricAnalysis'">Bibliometrics Analysis</ng-container>
             </td>
