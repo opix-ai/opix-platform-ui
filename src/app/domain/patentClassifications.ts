@@ -39,7 +39,7 @@ export class Bibliometrics {
   topics: string[] = [];
   countries: string[] = [];
   accessRights: string[] = [];
-  publicationType: string = null;
+  publicationTypes: string[] = [];
   additionalOptions: string[] = [];
   indicators: string = null;
 

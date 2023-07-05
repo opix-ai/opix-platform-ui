@@ -122,8 +122,8 @@
 <!--                        <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>-->
 
 
-                        <input type="file" id="fileUpload" name="file" accept="*/*" #fileSelect style="display: none"
-                               (change)="onFileSelect($event)">
+                        <input type="file" id="fileUpload" name="file" accept="text/csv" style="display: none"
+                               (change)="onFileSelect($event)" #fileSelect>
                         <div class="uk-margin-small-left uk-flex uk-flex-middle">
                           <a class="material-icons md-36" (click)="fileSelect.click()" title="Click to select a file"
                              style="color: #000">upload_file

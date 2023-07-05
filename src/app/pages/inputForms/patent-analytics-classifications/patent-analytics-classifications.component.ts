@@ -82,9 +82,6 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
         this.job.jobArguments.push(jobArgument);
       }
     }
-    // for (let element of this.job.jobArguments.find(el => el.name === 'topics').value) {
-    //   element = this.paForm.get('domain').value + '.' + this.paForm.get('category').value + '.' + element;
-    // }
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
     jobArguments.push({'workflowType':'patentAnalyticsClassification'});

@@ -284,9 +284,26 @@
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
                               <label class="uk-text-bold uk-text-small" for="publicationType">Publication Type</label>
+                              <label>
+                                <input #allPublicationTypes type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllData($event, 'publicationTypes')">
+                                <span class="uk-text-muted">Select all</span>
+                              </label>
                             </div>
-                            <ng-select #publicationType labelForId="publicationType" [items]="publicationTypes" [selectOnTab]="true" [searchable]="false"
-                                       formControlName="publicationType">
+                            <ng-select #publicationType labelForId="publicationType" [items]="publicationTypes"
+                                       [selectOnTab]="true" [searchable]="false" [multiple]="true"
+                                       [closeOnSelect]="false" formControlName="publicationTypes">
+                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
+                              </ng-template>
+                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                  <span class="ng-value-label">{{item}}</span>
+                                </div>
+                                <div class="ng-value" *ngIf="items.length > 2">
+                                  <span class="ng-value-label">{{items.length - 2}} more...</span>
+                                </div>
+                              </ng-template>
                             </ng-select>
                           </div>
 
@@ -380,7 +397,7 @@
                           </tr>
                           <tr>
                             <th>Publication type</th>
-                            <td>{{bibliometricForm.get('publicationType').value}}</td>
+                            <td>{{bibliometricForm.get('publicationTypes').value}}</td>
                           </tr>
                           <tr>
                             <th>Indicators</th>
