@@ -31,7 +31,7 @@
                     <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Patent Database</div>
+                    <div class="step-header uk-text-bold">Database</div>
                     <div class="step-description uk-text-light uk-margin-small-top">
                       Pick the resource, most suitable for your analysis
                     </div>
@@ -44,7 +44,7 @@
                     <span class="material-icons">{{stepComplete(1) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Subject area & the Sector</div>
+                    <div class="step-header uk-text-bold">Industry</div>
                     <div class="step-description uk-text-light uk-margin-small-top">
                       Specify the sector & technological group(s)
                     </div>
@@ -95,7 +95,7 @@
                   <ul class="uk-switcher uk-margin-large-top switcher-container">
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Patent Database</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Database</div>
                         <div class="uk-text-light">Pick the resource, most suitable for your analysis</div>
                       </div>
                       <form [formGroup]="paForm">
@@ -105,8 +105,8 @@
                               <label class="uk-text-bold uk-text-small" for="dataSource">Data Source *</label>
                             </div>
                             <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
-                              <ng-option [value]="'EPO'">EPO (Patstat)</ng-option>
-<!--                              <ng-option [value]="'USPTO'" [disabled]="true">USPTO</ng-option>-->
+                              <ng-option [value]="'EPO'">Patstat (1.3.0-dev, Autumn/2022)</ng-option>
+                              <ng-option [value]="'patstat-spring-2023'" [disabled]="true">Patstat (Spring/2023)</ng-option>
                             </ng-select>
                           </div>
                         </div>
@@ -119,7 +119,7 @@
                     </li>
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Subject area & the Sector</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Industry</div>
                         <div class="uk-text-light">Specify the sector & technological group(s)</div>
                       </div>
                       <form [formGroup]="paForm">
