@@ -6,10 +6,10 @@ import {ResultComponent} from "./pages/result/result.component";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
 import {LoginGuardComponent} from "../dataSpaceUI/app/services/login-guard.component";
 import {RoleAuthGuardComponent} from "../dataSpaceUI/app/services/role-auth-guard.component";
-import {BibliometricsFormComponent} from "./pages/inputForms/bibliometrics/bibliometrics-form.component";
-import {PatentAnalyticsNamesComponent} from "./pages/inputForms/patent-analytics-names/patent-analytics-names.component";
+import {BibliometricsFormComponent} from "./pages/workflows/bibliometrics/bibliometrics-form.component";
+import {PatentAnalyticsNamesComponent} from "./pages/workflows/patentAnalytics/forms/patent-analytics-names/patent-analytics-names.component";
 import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
-import {PatentAnalyticsClassificationsComponent} from "./pages/inputForms/patent-analytics-classifications/patent-analytics-classifications.component";
+import {PatentAnalyticsClassificationsComponent} from "./pages/workflows/patentAnalytics/forms/patent-analytics-classifications/patent-analytics-classifications.component";
 import {GlossaryComponent} from "./pages/glossary/glossary.component";
 
 const routes: Routes = [

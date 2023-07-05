@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
-import {InputService} from "../../../services/input.service";
-import {PatentClassifications} from "../../../domain/patentClassifications";
-import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
-import {SuccessPageComponent} from "../../successPage/successPage.component";
+import {InputService} from "../../../../../services/input.service";
+import {PatentClassifications} from "../../../../../domain/patentClassifications";
+import {Job, JobArgument} from "../../../../../../dataSpaceUI/app/domain/job";
+import {SuccessPageComponent} from "../../../../successPage/successPage.component";
 
 declare var UIkit: any;
 

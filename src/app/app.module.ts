@@ -9,15 +9,15 @@ import {ReusableComponentsModule} from "../dataSpaceUI/app/shared/reusablecompon
 import {InputService} from "./services/input.service";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {SearchWorkflowJobComponent} from "./pages/search-job/search-workflow-job.component";
-import {BibliometricsFormComponent} from "./pages/inputForms/bibliometrics/bibliometrics-form.component";
+import {BibliometricsFormComponent} from "./pages/workflows/bibliometrics/bibliometrics-form.component";
 import {SuccessPageComponent} from "./pages/successPage/successPage.component";
 import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
 import {ResultComponent} from "./pages/result/result.component";
 import {SharedModule} from "../dataSpaceUI/catalogue-ui/shared/shared.module";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
-import {PatentAnalyticsNamesComponent} from "./pages/inputForms/patent-analytics-names/patent-analytics-names.component";
+import {PatentAnalyticsNamesComponent} from "./pages/workflows/patentAnalytics/forms/patent-analytics-names/patent-analytics-names.component";
 import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
-import {PatentAnalyticsClassificationsComponent} from "./pages/inputForms/patent-analytics-classifications/patent-analytics-classifications.component";
+import {PatentAnalyticsClassificationsComponent} from "./pages/workflows/patentAnalytics/forms/patent-analytics-classifications/patent-analytics-classifications.component";
 import {GlossaryComponent} from "./pages/glossary/glossary.component";
 
 @NgModule({
