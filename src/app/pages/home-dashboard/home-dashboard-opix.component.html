@@ -37,7 +37,7 @@
           <div class="uk-grid uk-visible@m">
             <div class="uk-width-3-5">
               <h5>Patent analytics</h5>
-              <p>Patent analysis is a sophisticated pipeline that finds and collects patents that match various criteria. The process transforms and calculates metadata to provide valuable insights using charts.</p>
+              <p>Different types of patent analyses can be performed based on the need and the questions you need to answer, and each type of analysis leads to different associated reports. Conduct your research by examining specific competitors/companies or technological class.</p>
             </div>
             <div class="uk-width-2-5">
               <img src="../assets/images/patent_1.jpg">
@@ -49,19 +49,13 @@
             </div>
             <div class="uk-margin-top">
               <h5>Patent analytics</h5>
-              <p>Patent analysis is a sophisticated pipeline that finds and collects patents that match various criteria. The process transforms and calculates metadata to provide valuable insights using charts.</p>
+              <p>Different types of patent analyses can be performed based on the need and the questions you need to answer, and each type of analysis leads to different associated reports. Conduct your research by examining specific competitors/companies or technological class.</p>
             </div>
           </div>
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
             <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/patent-analytics']">Learn more</button>
             <div class="uk-inline">
-              <button class="uk-button uk-button-primary" type="button" (click)="showDropdown()">Start</button>
-              <div #patentAnalyticsStartingPoint uk-dropdown="mode: click; pos: bottom-left">
-                <ul class="uk-nav uk-navbar-dropdown-nav">
-                  <li><a [routerLink]="['/patent-analytics-classifications']" (click)="setReturnUrl()">Starting from classification schema</a></li>
-                  <li><a [routerLink]="['/patent-analytics-names']" (click)="setReturnUrl()">Starting from inventors/applicants</a></li>
-                </ul>
-              </div>
+              <button class="uk-button uk-button-primary" type="button" uk-toggle="target: #select-patent-analysis">Start</button>
             </div>
           </div>
         </div>
@@ -87,10 +81,11 @@
             </div>
           </div>
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
-            <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/bibliometric-analysis']">Learn more</button>
-            <button class="uk-button uk-button-primary" [routerLink]="['/bibliometricAnalysis']" (click)="setReturnUrl()">
-              Start
-            </button>
+            <div>Coming soon..</div>
+<!--            <button class="uk-button uk-button-link " [routerLink]="['/landingPage/tool/bibliometric-analysis']">Learn more</button>-->
+<!--            <button class="uk-button uk-button-primary" [routerLink]="['/bibliometricAnalysis']" (click)="setReturnUrl()">-->
+<!--              Start-->
+<!--            </button>-->
           </div>
         </div>
       </div>
@@ -176,5 +171,30 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<div id="select-patent-analysis" class=" uk-flex-top" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <h6>Conduct your research by examining:</h6>
+    <div class="uk-grid-divider uk-child-width-1-2 uk-grid-match uk-margin-medium-top" uk-grid>
+      <div>
+        <p>specific competitors/companies</p>
+        <p class="uk-text-right">
+          <a class="uk-button uk-button-primary" [routerLink]="['/patent-analytics-classifications']" (click)="setReturnUrl()">
+            Select
+          </a>
+        </p>
+      </div>
+      <div>
+        <p>technological class</p>
+        <p class="uk-text-right">
+          <a class="uk-button uk-button-primary" [routerLink]="['/patent-analytics-names']" (click)="setReturnUrl()">
+            Select
+          </a>
+        </p>
+      </div>
+    </div>
   </div>
 </div>

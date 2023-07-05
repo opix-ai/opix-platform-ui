@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
-import {InputService} from "../../../services/input.service";
-import {PatentClassifications} from "../../../domain/patentClassifications";
-import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
-import {SuccessPageComponent} from "../../successPage/successPage.component";
+import {InputService} from "../../../../../services/input.service";
+import {PatentClassifications} from "../../../../../domain/patentClassifications";
+import {Job, JobArgument} from "../../../../../../dataSpaceUI/app/domain/job";
+import {SuccessPageComponent} from "../../../../successPage/successPage.component";
 
 declare var UIkit: any;
 
@@ -30,6 +30,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   job: Job = new Job();
   message: string = null;
   submitSuccess: boolean = false;
+  modal
   tabs
   tabIndex: number = 0;
 
@@ -46,7 +47,8 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
-    UIkit.modal('#modal-input').show().then(
+    this.modal = UIkit.modal(document.getElementById('modal-input'));
+      this.modal.show().then(
       setTimeout( ()=> {
         this.tabs = UIkit.tab(document.getElementById('tabs'), {connect: '.switcher-container'});
         this.headerHeight = document.getElementById('modal-header').offsetHeight;
@@ -55,6 +57,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   }
 
   ngOnDestroy() {
+    this.modal?.$destroy(true);
     this.tabs?.$destroy(true);
   }
 
@@ -79,12 +82,9 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
         this.job.jobArguments.push(jobArgument);
       }
     }
-    // for (let element of this.job.jobArguments.find(el => el.name === 'topics').value) {
-    //   element = this.paForm.get('domain').value + '.' + this.paForm.get('category').value + '.' + element;
-    // }
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
-    jobArguments.push({'workflowType':'patentAnalytics'});
+    jobArguments.push({'workflowType':'patentAnalyticsClassification'});
     jobArguments.push({'jobArguments': this.job.jobArguments});
     this.job.callerAttributes = JSON.stringify(jobArguments);
     this.job.serviceArguments.processId = 'patent-workflow';
@@ -128,7 +128,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   }
 
   getIndicators() {
-    this.inputService.getIndicators('Patents').subscribe(
+    this.inputService.getIndicators('Patents-Topics').subscribe(
       res=> {
         for (let key in res) {
           this.indicators.push({label: key, id: res[key]});

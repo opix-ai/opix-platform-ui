@@ -1,11 +1,10 @@
-import {AfterContentChecked, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Bibliometrics} from "../../../domain/patentClassifications";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {Router} from "@angular/router";
 import {SuccessPageComponent} from "../../successPage/successPage.component";
-import {environment} from "../../../../environments/environment";
 
 declare var UIkit: any;
 
@@ -34,7 +33,9 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
   job: Job = new Job();
   message: string = null;
   submitSuccess: boolean = false;
+  modal
   tabs
+  tabIndex: number = 0;
 
   headerHeight = 91;
 
@@ -52,7 +53,8 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
-    UIkit.modal('#modal-input').show().then(
+    this.modal = UIkit.modal(document.getElementById('modal-input'));
+    this.modal.show().then(
       setTimeout( ()=> {
         this.tabs = UIkit.tab(document.getElementById('tabs'), {connect: '.switcher-container'})
         this.headerHeight = document.getElementById('modal-header').offsetHeight;
@@ -61,6 +63,7 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.modal?.$destroy(true);
     this.tabs?.$destroy(true);
   }
 

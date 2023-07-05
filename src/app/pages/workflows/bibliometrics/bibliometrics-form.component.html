@@ -21,7 +21,7 @@
           <div class="uk-width-1-3 uk-section-default uk-visible@m" [ngStyle]="{'min-height': 'calc(100vh - ' + headerHeight + 'px)'}">
             <ul id="tabs" class="uk-tab uk-tab-left wizard-tabs uk-margin-large-top">
               <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
-                <a href="#" class="">
+                <a href="#" class="" (click)="tabIndex = 0">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -31,8 +31,8 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
-                <a href="#" class="">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0), 'uk-disabled': !stepComplete(0)}">
+                <a href="#" class="" (click)="tabIndex = 1">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(1) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -42,8 +42,8 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1)}">
-                <a href="#" class="">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1), 'uk-disabled': !stepComplete(1)}">
+                <a href="#" class="" (click)="tabIndex = 2">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(2) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -53,8 +53,8 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2) && stepComplete(1)}">
-                <a href="#" class="">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2) && stepComplete(1), 'uk-disabled': !(stepComplete(2) && stepComplete(1))}">
+                <a href="#" class="" (click)="tabIndex = 3">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -64,8 +64,8 @@
                   </div>
                 </a>
               </li>
-              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(3)}">
-                <a href="#" class="">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(3), 'uk-disabled': !stepComplete(3)}">
+                <a href="#" class="" (click)="tabIndex = 4">
                   <div class="step-icon uk-margin-right">
                     <span class="material-icons">{{stepComplete(4) ? 'check_circle':'circle'}}</span>
                   </div>
@@ -103,7 +103,9 @@
                         </div>
                       </form>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(1)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(1)"
+                           [ngClass]="{'uk-disabled': !stepComplete(0)}">Continue
+                        </a>
                       </div>
                     </li>
                     <li>
@@ -162,7 +164,9 @@
                       </form>
                       <!--                  <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>-->
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(2)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(2)"
+                           [ngClass]="{'uk-disabled': !stepComplete(1)}">Continue
+                        </a>
                       </div>
                     </li>
                     <li>
@@ -280,9 +284,26 @@
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
                               <label class="uk-text-bold uk-text-small" for="publicationType">Publication Type</label>
+                              <label>
+                                <input #allPublicationTypes type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllData($event, 'publicationTypes')">
+                                <span class="uk-text-muted">Select all</span>
+                              </label>
                             </div>
-                            <ng-select #publicationType labelForId="publicationType" [items]="publicationTypes" [selectOnTab]="true" [searchable]="false"
-                                       formControlName="publicationType">
+                            <ng-select #publicationType labelForId="publicationType" [items]="publicationTypes"
+                                       [selectOnTab]="true" [searchable]="false" [multiple]="true"
+                                       [closeOnSelect]="false" formControlName="publicationTypes">
+                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
+                              </ng-template>
+                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                  <span class="ng-value-label">{{item}}</span>
+                                </div>
+                                <div class="ng-value" *ngIf="items.length > 2">
+                                  <span class="ng-value-label">{{items.length - 2}} more...</span>
+                                </div>
+                              </ng-template>
                             </ng-select>
                           </div>
 
@@ -290,7 +311,9 @@
                       </form>
                       <!--                  <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>-->
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(3)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(3)"
+                           [ngClass]="{'uk-disabled': !(stepComplete(2) && stepComplete(1))}">Continue
+                        </a>
                       </div>
                     </li>
                     <li>
@@ -320,7 +343,8 @@
 
                       </div>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
-                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(4)">Continue</a>
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="continue(4)"
+                           [ngClass]="{'uk-disabled': !stepComplete(3)}">Continue</a>
                       </div>
                     </li>
                     <li>
@@ -373,7 +397,7 @@
                           </tr>
                           <tr>
                             <th>Publication type</th>
-                            <td>{{bibliometricForm.get('publicationType').value}}</td>
+                            <td>{{bibliometricForm.get('publicationTypes').value}}</td>
                           </tr>
                           <tr>
                             <th>Indicators</th>

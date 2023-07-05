@@ -20,10 +20,8 @@ export class PatentClassifications {
     formPrepare.setControl('topics', fb.control([], Validators.required));
     formPrepare.controls['topics'].disable();
     formPrepare.setControl('countries', fb.control([]));
-    formPrepare.controls['countries'].setValue(["AD", "AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY",
-      "CZ", "DE", "DK", "EE", "ES", "FI", "FO", "FR", "GB", "GE", "GG", "GI", "GL", "GR", "HR", "HU", "IE", "IM", "IS",
-      "IT", "JE", "LI", "LT", "LU", "LV", "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "SE", "SI",
-      "SK", "SM", "UA", "VA"]);
+    formPrepare.controls['countries'].setValue(["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "GR",
+      "DE", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SI", "SK", "ES", "SE"]);
     formPrepare.setControl('indicators', fb.control([], Validators.required));
     formPrepare.controls['to'].setValue('2022');
     formPrepare.controls['from'].setValue('2021');
@@ -41,7 +39,7 @@ export class Bibliometrics {
   topics: string[] = [];
   countries: string[] = [];
   accessRights: string[] = [];
-  publicationType: string = null;
+  publicationTypes: string[] = [];
   additionalOptions: string[] = [];
   indicators: string = null;
 
@@ -54,13 +52,11 @@ export class Bibliometrics {
     formPrepare.setControl('topics', fb.control([], Validators.required));
     formPrepare.controls['topics'].disable();
     formPrepare.setControl('countries', fb.control([]));
-    formPrepare.controls['countries'].setValue(["AD", "AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY",
-      "CZ", "DE", "DK", "EE", "ES", "FI", "FO", "FR", "GB", "GE", "GG", "GI", "GL", "GR", "HR", "HU", "IE", "IM", "IS",
-      "IT", "JE", "LI", "LT", "LU", "LV", "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "SE", "SI",
-      "SK", "SM", "UA", "VA"]);
+    formPrepare.controls['countries'].setValue(["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "GR",
+      "DE", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SI", "SK", "ES", "SE"]);
     formPrepare.setControl('indicators', fb.control([], Validators.required));
     formPrepare.controls['to'].setValue('2022');
-    formPrepare.controls['from'].setValue('2000');
+    formPrepare.controls['from'].setValue('2021');
 
     return formPrepare;
   }
