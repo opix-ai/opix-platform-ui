@@ -128,7 +128,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   }
 
   getIndicators() {
-    this.inputService.getIndicators('Patents').subscribe(
+    this.inputService.getIndicators('Patents-Topics').subscribe(
       res=> {
         for (let key in res) {
           this.indicators.push({label: key, id: res[key]});

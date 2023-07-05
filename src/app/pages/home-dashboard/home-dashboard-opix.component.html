@@ -55,13 +55,7 @@
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
             <button class="uk-button uk-button-link" [routerLink]="['/landingPage/tool/patent-analytics']">Learn more</button>
             <div class="uk-inline">
-              <button class="uk-button uk-button-primary" type="button" (click)="showDropdown()">Start</button>
-              <div #patentAnalyticsStartingPoint uk-dropdown="mode: click; pos: bottom-left">
-                <ul class="uk-nav uk-navbar-dropdown-nav">
-                  <li><a [routerLink]="['/patent-analytics-classifications']" (click)="setReturnUrl()">Starting from classification schema</a></li>
-                  <li><a [routerLink]="['/patent-analytics-names']" (click)="setReturnUrl()">Starting from inventors/applicants</a></li>
-                </ul>
-              </div>
+              <button class="uk-button uk-button-primary" type="button" uk-toggle="target: #select-patent-analysis">Start</button>
             </div>
           </div>
         </div>
@@ -177,5 +171,38 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<div id="select-patent-analysis" class="uk-modal-container uk-flex-top" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <h2 class="uk-modal-title">Headline</h2>
+    <div class="uk-child-width-1-2" uk-grid>
+      <div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.</p>
+        <p class="uk-text-right">
+          <a class="uk-button uk-button-primary" [routerLink]="['/patent-analytics-classifications']" (click)="setReturnUrl()">
+            Starting from classification schema
+          </a>
+        </p>
+      </div>
+      <div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.</p>
+        <p class="uk-text-right">
+          <a class="uk-button uk-button-primary" [routerLink]="['/patent-analytics-names']" (click)="setReturnUrl()">
+            Starting from inventors/applicants
+          </a>
+        </p>
+      </div>
+    </div>
   </div>
 </div>
