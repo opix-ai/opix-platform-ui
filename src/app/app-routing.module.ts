@@ -11,6 +11,9 @@ import {PatentAnalyticsNamesComponent} from "./pages/workflows/patentAnalytics/f
 import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
 import {PatentAnalyticsClassificationsComponent} from "./pages/workflows/patentAnalytics/forms/patent-analytics-classifications/patent-analytics-classifications.component";
 import {GlossaryComponent} from "./pages/glossary/glossary.component";
+import {
+  PatentAnalyticsLandingComponent
+} from "./pages/workflows/patentAnalytics/landing/patent-analytics-landing.component";
 
 const routes: Routes = [
   {
@@ -29,6 +32,14 @@ const routes: Routes = [
   {
     path: 'workflowSearch',
     component: SearchWorkflowJobComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
+    }
+  },
+  {
+    path: 'landing/patent-analytics',
+    component: PatentAnalyticsLandingComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {
       roles: ["OPERATOR-WORKFLOW_PROCESSOR"]

@@ -36,7 +36,7 @@ export class AppComponent {
   isNotDashboard() {
     return (this.router.url.startsWith('/home')
     || this.router.url.startsWith('/search')
-    || this.router.url.startsWith('/landingPage')
+    || this.router.url.startsWith('/landingPage') || this.router.url.startsWith('/landing')
     || this.router.url.startsWith('/dataset'));
   }
 }

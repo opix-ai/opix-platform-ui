@@ -19,6 +19,9 @@ import {PatentAnalyticsNamesComponent} from "./pages/workflows/patentAnalytics/f
 import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
 import {PatentAnalyticsClassificationsComponent} from "./pages/workflows/patentAnalytics/forms/patent-analytics-classifications/patent-analytics-classifications.component";
 import {GlossaryComponent} from "./pages/glossary/glossary.component";
+import {
+  PatentAnalyticsLandingComponent
+} from "./pages/workflows/patentAnalytics/landing/patent-analytics-landing.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import {GlossaryComponent} from "./pages/glossary/glossary.component";
     SearchWorkflowJobComponent,
     GlossaryComponent,
     ResultComponent,
+    PatentAnalyticsLandingComponent
   ],
   imports: [
     BrowserModule,
