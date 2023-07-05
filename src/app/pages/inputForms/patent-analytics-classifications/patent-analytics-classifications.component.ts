@@ -30,6 +30,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   job: Job = new Job();
   message: string = null;
   submitSuccess: boolean = false;
+  modal
   tabs
   tabIndex: number = 0;
 
@@ -46,7 +47,8 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
-    UIkit.modal('#modal-input').show().then(
+    this.modal = UIkit.modal(document.getElementById('modal-input'));
+      this.modal.show().then(
       setTimeout( ()=> {
         this.tabs = UIkit.tab(document.getElementById('tabs'), {connect: '.switcher-container'});
         this.headerHeight = document.getElementById('modal-header').offsetHeight;
@@ -55,6 +57,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   }
 
   ngOnDestroy() {
+    this.modal?.$destroy(true);
     this.tabs?.$destroy(true);
   }
 

@@ -25,6 +25,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   metadata: {label: string, code: string, info: string}[] = [];
   message: string = null;
   submitSuccess: boolean = false;
+  modal
   tabs
   tabIndex: number = 0;
 
@@ -35,19 +36,26 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getIndicators();
-    // this.getMetadata();
+    this.getMetadata();
     for (let i = 2000; i < new Date().getFullYear(); i++) {
       this.yearRange.push(i);
     }
-    UIkit.modal('#modal-input').show().then(
+    this.modal = UIkit.modal(document.getElementById('modal-input'));
+    this.modal.show().then(
       setTimeout( ()=> {
         this.tabs = UIkit.tab(document.getElementById('tabs'), {connect: '.switcher-container'})
         this.headerHeight = document.getElementById('modal-header').offsetHeight;
+        this.initUploadElements();
+        UIkit.util.on('.js-upload', 'upload', (e, files) => {
+          this.file = files[0];
+        });
+
       }, 0)
     );
   }
 
   ngOnDestroy() {
+    this.modal?.$destroy(true);
     this.tabs?.$destroy(true);
   }
 
@@ -108,7 +116,6 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
       this.file = event.target.files[0];
       reader.readAsDataURL(this.file);
       reader.onload = () => {
-        // this.imageSrc = reader.result as string;
         this.patentInputs.file = (reader.result as string).split('base64,')[1];
       };
     }
@@ -182,7 +189,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  continue(index: number) {
+  showSwitcherTab(index: number) {
     this.tabs.show(index);
     this.tabIndex = index;
   }
@@ -191,6 +198,95 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
     setTimeout(()=>{
       this.message = null;
     }, 300);
+  }
+
+  dropHandler(ev) {
+    console.log("File(s) dropped");
+
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+
+    if (ev.dataTransfer.items) {
+      // Use DataTransferItemList interface to access the file(s)
+      [...ev.dataTransfer.items].forEach((item, i) => {
+        // If dropped items aren't files, reject them
+        if (item.kind === "file") {
+          const file = item.getAsFile();
+          console.log(`… file[${i}].name = ${file.name}`);
+        }
+      });
+    } else {
+      // Use DataTransfer interface to access the file(s)
+      [...ev.dataTransfer.files].forEach((file, i) => {
+        console.log(`… file[${i}].name = ${file.name}`);
+      });
+    }
+  }
+
+  dragOverHandler(ev) {
+    console.log("File(s) in drop zone");
+
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+  }
+
+  initUploadElements() {
+    // let bar = document.getElementById('js-progressbar');
+
+    UIkit.upload('.js-upload', {
+
+      url: '',
+      multiple: false,
+
+      beforeSend: function () {
+        console.log('beforeSend', arguments);
+      },
+      beforeAll: function () {
+        console.log('beforeAll', arguments);
+      },
+      load: function () {
+        console.log('load', arguments);
+      },
+      error: function () {
+        console.log('error', arguments);
+      },
+      complete: function () {
+        console.log('complete', arguments);
+      },
+
+      // loadStart: function (e) {
+      //   console.log('loadStart', arguments);
+      //
+      //   bar.removeAttribute('hidden');
+      //   bar['max'] = e.total;
+      //   bar['value'] = e.loaded;
+      // },
+      //
+      // progress: function (e) {
+      //   console.log('progress', arguments);
+      //
+      //   bar['max'] = e.total;
+      //   bar['value'] = e.loaded;
+      // },
+      //
+      // loadEnd: function (e) {
+      //   console.log('loadEnd', arguments);
+      //
+      //   bar['max'] = e.total;
+      //   bar['value'] = e.loaded;
+      // },
+
+      completeAll: function () {
+        console.log('completeAll', arguments);
+
+        // setTimeout(function () {
+        //   bar.setAttribute('hidden', 'hidden');
+        // }, 1000);
+
+        alert('Upload Completed');
+      }
+
+    });
   }
 
 }

@@ -5,7 +5,7 @@
 
     <div uk-grid>
       <div class="uk-width-1-4">
-        <ng-select labelForId="dataSource" [searchable]="false" [(ngModel)]="status" (change)="filter()">
+        <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" [(ngModel)]="status" (change)="filter()">
           <ng-option [value]="''">All statuses</ng-option>
           <ng-option [value]="'FINISHED'">Finished</ng-option>
           <ng-option [value]="'QUEUED'">Queued</ng-option>
@@ -17,7 +17,7 @@
         </ng-select>
       </div>
       <div class="uk-width-1-4">
-        <ng-select labelForId="dataSource" [searchable]="false" [(ngModel)]="workflowType" (change)="filter()">
+        <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" [(ngModel)]="workflowType" (change)="filter()">
           <ng-option [value]="''">All workflow types</ng-option>
           <ng-option [value]="'bibliometricAnalysis'">Bibliometric analysis</ng-option>
           <ng-option [value]="'patentAnalytics'">Patent analytics</ng-option>
