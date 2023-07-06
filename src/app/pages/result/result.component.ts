@@ -24,8 +24,19 @@ export class ResultComponent implements OnInit {
       this.inputService.getJobById([this.id]).subscribe(
         res => {
           this.job = res[0];
+          this.job.callerAttributesObj = JSON.parse(this.job.callerAttributes);
         }, error => {console.log(error)}
       );
     });
+  }
+
+  getWorkflowType(obj: object) {
+    for (const [key, value] of Object.entries(obj)) {
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (subKey === 'workflowType') {
+          return subValue;
+        }
+      }
+    }
   }
 }
