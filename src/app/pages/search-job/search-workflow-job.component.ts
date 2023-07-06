@@ -2,7 +2,12 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {BrowseJob} from "../../../dataSpaceUI/app/domain/job";
 import {Subscriber} from "rxjs";
 import {InputService} from "../../services/input.service";
+import {AuthenticationService} from "../../../dataSpaceUI/app/services/authentication.service";
+import {UserService} from "../../../dataSpaceUI/app/services/user.service";
+import {UserInfo} from "../../../dataSpaceUI/app/domain/userInfo";
 
+declare var require: any;
+const seedRandom = require('seedrandom');
 
 @Component({
   selector: 'pages-browse-jobs',
@@ -26,7 +31,11 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
   from: number = 0;
   to: number = 10;
 
-  constructor(private inputService: InputService) {
+  userInfo: UserInfo = null;
+
+  showEasterGifValue: boolean = false;
+
+  constructor(private inputService: InputService, private authentication: AuthenticationService, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -41,6 +50,17 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
           for (const job of this.jobs) {
             job.callerAttributesObj = JSON.parse(job.callerAttributes);
           }
+          this.userService.getUserInfo().subscribe(
+            res => {
+              this.userInfo = res;
+              this.userService.roleToSessionStorage(res);
+              this.showEasterGif();
+              // console.log(this.userInfo);
+            }, error => {
+              console.log(error);
+              this.userService.clearUserInfo();
+            }
+          )
         }
       )
     );
@@ -52,6 +72,25 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
         subscription.unsubscribe();
       }
     });
+  }
+
+  hasRole(role: string) {
+    return this.userInfo.roles.indexOf(role) > -1;
+  }
+
+  showEasterGif() {
+    this.showEasterGifValue = false;
+
+    if (this.userInfo?.roles?.indexOf('EASTER') > -1) {
+      // console.log(seedRandom(Date.now()));
+      // seedRandom(new Date().getTime() / 1000);
+      if(Math.random() < 0.333) {
+        this.showEasterGifValue = true;
+        setTimeout(() => {
+          this.showEasterGifValue = false;
+        }, 4000);
+      }
+    }
   }
 
   getWorkflowType(obj: object) {
