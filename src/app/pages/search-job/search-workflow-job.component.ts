@@ -169,4 +169,8 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
     this.pagingInit();
   }
 
+  downloadFile(id: string) {
+    this.inputService.downloadOutput(id);
+  }
+
 }

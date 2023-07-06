@@ -111,6 +111,10 @@
                 </a>
               </ng-container>
               <ng-container *ngIf="job.mergedStatus === 'FINISHED'">
+                <a *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'"
+                   class="material-icons icons-secondary uk-margin-small-right" (click)="downloadFile(job.id)"
+                   uk-tooltip="Download output file">file_download
+                </a>
                 <a [routerLink]="['/result', job.id]" uk-tooltip="View results..">
                   <span class="material-icons icons-secondary">arrow_forward</span>
                 </a>
