@@ -1,12 +1,15 @@
 import {Injectable} from "@angular/core";
 import {environment} from "../../environments/environment";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BrowseJob, Job} from "../../dataSpaceUI/app/domain/job";
+import * as http from "http";
 
 @Injectable()
 export class InputService {
   base: string = environment.INPUT_ENDPOINT;
   api: string = environment.API_ENDPOINT;
+
+
 
   constructor(private http: HttpClient) {}
 
@@ -50,9 +53,22 @@ export class InputService {
   }
 
   postJobCustom(formData: FormData) {
-    // let params = new HttpParams();
-    // params.append('job', job);
-    // console.log(params);
     return this.http.post(this.api + '/jobs/execute/custom', formData);
+  }
+
+  downloadOutput(id: string) {
+    // let params = new HttpParams();
+    // params = params.append('process', 'patent-names-workflow');
+    // params = params.append('filename', 'data.csv');
+    //
+    // let headers = new HttpHeaders({
+    //   'responseType': 'blob',
+    //   'Content-Type': 'text/plain',
+    //   // 'content-disposition': `attachment; filename=${id}_output.cvs`
+    // });
+    //
+    // return this.http.get(this.api + `/jobs/${id}/output/download`, {params: params, headers: headers});
+
+    window.open(this.api + `/jobs/${id}/output/download?process=patent-names-workflow&filename=data.csv`, '_blank');
   }
 }

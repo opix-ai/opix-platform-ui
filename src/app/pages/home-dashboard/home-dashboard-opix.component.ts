@@ -3,6 +3,7 @@ import {ResourcePayloadService} from "../../../dataSpaceUI/app/services/resource
 import {CatalogueService} from "../../../dataSpaceUI/app/services/catalogue.service";
 import {BrowseJob} from "../../../dataSpaceUI/app/domain/job";
 import {AuthenticationService} from "../../../dataSpaceUI/app/services/authentication.service";
+import {InputService} from "../../services/input.service";
 
 declare var UIkit;
 
@@ -21,7 +22,7 @@ export class HomeDashboardOpixComponent implements OnInit {
   jobs: BrowseJob[] = []
 
   constructor(private resourceService: ResourcePayloadService, private catalogueService: CatalogueService,
-              private authService: AuthenticationService) {
+              private authService: AuthenticationService, private inputService: InputService) {
   }
 
   ngOnInit() {
@@ -43,11 +44,6 @@ export class HomeDashboardOpixComponent implements OnInit {
     }
   }
 
-  showDropdown() {
-    UIkit.dropdown(this.patentAnalyticsWorkflowSelection.nativeElement).show();
-  }
-
-
   getWorkflowType(obj: object) {
     for (const [key, value] of Object.entries(obj)) {
       for (const [subKey, subValue] of Object.entries(value)) {
@@ -68,6 +64,10 @@ export class HomeDashboardOpixComponent implements OnInit {
 
   getFilters(obj: object) {
     return obj[2]['jobArguments'];
+  }
+
+  downloadFile(id: string) {
+    this.inputService.downloadOutput(id);
   }
 
   setReturnUrl() {
