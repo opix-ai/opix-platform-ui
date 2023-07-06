@@ -75,6 +75,24 @@
   </div>
 
   <div *ngIf="userInfo?.roles && hasRole('OPERATOR-WORKFLOW_PROCESSOR')" class="menu_section border_top">
+    <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Datasets</div>
+    <ul>
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['/workflowSearch']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">upload</span>
+          <span class="menu_title">Upload dataset</span>
+        </a>
+      </li>
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['/workflowSearch']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">file_copy</span>
+          <span class="menu_title">My datasets</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="userInfo?.roles && hasRole('OPERATOR-WORKFLOW_PROCESSOR')" class="menu_section border_top">
     <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Analyses</div>
     <ul>
       <li [routerLinkActive]="['current_section']" class="">

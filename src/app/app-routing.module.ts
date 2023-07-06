@@ -14,6 +14,7 @@ import {GlossaryComponent} from "./pages/glossary/glossary.component";
 import {
   PatentAnalyticsLandingComponent
 } from "./pages/workflows/patentAnalytics/landing/patent-analytics-landing.component";
+import {UploadDatasetFormComponent} from "./pages/datasets/upload-dataset/upload-dataset-form.component";
 
 const routes: Routes = [
   {
@@ -64,6 +65,14 @@ const routes: Routes = [
   {
     path: 'bibliometricAnalysis',
     component: BibliometricsFormComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
+    }
+  },
+  {
+    path: 'datasets/upload',
+    component: UploadDatasetFormComponent,
     canActivate: [RoleAuthGuardComponent],
     data: {
       roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
