@@ -61,13 +61,7 @@ export class InputService {
     // params = params.append('process', 'patent-names-workflow');
     // params = params.append('filename', 'data.csv');
     //
-    // let headers = new HttpHeaders({
-    //   'responseType': 'blob',
-    //   'Content-Type': 'text/plain',
-    //   // 'content-disposition': `attachment; filename=${id}_output.cvs`
-    // });
-    //
-    // return this.http.get(this.api + `/jobs/${id}/output/download`, {params: params, headers: headers});
+    // return this.http.get(this.api + `/jobs/${id}/output/download`, {params: params, responseType: 'arraybuffer'});
 
     window.open(this.api + `/jobs/${id}/output/download?process=patent-names-workflow&filename=data.csv`, '_blank');
   }

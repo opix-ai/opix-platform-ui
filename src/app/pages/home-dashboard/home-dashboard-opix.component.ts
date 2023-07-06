@@ -20,6 +20,7 @@ export class HomeDashboardOpixComponent implements OnInit {
   toolsCount = 0;
   datasetCount = 0;
   jobs: BrowseJob[] = []
+  patentAnalytics: string = '';
 
   constructor(private resourceService: ResourcePayloadService, private catalogueService: CatalogueService,
               private authService: AuthenticationService, private inputService: InputService) {

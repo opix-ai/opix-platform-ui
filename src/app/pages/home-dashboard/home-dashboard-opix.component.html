@@ -183,22 +183,20 @@
   <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
     <button class="uk-modal-close-default" type="button" uk-close></button>
     <h6>Conduct your research by examining:</h6>
-    <div class="uk-grid-divider uk-child-width-1-2 uk-grid-match uk-margin-medium-top" uk-grid>
-      <div>
-        <p>specific competitors/companies</p>
-        <p class="uk-text-right">
-          <a class="uk-button uk-button-primary" [routerLink]="['/patent-analytics-names']" (click)="setReturnUrl()">
-            Select
-          </a>
-        </p>
+    <div class="uk-margin-medium-top" uk-grid>
+      <div class="uk-width-1-1">
+        <label><input type="radio" name="patentAnalytics" class="uk-radio" (click)="patentAnalytics = '/patent-analytics-names'">
+          Specific competitors/companies
+        </label>
       </div>
-      <div>
-        <p>technological class</p>
-        <p class="uk-text-right">
-          <a class="uk-button uk-button-primary" [routerLink]="['/patent-analytics-classifications']" (click)="setReturnUrl()">
-            Select
-          </a>
-        </p>
+      <div class="uk-width-1-1">
+        <label><input type="radio" name="patentAnalytics" class="uk-radio" (click)="patentAnalytics = '/patent-analytics-classifications'">
+          Technological class</label>
+      </div>
+      <div class="uk-width-1-1 uk-flex uk-flex-right">
+        <a class="uk-button uk-button-primary" [ngClass]="{'uk-disabled': !patentAnalytics}"
+           [routerLink]="[patentAnalytics]" (click)="setReturnUrl()">Ok
+        </a>
       </div>
     </div>
   </div>
