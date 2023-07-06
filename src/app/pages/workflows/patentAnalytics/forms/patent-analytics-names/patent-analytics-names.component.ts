@@ -61,6 +61,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
   submitJob() {
     if (this.file?.name && this.patentInputs.indicators.length > 0 && this.patentInputs.metadata.length > 0) {
+      this.job.jobArguments.push(new JobArgument('dataSource', [this.patentInputs.dataSource]));
       this.job.jobArguments.push(new JobArgument('from', [this.patentInputs.from]));
       this.job.jobArguments.push(new JobArgument('to', [this.patentInputs.to]));
       this.job.jobArguments.push(new JobArgument('indicators', this.patentInputs.indicators));
@@ -84,7 +85,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
       );
 
     } else {
-      this.message = 'File and Indicator are mandatory'
+      this.message = 'File, Indicators and Metadata are mandatory'
     }
   }
 
@@ -179,14 +180,18 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
         return true;
     }
     if (step === 1) {
+      if (this.patentInputs.dataSource)
+        return true;
+    }
+    if (step === 2) {
       if (this.patentInputs.from && this.patentInputs.to)
         return true
     }
-    if (step === 2) {
+    if (step === 3) {
       if (this.patentInputs.indicators.length > 0)
         return true;
     }
-    if (step === 3) {
+    if (step === 4) {
       if (this.patentInputs.metadata.length > 0)
         return true;
     }

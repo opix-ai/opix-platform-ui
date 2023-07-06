@@ -64,6 +64,7 @@ export class Bibliometrics {
 }
 
 export class PatentNames {
+  dataSource: string = null;
   file: string;
   from: string;
   to: string;
@@ -71,6 +72,7 @@ export class PatentNames {
   metadata: string[];
 
   constructor() {
+    this.dataSource = 'EPO';
     this.file = null;
     this.from = '2021';
     this.to = '2022';

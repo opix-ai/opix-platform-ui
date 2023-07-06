@@ -20,17 +20,13 @@ export class AppComponent {
     this.authService.redirect();
 
     this.getScreenSize();
-    // if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-    //   console.log("mobile");
-    // }else{
-    //   console.log("not mobile");
-    // }
   }
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
     this.screenWidth = window.innerWidth;
-    console.log(this.screenWidth);
+    // this.screenHeight = window.innerHeight;
+    // console.log(this.screenWidth);
   }
 
   isNotDashboard() {

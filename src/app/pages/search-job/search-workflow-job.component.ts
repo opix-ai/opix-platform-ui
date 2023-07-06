@@ -73,7 +73,6 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
   }
 
   getFilters(obj: object) {
-    console.log(obj[2]['jobArguments']);
     return obj[2]['jobArguments'];
   }
 
