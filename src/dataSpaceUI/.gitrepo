@@ -5,7 +5,7 @@
 ;
 [subrepo]
 	remote = git@github.com:madgeek-arc/dataSpaceUI.git
-	branch = test
+	branch = main
 	commit = 5bc4ea5030ac452bf2182b1ebd50b8078835bc08
 	method = merge
 	cmdver = 0.4.3
