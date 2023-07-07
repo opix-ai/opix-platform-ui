@@ -74,7 +74,7 @@
     </ul>
   </div>
 
-  <div *ngIf="userInfo?.roles && hasRole('OPERATOR-WORKFLOW_PROCESSOR')" class="menu_section border_top">
+  <div *ngIf="userInfo?.roles && (hasRole('OPERATOR-WORKFLOW_PROCESSOR') && (hasRole('GIANNIS') || hasRole('STEFANIA')))" class="menu_section border_top">
     <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Datasets</div>
     <ul>
       <li [routerLinkActive]="['current_section']" class="">
