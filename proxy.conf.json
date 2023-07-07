@@ -10,5 +10,12 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
+  },
+  "/input": {
+    "target": "http://vereniki.athenarc.gr:5000/",
+    "pathRewrite": {"^/input" : ""},
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }

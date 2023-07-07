@@ -4,6 +4,8 @@ import {environment} from "../../../../../environments/environment";
 import {UserService} from "../../../services/user.service";
 import {UserInfo} from "../../../domain/userInfo";
 
+declare var UIkit;
+
 @Component({
   selector: 'app-top-menu-landing',
   templateUrl: 'top-menu-landing.component.html',
@@ -15,6 +17,8 @@ export class TopMenuLandingComponent implements OnInit {
   subscriptions = [];
   userInfo: UserInfo = null;
   projectName = environment.projectName;
+
+  logoURL = environment.logoURL ? environment.logoURL : 'https://www.opix.ai/images/Logos/opix%20logo%202.svg';
 
   constructor(private authentication: AuthenticationService, private userService: UserService) {
   }
@@ -34,6 +38,10 @@ export class TopMenuLandingComponent implements OnInit {
     );
   }
 
+  closeCanvas(element) {
+    UIkit.offcanvas(element).hide();
+  }
+
   parseUsername() {
     let firstLetters = "";
     let matches = this.userInfo.fullname?.match(/\b(\w)/g);
@@ -42,11 +50,23 @@ export class TopMenuLandingComponent implements OnInit {
     return firstLetters;
   }
 
+  hasRoles() {
+    return this.authentication.userRoles.length > 0
+  }
+
+  hasRole(role: string) {
+    return this.userInfo.roles.indexOf(role) > -1;
+  }
+
   logInButton() {
     this.authentication.login();
   }
 
   logout() {
     this.authentication.logout();
+  }
+
+  isLoggedIn() {
+    return this.authentication.authenticated;
   }
 }

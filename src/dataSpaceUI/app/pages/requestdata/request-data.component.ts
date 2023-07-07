@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NavigationService} from "../../services/navigation.service";
 import {CatalogueService} from "../../services/catalogue.service";
-import {Job, JobArguments} from "../../domain/job";
+import {Job, JobArgument} from "../../domain/job";
 import {Router} from "@angular/router";
 import {Subscriber} from "rxjs";
 
@@ -48,12 +48,15 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+
+    console.log('running on init');
     this.dataForm = this.fb.group(this.formPrepare);
 
     this.subscriptions.push(
       this.navigationService.dataRequestIds.subscribe(
         dataRequestIds => {
-          if (dataRequestIds?.datasetId !== null && dataRequestIds?.instanceVersion !== null) {
+          console.log(dataRequestIds);
+          if (dataRequestIds?.datasetId != null && dataRequestIds?.instanceVersion != null) {
             this.subscriptions.push(
               this.catalogueService.getResourceTypeById(dataRequestIds.datasetId, 'dataset_type').subscribe(
                 res => {
@@ -66,6 +69,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
                           this.catalogueService.getInternalId(this.dataset['name'], dataRequestIds.instanceVersion).subscribe(
                             res => {
                               this.internalId = res.toString();
+                              this.navigationService.setDataRequestIds(null, null);
                             },
                             error => {console.log(error);}
                           )
@@ -90,7 +94,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.navigationService.setDataRequestIds(null, null);
+    // this.navigationService.setDataRequestIds(null, null);
     this.instance = null;
     this.dataset = null;
     this.subscriptions.forEach(subscription => {
@@ -102,7 +106,7 @@ export class RequestDataComponent implements OnInit, OnDestroy {
 
   submit() {
     // this.job.jobArguments.push(new JobArguments('datasetId', this.instance['id']));
-    this.job.jobArguments.push(new JobArguments('datasetId', this.internalId));
+    this.job.jobArguments.push(new JobArgument('datasetId', this.internalId));
 
 
     for (const [key, value] of Object.entries(this.dataForm.getRawValue())) {
@@ -124,13 +128,13 @@ export class RequestDataComponent implements OnInit, OnDestroy {
             // }
           } else if (value[i] !== '') {
             // console.log(`${key}: ${value[i]}`);
-            this.job.jobArguments.push(new JobArguments(key, value[i].toString()));
+            this.job.jobArguments.push(new JobArgument(key, value[i].toString()));
           }
         }
 
       } else if (value !== '' && key !== 'entity') {
         // console.log(`${key}: ${value}`);
-        this.job.jobArguments.push(new JobArguments(key, value.toString()));
+        this.job.jobArguments.push(new JobArgument(key, value.toString()));
       }
     }
 

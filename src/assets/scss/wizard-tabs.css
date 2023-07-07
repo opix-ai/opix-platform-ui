@@ -1,0 +1,51 @@
+.wizard-tabs.uk-tab-left::before {
+  border-left: none;
+}
+
+.wizard-tabs.uk-tab-left > * {
+  padding-right: 20px;
+  margin-right: 20px;
+}
+
+.wizard-tabs.uk-tab > * > a {
+  padding: 10px 20px;
+  text-transform: none;
+}
+
+.wizard-tabs.uk-tab > .uk-active > a {
+  background-color: #15243C1A;
+  border: none !important;
+  border-radius: 6px;
+}
+
+.wizard-tabs.uk-tab > .step-enabled > a {
+  color: #000;
+}
+
+.wizard-tabs.uk-tab > .uk-active > a .material-icons {
+  color: #000;
+}
+
+.wizard-tabs.uk-tab > .step-enabled > a .material-icons {
+  color: #000;
+}
+
+.wizard-tabs.uk-tab > * > a .step-header {
+
+}
+
+.wizard-tabs.uk-tab > * > a .step-description {
+
+}
+
+.checkbox-list {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 40vh;
+  min-height: 40px;
+  overflow: scroll
+}
+
+.checkbox-list-small {
+  max-height: 20vh;
+}

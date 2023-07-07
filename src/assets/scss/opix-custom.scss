@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
+
 :root {
+
+  --primary-color-background: #fdf5e8;
+
   --intelcomp-light-color: #f09c19;
   --intelcomp-dark-color: #15243C;
 
+  --link-hover-color: #1f3559;
 
-  --main-font-family: 'Aileron';
+  //--main-font-family: 'Aileron';
+  --main-font-family: 'Open Sans';
   --secondary-font-family: 'Bitter';
   --black: #1A1A1A;
   --grey: #6E6E6E;
@@ -24,7 +31,6 @@
   --primary-color: #f09c19;
   /*--primary-color: #AD20E7;*/
   --link-color: #2D72D6;
-  --link-hover-color: #3665ab;
   --breadcrumb-active-color: #4687E6;
   --button-primary-hover-background-color: #9FCC52;
   --button-secondary-color: #fff;
@@ -34,6 +40,23 @@
   --logo: url('https://www.opix.ai/images/Logos/opix%20logo%202.svg');
   --home-hero-image: url('http://opix.ai/templates/yootheme/cache/2_Consultation-dd4e3df2.jpeg');
 
-  --header-height: 107px;
+  //--header-height: 107px;
+  --header-height: 80px;
   --logo-height: 90px;
+}
+
+/* ========================================================================
+   Buttons
+ ========================================================================== */
+
+a.uk-button {
+  line-height: 40px;
+}
+
+.uk-button {
+  border-radius: 10px;
+}
+
+.uk-button-primary {
+
 }

@@ -1,0 +1,133 @@
+<div class="uk-section uk-section-default">
+  <div class="uk-container uk-container-large uk-margin">
+
+    <h5 class="">Analyses history</h5>
+
+    <div uk-grid>
+      <div class="uk-width-1-4">
+        <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" [(ngModel)]="status" (change)="filter()">
+          <ng-option [value]="''">All statuses</ng-option>
+          <ng-option [value]="'FINISHED'">Finished</ng-option>
+          <ng-option [value]="'QUEUED'">Queued</ng-option>
+          <ng-option [value]="'RUNNING'">Running</ng-option>
+          <ng-option [value]="'FAILED'">Failed</ng-option>
+          <ng-option [value]="'CANCELED'">Canceled</ng-option>
+          <ng-option [value]="'ERROR'">Error</ng-option>
+          <ng-option [value]="'KILLED'">Killed</ng-option>
+        </ng-select>
+      </div>
+      <div class="uk-width-1-4">
+        <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" [(ngModel)]="workflowType" (change)="filter()">
+          <ng-option [value]="''">All workflow types</ng-option>
+          <ng-option [value]="'bibliometricAnalysis'">Bibliometric analysis</ng-option>
+          <ng-option [value]="'patentAnalyticsClassification'">Patent analytics classification</ng-option>
+          <ng-option [value]="'patentAnalyticsNames'">Patent analytics names</ng-option>
+        </ng-select>
+      </div>
+      <div class="uk-width-expand">
+        <div class="uk-flex uk-flex-middle uk-flex-right">
+
+          <p class="uk-margin-remove uk-padding-small">
+            Results <span class="uk-text-bold">{{from + 1}}-</span><span class="uk-text-bold">{{to}}</span> of <span class="uk-text-bold">{{total}}</span>
+          </p>
+
+          <ul class="uk-pagination uk-visible@m">
+            <li *ngIf="currentPage>1 && totalPages>=5"><a (click)="goToPage(0)"><span uk-pagination-previous></span><span uk-pagination-previous></span></a></li>
+            <li *ngIf="currentPage!==0"><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
+            <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
+              <a (click)="goToPage(i)">{{i+1}}</a>
+            </li>
+            <li *ngIf="currentPage!==totalPages-1"><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
+            <li *ngIf="currentPage<totalPages-1 && totalPages>5"><a (click)="goToPage(totalPages-1)"><span uk-pagination-next></span><span uk-pagination-next></span></a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="showEasterGifValue" class="uk-margin-medium-top">
+      <img src="https://media.tenor.com/LAjUguYGKq0AAAAC/dmv-beetlejuice.gif">
+    </div>
+
+    <div class="uk-card uk-card-default uk-margin-medium-top">
+      <table class="uk-table uk-table-divider uk-table-middle card-table">
+        <thead>
+        <tr>
+          <th class="extra-left-padding">Type</th>
+          <th>Filters</th>
+          <th>Submitted on</th>
+          <th>Finished at</th>
+          <th>Status</th>
+          <th class="extra-right-padding"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="jobs?.length == 0">
+          <tr>
+            <td colspan="5" class="extra-left-padding extra-right-padding">No past analyses to show</td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="jobs?.length > 0">
+          <tr *ngFor="let job of filteredJobs | slice: from : to">
+            <td class="extra-left-padding">
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patent analytics classification</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patent analytics names</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='bibliometricAnalysis'">Bibliometrics Analysis</ng-container>
+            </td>
+            <td>
+              <a class="uk-link">{{getNumberOfFilters(job.callerAttributesObj)}} filters selected</a>
+              <div uk-dropdown="mode: click; pos: bottom-left" class="filters-dropdown" style="max-width: 300px !important;">
+                <div class="uk-padding-small">
+                  <h6>Filters</h6>
+                  <div *ngFor="let filter of getFilters(job.callerAttributesObj)" class="uk-margin-top">
+                    <span>{{filter.name}}: </span>
+                    <span>{{filter.value}}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="job.createdAt" class="">{{job.createdAt | date:'medium'}}</div>
+            </td>
+            <td>
+              <div *ngIf="job.status && job.status.length>0 && (job.status[0].status=='FINISHED' || job.status[0].status=='finished' || job.status[0].status=='FAILED' || job.status[0].status=='failed'); else elseBlock">
+                {{job.status[0].timestamp | date:'medium'}}
+              </div>
+              <ng-template #elseBlock>--</ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="job.mergedStatus==='FINISHED'"><label class="uk-label uk-label-success">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='FAILED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='ERROR'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='KILLED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='QUEUED'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='RUNNING'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='CANCELLED'"><label class="uk-label uk-label-secondary">{{job.mergedStatus}}</label></ng-container>
+            </td>
+            <td class="extra-right-padding">
+              <ng-container>
+                <a uk-tooltip="Coming soon.." class="uk-margin-right">
+                  <span class="material-icons">delete</span>
+                </a>
+              </ng-container>
+              <ng-container *ngIf="job.mergedStatus === 'FINISHED'">
+                <a *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'"
+                   class="material-icons icons-secondary uk-margin-small-right" (click)="downloadFile(job.id)"
+                   uk-tooltip="Download output file">file_download
+                </a>
+                <a [routerLink]="['/result', job.id]" uk-tooltip="View results..">
+                  <span class="material-icons icons-secondary">arrow_forward</span>
+                </a>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+

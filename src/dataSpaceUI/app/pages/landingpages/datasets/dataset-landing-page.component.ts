@@ -63,10 +63,10 @@ export class DatasetLandingPageComponent extends LandingPageComponent {
   }
 
   gotoRequestData(instanceVersion, datasetId) {
+    console.log('running on landing page');
+    UIkit.modal('#modal-dataset-instances').hide();
     this.navigationService.setDataRequestIds(instanceVersion, datasetId);
-    this.router.navigate([`/request-data`]).then(
-      UIkit.modal('#modal-dataset-instances').hide()
-    );
+    this.router.navigate([`/request-data`]).then();
   }
 
   gotoTooLandingPage() {

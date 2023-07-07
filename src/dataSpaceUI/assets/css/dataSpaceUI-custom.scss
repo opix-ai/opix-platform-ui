@@ -14,9 +14,22 @@
 /*}*/
 
 :root {
+
+  --primary-color-background: #ffcce2;
+
   --intelcomp-light-color: #ff006e;
   --intelcomp-dark-color: #151F2E;
 
+  --sidebar-width: 320px;
+  --sidebar-width-invert: -320px;
+  --toggle-sidebar-closed: 338px;
+  --dashboard-transition-delay: 0.25s;
+  --sidebar-font-size: 16px;
+  //--sidebar-width: 280px;
+  //--header-height: 80px;
+
+
+  --white: #fff;
 
   --main-font-family: 'Aileron';
   --secondary-font-family: 'Bitter';
@@ -90,6 +103,10 @@ body {
   background-color: #fff;
 }
 
+.uk-background-secondary {
+  background-color: var(--intelcomp-dark-color);
+}
+
 .uk-text-normal {
   font-weight: 400 !important;
 }
@@ -99,7 +116,8 @@ body {
 }
 
 .sidebar_main_active #page_content {
-  margin-left: 280px;
+  //margin-left: 280px;
+  margin-left: var(--sidebar-width);
 }
 
 .header-margin {
@@ -113,6 +131,104 @@ body {
   background-size: cover;
 }
 
+/* ========================================================================
+  Label - custom
+========================================================================== */
+
+.uk-label-secondary {
+  background: var(--grey);
+}
+
+/* ========================================================================
+  Link - overrides
+========================================================================== */
+
+//a, .uk-link {
+//  color: var(--intelcomp-dark-color);
+//}
+
+/* ========================================================================
+   Sidebar - overrides
+ ========================================================================== */
+
+.sidebar_main_swipe #sidebar_main .menu_section .header {
+  padding: 10px 20px;
+}
+
+.sidebar_main_swipe #sidebar_main .menu_section > ul > li > a {
+  padding: 5px 20px;
+}
+
+#sidebar_main .menu_section {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+#sidebar_main .menu_section.border_top {
+  border-top: 1px solid #6E6E6E;
+}
+
+/* ========================================================================
+   Modal - custom
+ ========================================================================== */
+
+.uk-modal.modal-secondary .uk-modal-header {
+  background-color: var(--intelcomp-dark-color);
+}
+
+.uk-modal.modal-secondary .uk-modal-header h4.uk-modal-title {
+  color: var(--white);
+}
+
+.uk-modal.modal-secondary .uk-modal-close-full {
+  background: transparent;
+}
+
+.uk-modal.modal-secondary .uk-close {
+  color: var(--white);
+}
+
+/* ========================================================================
+   Dropdown - custom
+ ========================================================================== */
+
+.filters-dropdown {
+  max-width: 400px !important;
+  overflow-wrap: break-word;
+}
+
+/* ========================================================================
+   Table - custom
+ ========================================================================== */
+
+//.table-simple.uk-table thead tr {
+//  background-color: var(--primary-color-background);
+//  border-radius: 6px;
+//}
+//
+//.table-simple.uk-table th {
+//  text-transform: none;
+//}
+
+.card-table.uk-table thead tr {
+  background-color: var(--primary-color-background);
+}
+
+.card-table.uk-table th {
+  text-transform: none;
+}
+
+.card-table.uk-table th.extra-left-padding, .card-table.uk-table td.extra-left-padding {
+  padding-left: 30px;
+}
+
+.card-table.uk-table th.extra-right-padding, .card-table.uk-table td.extra-right-padding {
+  padding-right: 30px;
+}
+
+.card-table td {
+  font-size: 14px;
+}
 
 /* ========================================================================
    Margins
@@ -162,7 +278,7 @@ h6 {
 }
 
 .h1-subHeader {
-  color: var(--catalogue-light-purple);
+  color: var(--intelcomp-light-color);
   /*text-align: left;*/
   font: normal normal normal 20px/27px var(--main-font-family);
   letter-spacing: 0px;
@@ -259,7 +375,7 @@ dd {
 }
 
 .uk-text-primary {
-  color: var(--catalogue-light-purple) !important;
+  color: var(--primary-color) !important;
 }
 
 .line-clamp {
@@ -537,9 +653,9 @@ a.service-menu-item:hover {
   }
 
   #tm-mobile {
-    overflow-y: scroll;
+    overflow-y: hidden;
     overscroll-behavior: contain;
-    height: 90vh;
+    //height: 90vh;
   }
 
   .tm-mobile-background {
@@ -614,14 +730,16 @@ a.service-menu-item:hover {
 .uk-dotnav > * > * {
   width: 16px;
   height: 16px;
-  background-color: var(--catalogue-light-purple) !important;
+  background-color: var(--intelcomp-dark-color) !important;
   opacity: 0.4;
   border: none !important;
 }
 
 .uk-dotnav > .uk-active > * {
-  background-color: var(--catalogue-light-purple) !important;
+  background-color: var(--intelcomp-dark-color) !important;
   opacity: 1;
+  width: 30px;
+  border-radius: 45%;
 }
 
 .slider-image {
@@ -834,7 +952,7 @@ a.serviceDetails {
 
   .serviceDetails .service-details-card-content {
     border-left: none;
-    border-bottom: 34px solid #ececec;
+    //border-bottom: 34px solid #ececec;
   }
 
   .serviceDetails .service-details-card-content .portfolioSection {
@@ -866,6 +984,10 @@ a.serviceDetails {
   /*vertical-align: middle;*/
   //color: #6b6b6b;
   color: #ddd;
+}
+
+.material-icons.icons-secondary {
+  color: var(--intelcomp-dark-color);
 }
 
 .material-icons.md-10 { font-size: 10px; }

@@ -1,0 +1,367 @@
+<div id="modal-input" class="uk-modal-full modal-secondary" uk-modal='{"esc-close": false, "bg-close": false}'>
+
+  <div class="uk-modal-dialog" style="min-height: 100vh">
+    <button class="uk-modal-close-full uk-close-large" type="button" (click)="navigateBack()" uk-close></button>
+
+    <div id="modal-header" class="uk-modal-header uk-flex uk-flex-middle uk-visible@m">
+      <img src="../../../../../../assets/images/logos/opix%20logo%202_notag.png" alt="Opix Platform" class="uk-margin-medium-right" width="150px" height="60px">
+      <div>
+        <h4 class="uk-modal-title uk-margin-remove">Patent Analytics</h4>
+        <span class="uk-text-meta">Technological class</span>
+      </div>
+    </div>
+
+    <div id="modal-header-mobile" class="uk-modal-header uk-hidden@m uk-text-center">
+      <img src="../../../../../../assets/images/logos/opix%20logo%202_notag.png" alt="Opix Platform" class="" width="150px" height="60px">
+      <div>
+        <h4 class="uk-modal-title uk-margin-remove">Patent Analytics</h4>
+        <span class="uk-text-meta">Starting from classification schema</span>
+      </div>
+    </div>
+
+    <div class="" >
+      <div *ngIf="!submitSuccess" class="uk-container uk-container-expand">
+
+        <div class="" uk-grid>
+          <div class="uk-width-1-3 uk-section-default uk-visible@m" [ngStyle]="{'min-height': 'calc(100svh - ' + headerHeight + 'px)'}">
+            <ul id="tabs" class="uk-tab-left wizard-tabs uk-margin-large-top">
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0)}">
+                <a href="#" class="" (click)="tabIndex = 0">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Database</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">
+                      Pick the resource, most suitable for your analysis
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(0), 'uk-disabled': !stepComplete(0)}">
+                <a href="#" class="" (click)="tabIndex = 1">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(1) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Industry</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">
+                      Specify the sector & technological group(s)
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(1), 'uk-disabled': !stepComplete(1)}">
+                <a href="#" class="" (click)="tabIndex = 2">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(2) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Filters</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Filter by Country and Year</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(2) && stepComplete(1), 'uk-disabled': !(stepComplete(2) && stepComplete(1))}">
+                <a href="#" class="" (click)="tabIndex = 3">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Indicators</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Pick the indicators to show in your dashboard</div>
+                  </div>
+                </a>
+              </li>
+              <li class="uk-margin-bottom" [ngClass]="{'step-enabled': stepComplete(3), 'uk-disabled': !stepComplete(3)}">
+                <a href="#" class="" (click)="tabIndex = 4">
+                  <div class="step-icon uk-margin-right">
+                    <span class="material-icons">{{stepComplete(4) ? 'check_circle':'circle'}}</span>
+                  </div>
+                  <div>
+                    <div class="step-header uk-text-bold">Summary</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">View a summary of your selections before you proceed</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="uk-width-expand" style="overflow-y: scroll">
+            <div class="uk-container uk-container-xsmall">
+
+              <div class="uk-grid uk-flex uk-flex-center">
+                <div class="uk-width-2-3@m uk-width-2-3@l uk-width-1-1@s">
+                  <ul class="uk-switcher uk-margin-large-top switcher-container">
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Database</div>
+                        <div class="uk-text-light">Pick the resource, most suitable for your analysis</div>
+                      </div>
+                      <form [formGroup]="paForm">
+                        <div class="uk-margin-medium-bottom">
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="dataSource">Data Source *</label>
+                            </div>
+                            <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" formControlName="dataSource">
+                              <ng-option [value]="'EPO'">Patstat (1.3.0-dev, Autumn/2022)</ng-option>
+                              <ng-option [value]="'patstat-spring-2023'" [disabled]="true">Patstat (Spring/2023)</ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(1)"
+                           [ngClass]="{'uk-disabled': !stepComplete(0)}">Continue
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Industry</div>
+                        <div class="uk-text-light">Specify the sector & technological group(s)</div>
+                      </div>
+                      <form [formGroup]="paForm">
+                        <div class="uk-margin-medium-bottom">
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="domain">Subject *</label>
+<!--                              <div class="uk-text-small uk-text-light uk-text-meta">Subject serves as a broad classification framework that groups related subject matters together.</div>-->
+                            </div>
+                            <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true"
+                                       [searchable]="false" formControlName="domain">
+                            </ng-select>
+                          </div>
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="category" uk-tooltip="(including IPC/CPC sections)">Sector *</label>
+<!--                              <div class="uk-text-small uk-text-light uk-text-meta">Sector provides a more targeted classification framework that helps to differentiate between various subfields or disciplines within a broader subject.</div>-->
+                            </div>
+                            <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true"
+                                       [searchable]="false" formControlName="category">
+                            </ng-select>
+                          </div>
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small"  uk-tooltip="(including IPC/CPC classes)">
+                                Technological group *
+                              </label>
+                              <label>
+                                <input #selectAll type="checkbox" class="uk-margin-left uk-margin-small-right"
+                                       [disabled]="!paForm.get('topics').enabled"
+                                       [checked]="allTopics" (change)="selectAllTopics($event)">
+                                <span class="uk-text-muted">Select all</span>
+                              </label>
+<!--                              <div class="uk-text-small uk-text-light uk-text-meta">Technological group enables the organization and retrieval of patents based on specific technical aspects, facilitating more precise searching and examination of related inventions.</div>-->
+                            </div>
+                            <div class="checkbox-list">
+                              <div class="uk-padding-small">
+                                <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let topic of topics; let i=index">
+                                  <input [id]="i" type="checkbox" [value]="topic['topic']" class="uk-margin-small-right"
+                                         (change)="topicSelect($event); (removeCheck('topics') && selectAll.checked) ? selectAll.click() : ''"
+                                         [checked]="showChecked('topics', topic['topic'])">
+                                  <label [for]="i">
+                                    {{(topic['code'] ? '(' + topic['code'] + ') ' : '') + topic['label']}}
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </form>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(2)"
+                           [ngClass]="{'uk-disabled': !stepComplete(1)}">Continue</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Filters</div>
+                        <div class="uk-text-light">Filter by Country and Year</div>
+                      </div>
+                      <form [formGroup]="paForm">
+                        <div class="uk-margin-medium-bottom">
+
+                          <div class="uk-grid">
+                            <div class="uk-margin-bottom uk-width-1-2">
+                              <div class="uk-margin-small-bottom">
+                                <label class="uk-text-bold uk-text-small" for="from">Year from</label>
+                              </div>
+                              <ng-select #from labelForId="from" [searchable]="false" formControlName="from">
+                                <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+                              </ng-select>
+                            </div>
+
+                            <div class="uk-margin-bottom uk-width-1-2">
+                              <div class="uk-margin-small-bottom">
+                                <label class="uk-text-bold uk-text-small" for="to">Year to</label>
+                              </div>
+                              <ng-select #to labelForId="to" [searchable]="false" formControlName="to">
+                                <ng-option *ngFor="let year of yearRange" [value]="''+year">{{year}}</ng-option>
+                              </ng-select>
+                            </div>
+                          </div>
+
+                          <div class="uk-margin-bottom">
+                            <div class="uk-margin-small-bottom">
+                              <label class="uk-text-bold uk-text-small" for="countries">Countries</label>
+                              <label>
+                                <input #allCountries type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllCountries($event)">
+                                <span class="uk-text-muted">Select all</span>
+                              </label>
+                            </div>
+                            <ng-select #countries labelForId="countries" [groupBy]="'continent'" bindValue="country_code" bindLabel="name"
+                                       [multiple]="true" [items]="countriesFlat" [selectableGroup]="true" [searchable]="true"
+                                       [closeOnSelect]="false" [clearSearchOnAdd]="true" [virtualScroll]="true"
+                                       [selectableGroupAsModel]="false" [compareWith]="compareAccounts" formControlName="countries"
+                                       (clear)="allCountries.checked ? allCountries.click() : ''" class="auto-height"
+                                       (remove)="(removeCheck('countries') && allCountries.checked) ? allCountries.click() : ''">
+                              <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item.continent | uppercase}}
+                              </ng-template>
+                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item['name']}}
+                              </ng-template>
+                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                <div class="ng-value" *ngFor="let item of items | slice:0:5">
+                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                  <span class="ng-value-label">{{item['name'] ? item['name'] : item['continent']}}</span>
+                                </div>
+                                <div class="ng-value" *ngIf="items.length > 5">
+                                  <span class="ng-value-label">{{items.length - 5}} more...</span>
+                                </div>
+                              </ng-template>
+                            </ng-select>
+                          </div>
+
+                        </div>
+                      </form>
+                      <!--                  <a href="#" uk-switcher-item="previous" class="uk-margin-small-right">Previous</a>-->
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(3)"
+                           [ngClass]="{'uk-disabled': !(stepComplete(1) && stepComplete(2))}">Continue
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Indicators</div>
+                        <div class="uk-text-light">Pick the indicators to show in your dashboard</div>
+                      </div>
+                      <div class="uk-margin-medium-bottom">
+                        <div class="uk-margin-small-bottom">
+                          <label class="uk-text-bold uk-text-small">Indicators *</label>
+                          <label>
+                            <input #allIndicators type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllIndicators($event)">
+                            <span class="uk-text-muted">Select all</span>
+                          </label>
+                        </div>
+
+                        <div class="checkbox-list">
+                          <div class="uk-padding-small">
+                            <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
+                              <input [id]="i" type="checkbox" [value]="indicator['id']" class="uk-margin-small-right"
+                                     (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
+                                     [checked]="showChecked('indicators', indicator['id'])">
+                              <label [for]="i">{{indicator['label']}}</label>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(4)"
+                           [ngClass]="{'uk-disabled': !stepComplete(3)}">Continue
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div *ngIf="message" class="uk-alert-danger" uk-alert>
+                        <a class="uk-alert-close" (click)="clearMessage()" uk-close></a>
+                        <p>{{message}}</p>
+                      </div>
+                      <div class="uk-text-center uk-margin-medium-bottom">
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Summary</div>
+                        <div class="uk-text-light">View a summary of your selections before you proceed</div>
+                      </div>
+                      <div class="uk-margin-medium-bottom summarySection">
+
+                        <table>
+                          <tr>
+                            <th>Datasource</th>
+                            <td>{{paForm.get('dataSource').value}}</td>
+                          </tr>
+                          <tr>
+                            <th>Subject</th>
+                            <td>{{paForm.get('domain').value}}</td>
+                          </tr>
+                          <tr>
+                            <th>Sector</th>
+                            <td>{{paForm.get('category').value}}</td>
+                          </tr>
+                          <tr>
+                            <th>Technological groups</th>
+                            <td><div *ngFor="let topic of paForm.get('topics').value">{{topic}}</div></td>
+                          </tr>
+                          <tr>
+                            <th>Year from</th>
+                            <td>{{paForm.get('from').value}}</td>
+                          </tr>
+                          <tr>
+                            <th>Year to</th>
+                            <td>{{paForm.get('to').value}}</td>
+                          </tr>
+                          <tr>
+                            <th>Countries</th>
+                            <td><span *ngFor="let country of paForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span></td>
+                          </tr>
+                          <tr>
+                            <th>Indicators</th>
+                            <td><div *ngFor="let indicator of paForm.get('indicators').value">{{indicator}}</div></td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                        <button type="button" class="uk-button uk-button-primary uk-width-1-1" (click)="submitJob()">Submit</button>
+                      </div>
+                    </li>
+                  </ul>
+
+                  <ul class="uk-dotnav uk-flex uk-flex-center uk-margin-medium-bottom">
+                    <li [ngClass]="{'uk-active': tabIndex === 0}"><a (click)="showSwitcherTab(0)">Item 1</a></li>
+                    <li [ngClass]="{'uk-active': tabIndex === 1, 'uk-disabled': !stepComplete(0)}">
+                      <a (click)="showSwitcherTab(1)">Item 2</a>
+                    </li>
+                    <li [ngClass]="{'uk-active': tabIndex === 2, 'uk-disabled': !stepComplete(1)}">
+                      <a (click)="showSwitcherTab(2)">Item 3</a>
+                    </li>
+                    <li [ngClass]="{'uk-active': tabIndex === 3, 'uk-disabled': !(stepComplete(1) && stepComplete(2))}">
+                      <a (click)="showSwitcherTab(3)">Item 4</a>
+                    </li>
+                    <li [ngClass]="{'uk-active': tabIndex === 4, 'uk-disabled': !stepComplete(3)}">
+                      <a (click)="showSwitcherTab(4)">Item 5</a>
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+<!--        <pre>{{paForm.getRawValue() | json}}</pre>-->
+
+      </div>
+      <div class="uk-container uk-container-expand" [ngClass]="{'uk-display-none': !submitSuccess}">
+        <app-success-page></app-success-page>
+      </div>
+    </div>
+  </div>
+</div>

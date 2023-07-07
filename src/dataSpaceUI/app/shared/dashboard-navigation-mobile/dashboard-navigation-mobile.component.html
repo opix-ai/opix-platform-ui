@@ -1,0 +1,29 @@
+<!--MOBILE-->
+<div class="sidebar-actions-mobile uk-background-secondary uk-hidden@m">
+  <div class="uk-container uk-flex-middle uk-grid uk-text-xsmall uk-text-meta uk-child-width-1-3">
+    <div>
+      <a class="uk-flex uk-flex-column uk-flex-middle uk-flex-center uk-link-reset">
+        <span class="uk-text-primary">
+          <div name="description" type="outlined" class="ng-star-inserted">
+            <span class="uk-flex ng-star-inserted">
+              <span class="material-icons outlined" style="font-size: 40px;">home</span>
+            </span>
+          </div>
+        </span>
+        <span>Home</span>
+      </a>
+    </div>
+    <div *ngIf="userInfo?.roles && hasRole('OPERATOR-WORKFLOW_PROCESSOR')">
+      <a class="uk-flex uk-flex-column uk-flex-middle uk-flex-center uk-link-reset">
+        <span class="uk-text-primary">
+          <div name="description" type="outlined" class="ng-star-inserted">
+            <span class="uk-flex ng-star-inserted">
+              <span class="material-icons outlined" style="font-size: 40px;">analytics</span>
+            </span>
+          </div>
+        </span>
+        <span>Analyses</span>
+      </a>
+    </div>
+  </div>
+</div>

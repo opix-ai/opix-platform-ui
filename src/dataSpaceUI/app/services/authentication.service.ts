@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 import {deleteCookie, getCookie} from "../../catalogue-ui/shared/reusable-components/cookie-management";
 import {environment} from "../../../environments/environment";
-import {Router} from "@angular/router";
 import {UserService} from "./user.service";
 
 
@@ -17,7 +17,7 @@ export class AuthenticationService {
 
   tryLogin() {
     if (getCookie(this.cookieName) === null) {
-      console.log('Didn\'t find cookie, user is not logged in.' )
+      console.log('Didn\'t find cookie, user is not logged in.' );
       sessionStorage.setItem('redirectUrl', window.location.pathname);
       this.login();
     } else {
@@ -26,6 +26,7 @@ export class AuthenticationService {
   }
 
   login() {
+    sessionStorage.setItem('redirectUrl', window.location.pathname)
     window.location.href = this.base + this.loginEndPoint;
   }
 
@@ -37,16 +38,25 @@ export class AuthenticationService {
   }
 
   get userRoles(): string[] {
+    if (!sessionStorage.getItem('userRoles'))
+      return [];
     return sessionStorage.getItem('userRoles').split(',');
   }
 
   get authenticated(): boolean {
+    if (getCookie(this.cookieName) === null) {
+      sessionStorage.clear();
+      deleteCookie(this.cookieName);
+      this.userService.clearUserInfo();
+    }
     return getCookie(this.cookieName) !== null;
   }
 
   redirect() {
     if (sessionStorage.getItem('redirectUrl') !== null) {
       let url = sessionStorage.getItem('redirectUrl');
+      // if (url === '/home')
+      //   return;
       sessionStorage.removeItem('redirectUrl');
       this.router.navigate([url]);
     }

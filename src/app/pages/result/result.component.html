@@ -1,0 +1,19 @@
+<div class="uk-section uk-section-default uk-section-small uk-padding-remove-bottom" style="margin:0px; background-color: #f2f3f8 !important;">
+  <div *ngIf="job" class="uk-container">
+    <h4>
+      <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patent analytics classification</ng-container>
+      <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patent analytics names</ng-container>
+      <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='bibliometricAnalysis'">Bibliometrics Analysis</ng-container>
+    </h4>
+    <div>Results for job with id: {{job.id}}, completed at {{job.status[0].timestamp | date:'medium'}}</div>
+<!--    <h4>{{job.id}}</h4>-->
+  </div>
+</div>
+
+<!--<div class="uk-section uk-section-default uk-section-small" style="min-height: calc(100svh - var(&#45;&#45;header-height))">-->
+<!--  <div class="uk-container uk-container-large">-->
+
+    <iframe [src]="url | safeUrl:'resourceUrl'" class="uk-width-1-1" style="min-height: calc(100svh - var(--header-height));"></iframe>
+
+<!--  </div>-->
+<!--</div>-->

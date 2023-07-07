@@ -1,23 +1,41 @@
-<router-outlet></router-outlet><ng-container *ngIf="isHome() ; else dashboard">
+<router-outlet></router-outlet><ng-container *ngIf="isNotDashboard() ; else dashboard">
   <app-top-menu-landing></app-top-menu-landing>
+  <div class="header-margin uk-visible@m"></div>
   <router-outlet></router-outlet>
   <!--<app-footer-intelcomp></app-footer-intelcomp>-->
 </ng-container>
 
 <ng-template #dashboard>
-  <div id="sidebar_main_content" class="sidebar_main_swipe sidebar_main_active" [class.sidebar_main_active]="open">
-    <app-top-menu-dashboard></app-top-menu-dashboard>
-    <div class="header-margin"></div>
-    <app-side-menu-dashboard></app-side-menu-dashboard>
+  <!--NO MOBILE-->
+  <div *ngIf="screenWidth>=960 ; else mobile" class="">
+    <div id="sidebar_main_content" class="sidebar_main_swipe sidebar_main_active" [class.sidebar_main_active]="open">
+      <app-top-menu-landing></app-top-menu-landing>
+      <div class="header-margin uk-visible@m"></div>
+      <app-side-menu-dashboard></app-side-menu-dashboard>
 
-    <div id="page_content">
-      <router-outlet></router-outlet>
+      <div id="page_content">
+        <router-outlet></router-outlet>
+      </div>
+
+      <div style="margin-left: 280px">
+        <!--<pages-footer></pages-footer>-->
+      </div>
+
     </div>
-
-    <div style="margin-left: 280px">
-      <!--<pages-footer></pages-footer>-->
-    </div>
-
   </div>
+
+  <!--MOBILE-->
+  <ng-template #mobile>
+    <div class="">
+      <app-top-menu-landing></app-top-menu-landing>
+
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+      <app-dashboard-navigation-mobile></app-dashboard-navigation-mobile>
+    </div>
+  </ng-template>
+
+
 </ng-template>
 

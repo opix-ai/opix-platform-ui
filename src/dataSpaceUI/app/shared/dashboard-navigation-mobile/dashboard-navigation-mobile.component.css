@@ -1,0 +1,11 @@
+.sidebar-actions-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 980;
+}
+
+.sidebar-actions-mobile > div {
+  padding: 10px 20px;
+}

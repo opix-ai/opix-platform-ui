@@ -1,0 +1,148 @@
+.uk-navbar-toggle {
+  color: #2c2c2c !important;
+  padding: 0 25px !important;
+}
+
+.user-info {
+  padding: 0 15px !important;
+}
+
+a.navbar-user-icon {
+  padding: 0 25px !important;
+  color: #2c2c2c !important;
+}
+
+a.user-info text {
+  color: #fff !important;
+}
+
+
+/**************** OFF-Canvas menu ****************/
+
+.uk-navbar-toggle .material-icons {
+  color: #2c2c2c !important;
+}
+
+.uk-offcanvas-close {
+  left: 5px;
+}
+
+.uk-open > .uk-offcanvas-bar {
+  left: 0;
+}
+
+.uk-offcanvas-bar {
+  width: 100vw;
+}
+
+.custom-offcanvas-close {
+  position: relative;
+  right: 0;
+  top: 0;
+}
+
+/*.uk-offcanvas-bar-light {*/
+/*  text-transform: uppercase;*/
+/*}*/
+
+.uk-offcanvas-bar-light {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  /*left: -270px;*/
+  box-sizing: border-box;
+  width: 100vw;
+  /*padding: 20px 20px;*/
+  background: #fff;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.uk-nav-sub a {
+  padding: 2px 15px;
+}
+
+.uk-offcanvas-bar-light .uk-nav-default > li > a, .uk-offcanvas-bar-light .uk-nav-default .uk-nav-sub a {
+  color: #333;
+}
+
+.uk-nav-default .uk-nav-sub a:hover {
+  color: var(--intelcomp-light-color);
+}
+
+.uk-offcanvas-bar-light .uk-nav-default > li.uk-active > a, .uk-offcanvas-bar-light .uk-nav-default > li > a:hover,
+.uk-offcanvas-bar-light .uk-nav-default > li > a.uk-active, .uk-offcanvas-bar-light .uk-nav-default > li > a:focus,
+.uk-offcanvas-bar-light .uk-nav-default > li > a:active {
+  color: var(--intelcomp-light-color);
+}
+
+.uk-offcanvas-bar-animation {
+  transition: left 0.3s ease-out;
+}
+
+@media (min-width: 960px) {
+  .uk-offcanvas-bar-light {
+    left: -350px;
+    width: 350px;
+    width: 100vw;
+    padding: 40px 40px;
+  }
+}
+
+.uk-offcanvas-flip .uk-offcanvas-bar-light {
+  left: auto;
+  right: -270px;
+}
+
+.uk-offcanvas-flip .uk-offcanvas-bar-animation {
+  transition-property: right;
+}
+
+.uk-offcanvas-flip .uk-open > .uk-offcanvas-bar-light {
+  left: auto;
+  right: 0;
+}
+
+@media (min-width: 960px) {
+  .uk-offcanvas-flip .uk-offcanvas-bar-light {
+    right: -350px;
+  }
+}
+
+.uk-offcanvas-flip .uk-offcanvas-reveal .uk-offcanvas-bar-light {
+  left: auto;
+  right: 0;
+}
+
+.uk-offcanvas-reveal .uk-offcanvas-bar-light {
+  left: 0;
+}
+
+.uk-open > .uk-offcanvas-bar-light {
+  left: 0;
+}
+
+.uk-close::after {
+  opacity: 0 !important;
+  color: #fff;
+  content: '';
+  font-family: "Material Icons";
+}
+
+.uk-nav > li > a {
+  padding: 5px 30px;
+}
+
+.uk-nav-primary > li > a {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--black) !important;
+}
+
+.uk-nav-primary > li.uk-active > a {
+  color: var(--intelcomp-light-color) !important;
+}
+
+/*************************************/

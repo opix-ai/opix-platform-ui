@@ -1,6 +1,6 @@
 export class Job {
   callerAttributes: string;
-  jobArguments: JobArguments[];
+  jobArguments: JobArgument[];
   serviceArguments: ServiceArgument;
 
 
@@ -11,12 +11,12 @@ export class Job {
   }
 }
 
-export class JobArguments {
+export class JobArgument {
   name: string;
-  value: string;
+  value: string[] | string;
 
 
-  constructor(name: string, value: string) {
+  constructor(name: string, value: string[] | string) {
     this.name = name;
     this.value = value;
   }

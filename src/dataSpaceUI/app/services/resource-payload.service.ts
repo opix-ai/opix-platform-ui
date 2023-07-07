@@ -19,15 +19,13 @@ export class ResourcePayloadService {
 
   getItemsWithQueryParams(resourceType: string, queryParameters?: Params) {
     let params = new HttpParams();
-    if (Object.entries(queryParameters).length > 0) {
-      for (const [key, value] of Object.entries(queryParameters)) {
-        params = params.append(key, value);
-      }
-      return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}&${params.toString()}`);
+    if (!queryParameters)
+      return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}`);
+
+    for (const [key, value] of Object.entries(queryParameters)) {
+      params = params.append(key, value);
     }
-
-    return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}`);
-
+    return this.http.get<Paging<any>>(this.base + `/items?resourceType=${resourceType}`, {params: params});
   }
 
   getItem(resourceType: string, identifierValue: string) {

@@ -2,3 +2,18 @@
 
 /* opix SCSS */
 @import '../assets/scss/opix-custom';
+@import '../assets/scss/wizard-tabs.css';
+@import '../assets/scss/summary-table.css';
+
+.ng-dropdown-panel {
+  width: auto !important;
+  min-width: 100%;
+}
+
+.ng-select.auto-height {
+  height: auto !important;
+}
+
+.ng-select.auto-height .ng-select-container {
+  height: auto !important;
+}

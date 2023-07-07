@@ -1,16 +1,13 @@
-<aside id="sidebar_main" style="overflow-y: auto; max-height: calc(100svh - var(--header-height))">
-  <div class="menu_section">
+<aside id="sidebar_main" >
+
+  <div id="sidebar_toggle" class="" (click)="toggleSidebar()"></div>
+
+  <div class="menu_section uk-margin-medium-top">
     <ul>
-      <li [routerLinkActive]="['current_section']" [routerLinkActiveOptions]="{exact: true}">
-        <a [routerLink]="['/search']" class="uk-flex uk-flex-middle">
-          <span class="material-icons uk-margin-right">search</span>
-          <span class="menu_title">Browse Datasets</span>
-        </a>
-      </li>
       <li [routerLinkActive]="['current_section']">
-        <a [routerLink]="['/search/tool']" class="uk-flex uk-flex-middle">
-          <span class="material-icons uk-margin-right">search</span>
-          <span class="menu_title">Browse Tools</span>
+        <a [routerLink]="['/dashboard']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">dashboard</span>
+          <span class="menu_title">Dashboard</span>
         </a>
       </li>
     </ul>
@@ -18,31 +15,31 @@
 
   <div *ngIf="userInfo?.roles && (hasRole('OPERATOR_DATASET-OWNER') || hasRole('OPERATOR_DATASET-INGESTOR'))"
        class="menu_section border_top">
-    <h6 class="uk-flex uk-flex-center header">Dataset</h6>
+    <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Resources</div>
     <ul>
       <li *ngIf="hasRole('OPERATOR_DATASET-OWNER')" [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['requests', 'create']" class="uk-flex uk-flex-middle">
           <span class="material-icons uk-margin-right">input</span>
-          <span class="menu_title">Request Dataset</span>
+          <span class="menu_title">Request Resource</span>
         </a>
       </li>
       <li [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['requests', 'all']" class="uk-flex uk-flex-middle">
           <span class="material-icons uk-margin-right">file_download</span>
-          <span class="menu_title">Dataset Requests</span>
+          <span class="menu_title">Resource Requests</span>
         </a>
       </li>
       <li *ngIf="hasRole('OPERATOR_DATASET-INGESTOR')" [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['form', 'datasetType']" class="uk-flex uk-flex-middle">
           <span class="material-icons uk-margin-right">description</span>
-          <span class="menu_title">Register Dataset</span>
+          <span class="menu_title">Register Resource</span>
         </a>
       </li>
     </ul>
   </div>
 
   <div *ngIf="userInfo?.roles && hasRole('OPERATOR_DATA-PROCESSOR')" class="menu_section border_top">
-    <h6 class="uk-flex uk-flex-center">Data</h6>
+    <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Data</div>
     <ul>
       <li [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['request-data']" class="uk-flex uk-flex-middle">
@@ -60,7 +57,7 @@
   </div>
 
   <div *ngIf="userInfo?.roles && hasRole('OPERATOR_DEVELOPER')" class="menu_section border_top">
-    <h6 class="uk-flex uk-flex-center">Tools</h6>
+    <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Tools / Models</div>
     <ul>
       <li [routerLinkActive]="['current_section']" class="">
         <a [routerLink]="['/form/tool']" class="uk-flex uk-flex-middle">
@@ -68,15 +65,40 @@
           <span class="menu_title">Register tool</span>
         </a>
       </li>
-    </ul>
-  </div>
-  <div *ngIf="userInfo?.roles && hasRole('OPERATOR_DEVELOPER')" class="menu_section border_top">
-    <h6 class="uk-flex uk-flex-center">Models</h6>
-    <ul>
       <li [routerLinkActive]="['current_section']" class="">
-        <a [routerLink]="['/form/model']" class="uk-flex uk-flex-middle">
+        <a [routerLink]="['/form/ai_model']" class="uk-flex uk-flex-middle">
           <span class="material-icons uk-margin-right">description</span>
           <span class="menu_title">Register model</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="userInfo?.roles && (hasRole('OPERATOR-WORKFLOW_PROCESSOR') && hasRole('DEVELOPER'))" class="menu_section border_top">
+    <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Datasets</div>
+    <ul>
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['/datasets/upload']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">upload</span>
+          <span class="menu_title">Upload dataset</span>
+        </a>
+      </li>
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['/workflowSearch']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">file_copy</span>
+          <span class="menu_title">My datasets</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="userInfo?.roles && hasRole('OPERATOR-WORKFLOW_PROCESSOR')" class="menu_section border_top">
+    <div class="header uk-text-light uk-text-uppercase uk-margin-remove uk-text-primary">Analyses</div>
+    <ul>
+      <li [routerLinkActive]="['current_section']" class="">
+        <a [routerLink]="['/workflowSearch']" class="uk-flex uk-flex-middle">
+          <span class="material-icons uk-margin-right">description</span>
+          <span class="menu_title">History</span>
         </a>
       </li>
     </ul>

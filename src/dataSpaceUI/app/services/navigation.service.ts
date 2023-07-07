@@ -18,6 +18,7 @@ export class NavigationService {
     }
 
     public setDataRequestIds(instanceVersion: string, datasetId: string) {
+      console.log('instanceVersion: ' + instanceVersion + ', datasetId : ' + datasetId);
       this.dataRequestIds.next({instanceVersion:instanceVersion, datasetId:datasetId});
     }
 

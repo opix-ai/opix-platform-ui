@@ -1,18 +1,15 @@
 import {NgModule} from '@angular/core';
 import {DataSpaceUIRoutingModule} from './dataSpaceUI-routing.module';
-import {DataSpaceUIComponent} from './dataSpaceUI.component';
 import {HomeComponent} from "./pages/home/home.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CatalogueUiModule} from "../catalogue-ui/catalogue-ui.module";
 import {IntelcompSearchComponent} from "./pages/search/intelcomp-search.component";
 import {DatasetLandingPageComponent} from "./pages/landingpages/datasets/dataset-landing-page.component";
-import {IntelcompTopMenuComponent} from "./shared/topmenu/topmenu.component";
 import {IntelcompFooterComponent} from "./shared/footer/footer.component";
 import {RequestDataComponent} from "./pages/requestdata/request-data.component";
 import {NavigationService} from "./services/navigation.service";
 import {CatalogueService} from "./services/catalogue.service";
-import {SurveyService} from "./services/survey.service";
 import {FormComponent} from "./pages/form/form.component";
 import {DynamicFormModule} from "../catalogue-ui/pages/dynamic-form/dynamic-form.module";
 import {BrowseJobsComponent} from "./pages/browse-jobs/browse-jobs.component";
@@ -24,12 +21,13 @@ import {CommonModule} from "@angular/common";
 import {RoleAuthGuardComponent} from "./services/role-auth-guard.component";
 import {PayloadComponent} from "./pages/landingpages/payload/payload.component";
 import {ResourceSearchComponent} from "./pages/search/resource-search/resource-search.component";
+import {HomeDashboardComponent} from "./pages/home/dashboard/home-dashboard.component";
+import {LoginGuardComponent} from "./services/login-guard.component";
 
 @NgModule({
   declarations: [
-    DataSpaceUIComponent,
     HomeComponent,
-    IntelcompTopMenuComponent,
+    HomeDashboardComponent,
     IntelcompFooterComponent,
     IntelcompSearchComponent,
     DatasetLandingPageComponent,
@@ -55,13 +53,12 @@ import {ResourceSearchComponent} from "./pages/search/resource-search/resource-s
     NavigationService,
     AuthenticationService,
     UserService,
-    SurveyService,
-    RoleAuthGuardComponent
+    RoleAuthGuardComponent,
+    LoginGuardComponent
   ],
   exports: [
     IntelcompFooterComponent
-  ],
-  bootstrap: [DataSpaceUIComponent]
+  ]
 })
 
 export class DataSpaceUIModule { }
