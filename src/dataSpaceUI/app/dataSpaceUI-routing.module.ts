@@ -37,7 +37,7 @@ const dataSpaceRoutes: Routes = [
     component: ResourceSearchComponent
   },
   {
-    path: 'dataset/:id',
+    path: 'resource/:id',
     component: DatasetLandingPageComponent
   },
   {
@@ -89,7 +89,7 @@ const opixRoutes: Routes = [
     }
   },
   {
-    path: 'dataset/:id',
+    path: 'resource/:id',
     component: DatasetLandingPageComponent
   },
   {
