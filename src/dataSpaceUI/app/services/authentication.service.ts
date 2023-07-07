@@ -48,6 +48,7 @@ export class AuthenticationService {
       sessionStorage.clear();
       deleteCookie(this.cookieName);
       this.userService.clearUserInfo();
+      return false;
     }
     return getCookie(this.cookieName) !== null;
   }
