@@ -74,11 +74,19 @@ const opixRoutes: Routes = [
   // },
   {
     path: 'search',
-    component: IntelcompSearchComponent
+    component: IntelcompSearchComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR_DATASET-INGESTOR", "OPERATOR_DEVELOPER", 'OPERATOR_DATASET-OWNER', 'OPERATOR_DATA-PROCESSOR']
+    }
   },
   {
     path: 'search/:resourceType',
-    component: ResourceSearchComponent
+    component: ResourceSearchComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR_DATASET-INGESTOR", "OPERATOR_DEVELOPER", 'OPERATOR_DATASET-OWNER', 'OPERATOR_DATA-PROCESSOR']
+    }
   },
   {
     path: 'dataset/:id',
