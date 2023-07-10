@@ -199,7 +199,7 @@
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="countries">Countries</label>
+                              <label class="uk-text-bold uk-text-small" for="countries">Countries of Organizations in Affiliations</label>
                               <label>
                                 <input #allCountries type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllCountries($event)">
                                 <span class="uk-text-muted">Select all</span>
@@ -255,31 +255,31 @@
                             </ng-select>
                           </div>
 
-                          <div class="uk-margin-bottom">
-                            <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="additionalOptions">Additional Options</label>
-                              <label>
-                                <input #allAdditionalOptions type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllData($event, 'additionalOptions')">
-                                <span class="uk-text-muted">Select all</span>
-                              </label>
-                            </div>
-                            <ng-select #additionalOption labelForId="additionalOptions" [items]="additionalOptions" formControlName="additionalOptions"
-                                       [multiple]="true" (clear)="allAdditionalOptions.checked ? allAdditionalOptions.click() : ''"
-                                       (remove)="(removeCheck('additionalOptions') && allAdditionalOptions.checked)?allAdditionalOptions.click():''">
-                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
-                              </ng-template>
-                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                                <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                                  <span class="ng-value-label">{{item}}</span>
-                                </div>
-                                <div class="ng-value" *ngIf="items.length > 2">
-                                  <span class="ng-value-label">{{items.length - 2}} more...</span>
-                                </div>
-                              </ng-template>
-                            </ng-select>
-                          </div>
+<!--                          <div class="uk-margin-bottom">-->
+<!--                            <div class="uk-margin-small-bottom">-->
+<!--                              <label class="uk-text-bold uk-text-small" for="additionalOptions">Additional Options</label>-->
+<!--                              <label>-->
+<!--                                <input #allAdditionalOptions type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllData($event, 'additionalOptions')">-->
+<!--                                <span class="uk-text-muted">Select all</span>-->
+<!--                              </label>-->
+<!--                            </div>-->
+<!--                            <ng-select #additionalOption labelForId="additionalOptions" [items]="additionalOptions" formControlName="additionalOptions"-->
+<!--                                       [multiple]="true" (clear)="allAdditionalOptions.checked ? allAdditionalOptions.click() : ''"-->
+<!--                                       (remove)="(removeCheck('additionalOptions') && allAdditionalOptions.checked)?allAdditionalOptions.click():''">-->
+<!--                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">-->
+<!--                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}-->
+<!--                              </ng-template>-->
+<!--                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">-->
+<!--                                <div class="ng-value" *ngFor="let item of items | slice:0:2">-->
+<!--                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>-->
+<!--                                  <span class="ng-value-label">{{item}}</span>-->
+<!--                                </div>-->
+<!--                                <div class="ng-value" *ngIf="items.length > 2">-->
+<!--                                  <span class="ng-value-label">{{items.length - 2}} more...</span>-->
+<!--                                </div>-->
+<!--                              </ng-template>-->
+<!--                            </ng-select>-->
+<!--                          </div>-->
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
@@ -384,7 +384,7 @@
                             <td>{{bibliometricForm.get('to').value}}</td>
                           </tr>
                           <tr>
-                            <th>Countries</th>
+                            <th>Countries of Organizations in Affiliations</th>
                             <td>
                               <span *ngFor="let country of bibliometricForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span>
                             </td>
@@ -393,10 +393,10 @@
                             <th>Access rights</th>
                             <td><div *ngFor="let right of bibliometricForm.get('accessRights').value">{{right}}</div></td>
                           </tr>
-                          <tr>
-                            <th>Additional options</th>
-                            <td><div *ngFor="let topic of bibliometricForm.get('additionalOptions').value">{{topic}}</div></td>
-                          </tr>
+<!--                          <tr>-->
+<!--                            <th>Additional options</th>-->
+<!--                            <td><div *ngFor="let topic of bibliometricForm.get('additionalOptions').value">{{topic}}</div></td>-->
+<!--                          </tr>-->
                           <tr>
                             <th>Publication type</th>
                             <td>{{bibliometricForm.get('publicationTypes').value}}</td>
@@ -415,7 +415,7 @@
                       </div>
                     </li>
                   </ul>
-                  <pre>{{bibliometricForm.getRawValue() | json}}</pre>
+<!--                  <pre>{{bibliometricForm.getRawValue() | json}}</pre>-->
                 </div>
               </div>
 

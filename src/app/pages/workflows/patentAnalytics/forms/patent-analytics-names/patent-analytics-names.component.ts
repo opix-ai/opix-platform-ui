@@ -25,6 +25,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   metadata: {label: string, code: string, info: string}[] = [];
   message: string = null;
   submitSuccess: boolean = false;
+  timeOutHandler;
   modal
   tabs
   tabIndex: number = 0;
@@ -49,7 +50,6 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
         UIkit.util.on('.js-upload', 'upload', (e, files) => {
           this.file = files[0];
         });
-
       }, 0)
     );
   }
