@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Bibliometrics} from "../../../domain/patentClassifications";
+import {Bibliometrics, Indicator} from "../../../domain/patentClassifications";
 import {InputService} from "../../../services/input.service";
 import {Job, JobArgument} from "../../../../dataSpaceUI/app/domain/job";
 import {Router} from "@angular/router";
@@ -20,7 +20,7 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
   bibliometricForm: FormGroup = Bibliometrics.toFormGroup(this.fb);
   bibliometric: object = null;
   countries: object = null;
-  indicators: {label: string, id: string}[] = [];
+  indicators: Indicator[] = [];
   countriesFlat: object[] = [];
   domains: string[] = [];
   categories: string[] = [];
@@ -134,11 +134,12 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
   getIndicators() {
     this.inputService.getIndicators('Bibliometrics').subscribe(
       res=> {
-        for (let key in res) {
-          this.indicators.push({label: key, id: res[key]});
-        }
+        // for (let key in res) {
+        //   this.indicators.push({label: key, id: res[key]});
+        // }
         // console.log(this.indicators);
-        this.indicators = [...this.indicators];      }
+        this.indicators = [...res];
+      }
     );
   }
 

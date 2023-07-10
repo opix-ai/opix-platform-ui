@@ -44,6 +44,7 @@ export class AuthenticationService {
   }
 
   get authenticated(): boolean {
+    // console.log(atob(getCookie(this.cookieName).split('.')[1]));
     if (getCookie(this.cookieName) === null) {
       sessionStorage.clear();
       deleteCookie(this.cookieName);

@@ -81,3 +81,11 @@ export class PatentNames {
   }
 
 }
+
+export class Indicator {
+  id: string;
+  ui_label: string;
+  graph_description: string;
+  graph_subtitle: string;
+  graph_title: string;
+}

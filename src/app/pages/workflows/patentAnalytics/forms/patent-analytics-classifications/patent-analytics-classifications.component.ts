@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {InputService} from "../../../../../services/input.service";
-import {PatentClassifications} from "../../../../../domain/patentClassifications";
+import {Indicator, PatentClassifications} from "../../../../../domain/patentClassifications";
 import {Job, JobArgument} from "../../../../../../dataSpaceUI/app/domain/job";
 import {SuccessPageComponent} from "../../../../successPage/successPage.component";
 
@@ -20,7 +20,7 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   paForm: FormGroup = PatentClassifications.toFormGroup(this.fb);
   patents: object = null;
   countries: object = null;
-  indicators: {label: string, id: string}[] = [];
+  indicators: Indicator[] = [];
   countriesFlat: object[] = [];
   domains: string[] = [];
   categories: string[] = [];
@@ -130,11 +130,11 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
   getIndicators() {
     this.inputService.getIndicators('Patents-Topics').subscribe(
       res=> {
-        for (let key in res) {
-          this.indicators.push({label: key, id: res[key]});
-        }
-        // console.log(this.indicators);
-        this.indicators = [...this.indicators];
+        // for (let key in res) {
+        //   this.indicators.push({label: key, id: res[key]});
+        // }
+        // // console.log(this.indicators);
+        this.indicators = [...res];
       }
     );
   }

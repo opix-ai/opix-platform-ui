@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Router} from "@angular/router";
-import {PatentNames} from "../../../../../domain/patentClassifications";
+import {Indicator, PatentNames} from "../../../../../domain/patentClassifications";
 import {InputService} from "../../../../../services/input.service";
 import {Job, JobArgument} from "../../../../../../dataSpaceUI/app/domain/job";
 import {SuccessPageComponent} from "../../../../successPage/successPage.component";
@@ -21,10 +21,10 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   job: Job = new Job();
   file: File = null;
   yearRange: number[] = [];
-  indicators: {label: string, code: string}[] = [];
+  indicators: Indicator[] = [];
   metadata: {label: string, code: string, info: string}[] = [];
   message: string = null;
-  submitSuccess: boolean = false;
+  submitSuccess: boolean = true;
   modal
   tabs
   tabIndex: number = 0;
@@ -92,10 +92,10 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   getIndicators() {
     this.inputService.getIndicators('Patents-Names').subscribe(
       res=> {
-        for (let key in res) {
-          this.indicators.push({label: key, code: res[key]});
-        }
-        this.indicators = [...this.indicators];
+        // for (let key in res) {
+        //   this.indicators.push({label: key, code: res[key]});
+        // }
+        this.indicators = [...res];
       }
     );
   }
@@ -130,6 +130,21 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
       if (index > -1) {
         this.patentInputs.indicators.splice(index, 1);
       }
+    }
+  }
+
+
+  selectAllIndicators(event) {
+    if (!event.target.checked) {
+      this.patentInputs.indicators = [];
+      return;
+    }
+    if (event.target.checked) {
+      let tmpIndicators: string[] = [];
+      this.indicators.forEach(indicator => {
+        tmpIndicators.push(indicator.id);
+      });
+      this.patentInputs.indicators = tmpIndicators;
     }
   }
 

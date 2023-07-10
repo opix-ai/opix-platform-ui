@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 
 declare var UIkit: any;
@@ -8,11 +8,24 @@ declare var UIkit: any;
   templateUrl: 'successPage.component.html'
 })
 
-export class SuccessPageComponent {
+export class SuccessPageComponent implements OnDestroy{
   display: number = null;
   timerInterval: any;
 
   constructor(private router: Router) {}
+
+  ngOnDestroy() {
+    // UIkit.modal('#modal-input').hide();
+    UIkit.modal(document.getElementById('modal-input'))?.$destroy(true);
+  }
+
+  navigate() {
+    UIkit.modal('#modal-input').hide();
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+    this.router.navigate(['/workflowSearch']);
+  }
 
   timer(minute) {
     // let minute = 1;

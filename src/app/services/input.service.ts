@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BrowseJob, Job} from "../../dataSpaceUI/app/domain/job";
 import * as http from "http";
+import {Indicator} from "../domain/patentClassifications";
 
 @Injectable()
 export class InputService {
@@ -18,7 +19,7 @@ export class InputService {
   }
 
   getIndicators(service: string) {
-    return this.http.get(this.base + `/indicators?service=${service}`);
+    return this.http.get<Indicator[]>(this.base + `/indicators?service=${service}`);
   }
 
   getMetadata(service: string) {
