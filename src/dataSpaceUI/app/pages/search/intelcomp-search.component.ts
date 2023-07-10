@@ -10,7 +10,7 @@ import {SearchService} from "../../../catalogue-ui/services/search.service";
 })
 
 export class IntelcompSearchComponent extends SearchComponent{
-  override itemPath = '/dataset/';
+  override itemPath = '/resource/';
   rightsFilters = [];
   languagesFilters = [];
   publisherFilters = [];

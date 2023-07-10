@@ -215,17 +215,17 @@
                             <label class="uk-text-bold uk-text-small">Indicators *</label>
                             <label>
                               <input #allIndicators type="checkbox" class="uk-margin-left uk-margin-small-right"
-                                     (change)="selectAll($event, 'indicators')">
+                                     (change)="selectAllIndicators($event)">
                               <span class="uk-text-muted">Select all</span>
                             </label>
                           </div>
                           <div class="checkbox-list checkbox-list-small">
                             <div class="uk-padding-small">
                               <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                                <input [id]="'indicator'+i" type="checkbox" [value]="indicator['code']" class="uk-margin-small-right"
+                                <input [id]="'indicator'+i" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
                                        (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
-                                       [checked]="showChecked('indicators', indicator['code'])">
-                                <label [for]="'indicator'+i">{{indicator['label']}}</label>
+                                       [checked]="showChecked('indicators', indicator.id)">
+                                <label [for]="'indicator'+i">{{indicator.ui_label}}</label>
                               </div>
                             </div>
                           </div>

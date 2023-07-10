@@ -3,11 +3,30 @@
 
     <h5 class="">Upload dataset</h5>
 
-    <form #heroForm="ngForm">
-      <label class="uk-form-label" for="name">Name</label>
-      <input type="text" class="uk-input" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel">
-      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>
+    <form [formGroup]="datasetForm">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="name">Name</label>
+        <input type="text" class="uk-input" id="name" formControlName="name">
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="description">Description</label>
+        <textarea type="textarea" class="uk-textarea" id="description" formControlName="description">
+        </textarea>
+<!--        <div [hidden]="description.valid || description.pristine" class="uk-alert-warning">Description is required</div>-->
+      </div>
+      <div formArrayName="usageList">
+        <label class="uk-form-label">Usage list</label>
+        <div *ngFor="let usage of usageList.controls; let i=index" class="uk-margin-small-bottom" uk-grid>
+<!--          <div class="uk-padding-remove-left uk-grid" >-->
+            <input type="text" class="uk-input uk-padding-remove uk-width-expand" id="usageList-{{0}}" [formControlName]="i">
+            <span class="uk-padding-remove uk-width-auto">x</span>
+<!--          </div>-->
+        </div>
+        <a (click)="addUsage()">Add usage</a>
+      </div>
     </form>
 
+    <pre>{{datasetForm.value | json}}</pre>
+
   </div>
-</div>s
+</div>
