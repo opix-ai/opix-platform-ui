@@ -24,7 +24,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   indicators: Indicator[] = [];
   metadata: {label: string, code: string, info: string}[] = [];
   message: string = null;
-  submitSuccess: boolean = true;
+  submitSuccess: boolean = false;
   modal
   tabs
   tabIndex: number = 0;
