@@ -3,30 +3,51 @@
 
     <h5 class="">Upload dataset</h5>
 
+    <label class="uk-form-label" for="description">File</label>
+    <div class="uk-placeholder uk-text-center" appDnd (fileDropped)="onFileDropped($event)">
+      <span uk-icon="icon: cloud-upload"></span>
+      <span class="uk-text-middle"> Attach file by dropping it here or </span>
+      <div uk-form-custom>
+        <input type="file" #fileSelect (change)="fileBrowseHandler($event)">
+        <span class="uk-link" (click)="fileSelect.click()">selecting one</span>
+      </div>
+      <p *ngIf="file?.name">Selected file name: {{file?.name}}</p>
+    </div>
+
     <form [formGroup]="datasetForm">
       <div class="uk-margin">
         <label class="uk-form-label" for="name">Name</label>
-        <input type="text" class="uk-input" id="name" formControlName="name">
+        <input type="text" class="uk-input uk-margin-small-top" id="name" formControlName="name">
       </div>
       <div class="uk-margin">
         <label class="uk-form-label" for="description">Description</label>
-        <textarea type="textarea" class="uk-textarea" id="description" formControlName="description">
-        </textarea>
-<!--        <div [hidden]="description.valid || description.pristine" class="uk-alert-warning">Description is required</div>-->
+        <textarea type="textarea" class="uk-textarea uk-margin-small-top" id="description" formControlName="description" #description></textarea>
+<!--        <div [hidden]="description.classList.contains('ng-valid') || description.classList.contains('ng-pristine')" class="uk-alert-warning">Description is required</div>-->
       </div>
       <div formArrayName="usageList">
         <label class="uk-form-label">Usage list</label>
-        <div *ngFor="let usage of usageList.controls; let i=index" class="uk-margin-small-bottom" uk-grid>
-<!--          <div class="uk-padding-remove-left uk-grid" >-->
-            <input type="text" class="uk-input uk-padding-remove uk-width-expand" id="usageList-{{0}}" [formControlName]="i">
-            <span class="uk-padding-remove uk-width-auto">x</span>
-<!--          </div>-->
+        <div class="uk-margin-small-top">
+          <div *ngFor="let usage of usageList.controls; let i=index"
+               class="uk-margin-small-bottom uk-margin-remove-top uk-margin-remove-left uk-animation-fade" uk-grid>
+            <div class="uk-width-expand uk-padding-remove">
+              <input type="text" class="uk-input" id="usageList-{{0}}" [formControlName]="i">
+            </div>
+            <div *ngIf="usageList.length > 1" class="uk-padding-remove uk-margin-left uk-width-auto uk-flex uk-flex-middle">
+              <a class="material-icons" (click)="removeUsage(i)">highlight_off</a>
+            </div>
+          </div>
         </div>
-        <a (click)="addUsage()">Add usage</a>
+        <div class="uk-width-1-1 uk-flex uk-flex-center">
+          <a (click)="addUsage()">Add usage</a>
+        </div>
       </div>
     </form>
 
-    <pre>{{datasetForm.value | json}}</pre>
+    <div class="uk-margin-top uk-flex uk-flex-right">
+      <button class="uk-button uk-button-primary" (click)="submitData()">Submit</button>
+    </div>
+
+<!--    <pre>{{datasetForm.value | json}}</pre>-->
 
   </div>
 </div>

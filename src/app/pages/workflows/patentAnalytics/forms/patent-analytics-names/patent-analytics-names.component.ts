@@ -111,14 +111,21 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
     );
   }
 
-  onFileSelect(event) {
-    const reader = new FileReader();
+  /** on file drop handler **/
+  onFileDropped(files: File[]) {
+    if(files && files.length) {
+      this.file = files[0];
+    }
+  }
+
+  /** handle file from browsing*/
+  fileBrowseHandler(event) {
     if(event.target.files && event.target.files.length) {
       this.file = event.target.files[0];
-      reader.readAsDataURL(this.file);
-      reader.onload = () => {
-        this.patentInputs.file = (reader.result as string).split('base64,')[1];
-      };
+      // reader.readAsDataURL(this.file);
+      // reader.onload = () => {
+      //   this.patentInputs.file = (reader.result as string).split('base64,')[1];
+      // };
     }
   }
 
