@@ -25,6 +25,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
   metadata: {label: string, code: string, info: string}[] = [];
   message: string = null;
   submitSuccess: boolean = false;
+  timeOutHandler;
   modal
   tabs
   tabIndex: number = 0;
@@ -49,7 +50,6 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
         UIkit.util.on('.js-upload', 'upload', (e, files) => {
           this.file = files[0];
         });
-
       }, 0)
     );
   }
@@ -111,14 +111,21 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
     );
   }
 
-  onFileSelect(event) {
-    const reader = new FileReader();
+  /** on file drop handler **/
+  onFileDropped(files: File[]) {
+    if(files && files.length) {
+      this.file = files[0];
+    }
+  }
+
+  /** handle file from browsing*/
+  fileBrowseHandler(event) {
     if(event.target.files && event.target.files.length) {
       this.file = event.target.files[0];
-      reader.readAsDataURL(this.file);
-      reader.onload = () => {
-        this.patentInputs.file = (reader.result as string).split('base64,')[1];
-      };
+      // reader.readAsDataURL(this.file);
+      // reader.onload = () => {
+      //   this.patentInputs.file = (reader.result as string).split('base64,')[1];
+      // };
     }
   }
 

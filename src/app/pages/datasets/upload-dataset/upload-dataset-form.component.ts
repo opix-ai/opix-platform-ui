@@ -1,6 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {Dataset} from "../../../domain/dataset";
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'upload-dataset',
@@ -9,10 +8,11 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 export class UploadDatasetFormComponent implements OnInit {
 
-  model = new Dataset();
+  file: File = null;
+  formData: FormData = null;
   datasetForm: FormGroup = new FormGroup({
-    name: new FormControl(null),
-    description: new FormControl(null),
+    name: new FormControl(null, Validators.required),
+    description: new FormControl(null, Validators.required),
     usageList: new FormArray([new FormControl(null)])
   });
 
@@ -20,6 +20,15 @@ export class UploadDatasetFormComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  submitData() {
+    if (this.datasetForm.valid && this.file) {
+      this.formData.append('file', this.file);
+      this.formData.append('form', this.datasetForm.value);
+    } else {
+      console.log('Incomplete form or file missing');
+    }
   }
 
   get usageList() {
@@ -32,5 +41,25 @@ export class UploadDatasetFormComponent implements OnInit {
 
   removeUsage(index: number) {
     this.usageList.removeAt(index);
+  }
+
+  /** on file drop handler **/
+  onFileDropped(files: File[]) {
+    // this.prepareFilesList($event);
+    console.log(files)
+    if(files && files.length) {
+      this.file = files[0];
+      console.log(this.file.name);
+    }
+  }
+
+  /** handle file from browsing **/
+  fileBrowseHandler(event) {
+    // this.prepareFilesList(files);
+
+    if(event.target.files && event.target.files.length) {
+      this.file = event.target.files[0];
+      console.log(this.file.name);
+    }
   }
 }

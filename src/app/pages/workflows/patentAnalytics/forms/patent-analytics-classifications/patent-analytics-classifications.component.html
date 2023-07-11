@@ -209,7 +209,7 @@
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="countries">Countries</label>
+                              <label class="uk-text-bold uk-text-small" for="countries">Countries of Applicants/Inventors</label>
                               <label>
                                 <input #allCountries type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllCountries($event)">
                                 <span class="uk-text-muted">Select all</span>
@@ -265,10 +265,10 @@
                         <div class="checkbox-list">
                           <div class="uk-padding-small">
                             <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                              <input [id]="i" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
+                              <input [id]="indicator.id" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
                                      (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
                                      [checked]="showChecked('indicators', indicator.id)">
-                              <label [for]="i">{{indicator.ui_label}}</label>
+                              <label [for]="indicator.id">{{indicator.ui_label}}</label>
                             </div>
                           </div>
                         </div>
@@ -317,7 +317,7 @@
                             <td>{{paForm.get('to').value}}</td>
                           </tr>
                           <tr>
-                            <th>Countries</th>
+                            <th>Countries of Applicants/Inventors</th>
                             <td><span *ngFor="let country of paForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span></td>
                           </tr>
                           <tr>

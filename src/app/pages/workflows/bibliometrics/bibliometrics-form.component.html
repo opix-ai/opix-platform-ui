@@ -26,8 +26,8 @@
                     <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Input</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">Select the resource you want to use as input</div>
+                    <div class="step-header uk-text-bold">Database</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Pick the resource, most suitable for your analysis</div>
                   </div>
                 </a>
               </li>
@@ -37,8 +37,8 @@
                     <span class="material-icons">{{stepComplete(1) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Classification Schema</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">Select the classification schema</div>
+                    <div class="step-header uk-text-bold">Fields of Science</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Select the field(s) & Research area(s)</div>
                   </div>
                 </a>
               </li>
@@ -49,7 +49,7 @@
                   </div>
                   <div>
                     <div class="step-header uk-text-bold">Filters</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">Select your filters</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Filter by Country and Year, Access Rights, Publication Type</div>
                   </div>
                 </a>
               </li>
@@ -59,8 +59,8 @@
                     <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Output</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">What do you want to see as an output?</div>
+                    <div class="step-header uk-text-bold">Indicators</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Pick the indicators to show in your dashboard</div>
                   </div>
                 </a>
               </li>
@@ -86,8 +86,8 @@
                   <ul class="uk-switcher switcher-container uk-margin-large-top">
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Input</div>
-                        <div class="uk-text-light">Select the resource you want to use as input</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Database</div>
+                        <div class="uk-text-light">Pick the resource, most suitable for your analysis</div>
                       </div>
                       <form [formGroup]="bibliometricForm">
                         <div class="uk-margin-medium-bottom">
@@ -110,15 +110,15 @@
                     </li>
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Classification schema</div>
-                        <div class="uk-text-light">Select the classification schema</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Fields of Science</div>
+                        <div class="uk-text-light">Select the field(s) & Research area(s)</div>
                       </div>
                       <form [formGroup]="bibliometricForm">
                         <div class="uk-margin-medium-bottom">
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="domain">Subject *</label>
+                              <label class="uk-text-bold uk-text-small" for="domain">Field *</label>
                             </div>
                             <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true"
                                        [searchable]="false" formControlName="domain">
@@ -127,7 +127,7 @@
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="category" uk-tooltip="(including IPC/CPC sections)">Sector *</label>
+                              <label class="uk-text-bold uk-text-small" for="category" uk-tooltip="(including IPC/CPC sections)">SubField *</label>
                             </div>
                             <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true"
                                        [searchable]="false" formControlName="category">
@@ -137,7 +137,7 @@
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
                               <label class="uk-text-bold uk-text-small"  uk-tooltip="(including IPC/CPC classes)">
-                                Technological group *
+                                Research Area *
                               </label>
                               <label>
                                 <input #selectAll type="checkbox" class="uk-margin-left uk-margin-small-right"
@@ -172,7 +172,7 @@
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
                         <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Filters</div>
-                        <div class="uk-text-light">Select your filters</div>
+                        <div class="uk-text-light">Filter by Country and Year, Access Rights, Publication Type</div>
                       </div>
                       <form [formGroup]="bibliometricForm">
                         <div class="uk-margin-medium-bottom">
@@ -199,7 +199,7 @@
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="countries">Countries</label>
+                              <label class="uk-text-bold uk-text-small" for="countries">Countries of Organizations in Affiliations</label>
                               <label>
                                 <input #allCountries type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllCountries($event)">
                                 <span class="uk-text-muted">Select all</span>
@@ -255,31 +255,31 @@
                             </ng-select>
                           </div>
 
-                          <div class="uk-margin-bottom">
-                            <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="additionalOptions">Additional Options</label>
-                              <label>
-                                <input #allAdditionalOptions type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllData($event, 'additionalOptions')">
-                                <span class="uk-text-muted">Select all</span>
-                              </label>
-                            </div>
-                            <ng-select #additionalOption labelForId="additionalOptions" [items]="additionalOptions" formControlName="additionalOptions"
-                                       [multiple]="true" (clear)="allAdditionalOptions.checked ? allAdditionalOptions.click() : ''"
-                                       (remove)="(removeCheck('additionalOptions') && allAdditionalOptions.checked)?allAdditionalOptions.click():''">
-                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}
-                              </ng-template>
-                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                                <div class="ng-value" *ngFor="let item of items | slice:0:2">
-                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                                  <span class="ng-value-label">{{item}}</span>
-                                </div>
-                                <div class="ng-value" *ngIf="items.length > 2">
-                                  <span class="ng-value-label">{{items.length - 2}} more...</span>
-                                </div>
-                              </ng-template>
-                            </ng-select>
-                          </div>
+<!--                          <div class="uk-margin-bottom">-->
+<!--                            <div class="uk-margin-small-bottom">-->
+<!--                              <label class="uk-text-bold uk-text-small" for="additionalOptions">Additional Options</label>-->
+<!--                              <label>-->
+<!--                                <input #allAdditionalOptions type="checkbox" class="uk-margin-left uk-margin-small-right" (change)="selectAllData($event, 'additionalOptions')">-->
+<!--                                <span class="uk-text-muted">Select all</span>-->
+<!--                              </label>-->
+<!--                            </div>-->
+<!--                            <ng-select #additionalOption labelForId="additionalOptions" [items]="additionalOptions" formControlName="additionalOptions"-->
+<!--                                       [multiple]="true" (clear)="allAdditionalOptions.checked ? allAdditionalOptions.click() : ''"-->
+<!--                                       (remove)="(removeCheck('additionalOptions') && allAdditionalOptions.checked)?allAdditionalOptions.click():''">-->
+<!--                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">-->
+<!--                                <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"/> {{item}}-->
+<!--                              </ng-template>-->
+<!--                              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">-->
+<!--                                <div class="ng-value" *ngFor="let item of items | slice:0:2">-->
+<!--                                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>-->
+<!--                                  <span class="ng-value-label">{{item}}</span>-->
+<!--                                </div>-->
+<!--                                <div class="ng-value" *ngIf="items.length > 2">-->
+<!--                                  <span class="ng-value-label">{{items.length - 2}} more...</span>-->
+<!--                                </div>-->
+<!--                              </ng-template>-->
+<!--                            </ng-select>-->
+<!--                          </div>-->
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
@@ -318,8 +318,8 @@
                     </li>
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Output</div>
-                        <div class="uk-text-light">What do you want to see as an output?</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Indicators</div>
+                        <div class="uk-text-light">Pick the indicators to show in your dashboard</div>
                       </div>
                       <div class="uk-margin-medium-bottom">
                         <div class="uk-margin-small-bottom">
@@ -332,11 +332,16 @@
 
                         <div class="checkbox-list">
                           <div class="uk-padding-small">
-                            <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                              <input [id]="'indicator'+i" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
-                                     (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
-                                     [checked]="showChecked('indicators', indicator.id)">
-                              <label [for]="'indicator'+i">{{indicator.ui_label}}</label>
+                            <div class="uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
+                              <div *ngIf="indicators[i-1]?.ui_group !== indicator.ui_group" class="uk-width-1-1">
+                                <span class="uk-text-muted">{{indicator.ui_group}}</span>
+                              </div>
+                              <div class="uk-flex uk-flex-top">
+                                <input [id]="indicator.id" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
+                                       (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
+                                       [checked]="showChecked('indicators', indicator.id)">
+                                <label [for]="indicator.id">{{indicator.ui_label}}</label>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -364,15 +369,15 @@
                             <td>{{bibliometricForm.get('dataSource').value}}</td>
                           </tr>
                           <tr>
-                            <th>Subject</th>
+                            <th>Field</th>
                             <td>{{bibliometricForm.get('domain').value}}</td>
                           </tr>
                           <tr>
-                            <th>Sector</th>
+                            <th>SubField</th>
                             <td>{{bibliometricForm.get('category').value}}</td>
                           </tr>
                           <tr>
-                            <th>Technological groups</th>
+                            <th>Research Area</th>
                             <td><div *ngFor="let topic of bibliometricForm.get('topics').value">{{topic}}</div></td>
                           </tr>
                           <tr>
@@ -384,7 +389,7 @@
                             <td>{{bibliometricForm.get('to').value}}</td>
                           </tr>
                           <tr>
-                            <th>Countries</th>
+                            <th>Countries of Organizations in Affiliations</th>
                             <td>
                               <span *ngFor="let country of bibliometricForm.get('countries').value; let i=index">{{(i == 0 ? '' : ', ') + country }}</span>
                             </td>
@@ -393,10 +398,10 @@
                             <th>Access rights</th>
                             <td><div *ngFor="let right of bibliometricForm.get('accessRights').value">{{right}}</div></td>
                           </tr>
-                          <tr>
-                            <th>Additional options</th>
-                            <td><div *ngFor="let topic of bibliometricForm.get('additionalOptions').value">{{topic}}</div></td>
-                          </tr>
+<!--                          <tr>-->
+<!--                            <th>Additional options</th>-->
+<!--                            <td><div *ngFor="let topic of bibliometricForm.get('additionalOptions').value">{{topic}}</div></td>-->
+<!--                          </tr>-->
                           <tr>
                             <th>Publication type</th>
                             <td>{{bibliometricForm.get('publicationTypes').value}}</td>
@@ -415,7 +420,7 @@
                       </div>
                     </li>
                   </ul>
-                  <pre>{{bibliometricForm.getRawValue() | json}}</pre>
+<!--                  <pre>{{bibliometricForm.getRawValue() | json}}</pre>-->
                 </div>
               </div>
 

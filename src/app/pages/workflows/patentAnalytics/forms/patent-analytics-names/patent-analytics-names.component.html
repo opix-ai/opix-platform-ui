@@ -117,32 +117,24 @@
                         </div>
                       </div>
                       <div>
-
-<!--                        <div id="drop_zone" ondrop="dropHandler(event);"-->
-<!--                             ondragover="dragOverHandler(event);">-->
-<!--                          <p>Drag one or more files to this <i>drop zone</i>.</p>-->
-<!--                        </div>-->
-
-
-<!--                        <div class="js-upload uk-placeholder uk-text-center">-->
-<!--                          <span uk-icon="icon: cloud-upload"></span>-->
-<!--                          <span class="uk-text-middle"> Attach file dropping it here or </span>-->
-<!--                          <div uk-form-custom>-->
-<!--                            <input type="file" (change)="onFileSelect($event)">-->
-<!--                            <span class="uk-link">selecting one</span>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>-->
-
-
-                        <input type="file" id="fileUpload" name="file" accept="text/csv" style="display: none"
-                               (change)="onFileSelect($event)" #fileSelect>
-                        <div class="uk-margin-small-left uk-flex uk-flex-middle">
-                          <a class="material-icons md-36" (click)="fileSelect.click()" title="Click to select a file"
-                             style="color: #000">upload_file
-                          </a>
-                          <span class="uk-margin-small-left">{{file?.name ? file.name : 'No file selected.'}}</span>
+                        <div class="uk-placeholder uk-text-center" appDnd (fileDropped)="onFileDropped($event)">
+                          <span uk-icon="icon: cloud-upload"></span>
+                          <span class="uk-text-middle"> Attach file by dropping it here or </span>
+                          <div uk-form-custom>
+                            <input type="file" #fileSelect (change)="fileBrowseHandler($event)">
+                            <span class="uk-link" (click)="fileSelect.click()">selecting one</span>
+                          </div>
+                          <p *ngIf="file?.name">Selected file name: {{file?.name}}</p>
                         </div>
+
+<!--                        <input type="file" id="fileUpload" name="file" accept="text/csv" style="display: none"-->
+<!--                               (change)="fileBrowseHandler($event)" #fileSelect>-->
+<!--                        <div class="uk-margin-small-left uk-flex uk-flex-middle">-->
+<!--                          <a class="material-icons md-36" (click)="fileSelect.click()" title="Click to select a file"-->
+<!--                             style="color: #000">upload_file-->
+<!--                          </a>-->
+<!--                          <span class="uk-margin-small-left">{{file?.name ? file.name : 'No file selected.'}}</span>-->
+<!--                        </div>-->
                       </div>
                       <div class="uk-text-center uk-margin-top uk-margin-large-bottom">
                         <a class="uk-button uk-button-primary uk-width-1-1" (click)="showSwitcherTab(1)"
@@ -222,10 +214,10 @@
                           <div class="checkbox-list checkbox-list-small">
                             <div class="uk-padding-small">
                               <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                                <input [id]="'indicator'+i" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
+                                <input [id]="indicator.id" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
                                        (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
                                        [checked]="showChecked('indicators', indicator.id)">
-                                <label [for]="'indicator'+i">{{indicator.ui_label}}</label>
+                                <label [for]="indicator.id">{{indicator.ui_label}}</label>
                               </div>
                             </div>
                           </div>

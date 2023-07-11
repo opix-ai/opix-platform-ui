@@ -21,6 +21,7 @@ import {PatentAnalyticsClassificationsComponent} from "./pages/workflows/patentA
 import {GlossaryComponent} from "./pages/glossary/glossary.component";
 import {PatentAnalyticsLandingComponent} from "./pages/workflows/patentAnalytics/landing/patent-analytics-landing.component";
 import {UploadDatasetFormComponent} from "./pages/datasets/upload-dataset/upload-dataset-form.component";
+import {DndDirective} from "./directives/dnd.directive";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {UploadDatasetFormComponent} from "./pages/datasets/upload-dataset/upload
     GlossaryComponent,
     ResultComponent,
     PatentAnalyticsLandingComponent,
-    UploadDatasetFormComponent
+    UploadDatasetFormComponent,
+    DndDirective
   ],
   imports: [
     BrowserModule,
