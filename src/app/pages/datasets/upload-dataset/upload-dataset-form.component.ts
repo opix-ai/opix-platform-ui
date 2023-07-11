@@ -1,9 +1,12 @@
 import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {WorkflowDatasetsService} from "../../../services/workflow-datasets.service";
 
 @Component({
   selector: 'upload-dataset',
-  templateUrl: 'upload-dataset-form.component.html'
+  templateUrl: 'upload-dataset-form.component.html',
+  providers: [WorkflowDatasetsService]
 })
 
 export class UploadDatasetFormComponent implements OnInit {
@@ -15,11 +18,28 @@ export class UploadDatasetFormComponent implements OnInit {
     description: new FormControl(null, Validators.required),
     usageList: new FormArray([new FormControl(null)])
   });
+  dataset: any;
+  id: string = null;
+  edit: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private datasetService: WorkflowDatasetsService) {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(
+      params => {
+        if (params['id']) {
+          this.id = params['id'];
+          this.datasetService.getDataset(this.id).subscribe(
+            res => {
+              this.dataset = res
+              this.datasetForm.patchValue(res);
+            },
+            error => {console.error(error)}
+          );
+        }
+      }
+    );
   }
 
   submitData() {

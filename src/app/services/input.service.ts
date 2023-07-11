@@ -10,8 +10,6 @@ export class InputService {
   base: string = environment.INPUT_ENDPOINT;
   api: string = environment.API_ENDPOINT;
 
-
-
   constructor(private http: HttpClient) {}
 
   getTopics(service: string) {
