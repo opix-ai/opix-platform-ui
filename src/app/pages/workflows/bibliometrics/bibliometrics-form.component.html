@@ -118,7 +118,7 @@
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="domain">Subject *</label>
+                              <label class="uk-text-bold uk-text-small" for="domain">Field *</label>
                             </div>
                             <ng-select #domain labelForId="domain" [items]="domains" [selectOnTab]="true"
                                        [searchable]="false" formControlName="domain">
@@ -127,7 +127,7 @@
 
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
-                              <label class="uk-text-bold uk-text-small" for="category" uk-tooltip="(including IPC/CPC sections)">Sector *</label>
+                              <label class="uk-text-bold uk-text-small" for="category" uk-tooltip="(including IPC/CPC sections)">SubField *</label>
                             </div>
                             <ng-select #category labelForId="category" [items]="categories" [selectOnTab]="true"
                                        [searchable]="false" formControlName="category">
@@ -137,7 +137,7 @@
                           <div class="uk-margin-bottom">
                             <div class="uk-margin-small-bottom">
                               <label class="uk-text-bold uk-text-small"  uk-tooltip="(including IPC/CPC classes)">
-                                Technological group *
+                                Research Area *
                               </label>
                               <label>
                                 <input #selectAll type="checkbox" class="uk-margin-left uk-margin-small-right"
@@ -369,15 +369,15 @@
                             <td>{{bibliometricForm.get('dataSource').value}}</td>
                           </tr>
                           <tr>
-                            <th>Subject</th>
+                            <th>Field</th>
                             <td>{{bibliometricForm.get('domain').value}}</td>
                           </tr>
                           <tr>
-                            <th>Sector</th>
+                            <th>SubField</th>
                             <td>{{bibliometricForm.get('category').value}}</td>
                           </tr>
                           <tr>
-                            <th>Technological groups</th>
+                            <th>Research Area</th>
                             <td><div *ngFor="let topic of bibliometricForm.get('topics').value">{{topic}}</div></td>
                           </tr>
                           <tr>
