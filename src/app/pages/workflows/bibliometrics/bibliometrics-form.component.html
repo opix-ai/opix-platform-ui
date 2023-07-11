@@ -26,8 +26,8 @@
                     <span class="material-icons">{{stepComplete(0) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Input</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">Select the resource you want to use as input</div>
+                    <div class="step-header uk-text-bold">Database</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Pick the resource, most suitable for your analysis</div>
                   </div>
                 </a>
               </li>
@@ -37,8 +37,8 @@
                     <span class="material-icons">{{stepComplete(1) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Classification Schema</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">Select the classification schema</div>
+                    <div class="step-header uk-text-bold">Fields of Science</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Select the field(s) & Research area(s)</div>
                   </div>
                 </a>
               </li>
@@ -49,7 +49,7 @@
                   </div>
                   <div>
                     <div class="step-header uk-text-bold">Filters</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">Select your filters</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Filter by Country and Year, Access Rights, Publication Type</div>
                   </div>
                 </a>
               </li>
@@ -59,8 +59,8 @@
                     <span class="material-icons">{{stepComplete(3) ? 'check_circle':'circle'}}</span>
                   </div>
                   <div>
-                    <div class="step-header uk-text-bold">Output</div>
-                    <div class="step-description uk-text-light uk-margin-small-top">What do you want to see as an output?</div>
+                    <div class="step-header uk-text-bold">Indicators</div>
+                    <div class="step-description uk-text-light uk-margin-small-top">Pick the indicators to show in your dashboard</div>
                   </div>
                 </a>
               </li>
@@ -86,8 +86,8 @@
                   <ul class="uk-switcher switcher-container uk-margin-large-top">
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Input</div>
-                        <div class="uk-text-light">Select the resource you want to use as input</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Database</div>
+                        <div class="uk-text-light">Pick the resource, most suitable for your analysis</div>
                       </div>
                       <form [formGroup]="bibliometricForm">
                         <div class="uk-margin-medium-bottom">
@@ -110,8 +110,8 @@
                     </li>
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Classification schema</div>
-                        <div class="uk-text-light">Select the classification schema</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Fields of Science</div>
+                        <div class="uk-text-light">Select the field(s) & Research area(s)</div>
                       </div>
                       <form [formGroup]="bibliometricForm">
                         <div class="uk-margin-medium-bottom">
@@ -172,7 +172,7 @@
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
                         <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Filters</div>
-                        <div class="uk-text-light">Select your filters</div>
+                        <div class="uk-text-light">Filter by Country and Year, Access Rights, Publication Type</div>
                       </div>
                       <form [formGroup]="bibliometricForm">
                         <div class="uk-margin-medium-bottom">
@@ -318,8 +318,8 @@
                     </li>
                     <li>
                       <div class="uk-text-center uk-margin-medium-bottom">
-                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Output</div>
-                        <div class="uk-text-light">What do you want to see as an output?</div>
+                        <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Indicators</div>
+                        <div class="uk-text-light">Pick the indicators to show in your dashboard</div>
                       </div>
                       <div class="uk-margin-medium-bottom">
                         <div class="uk-margin-small-bottom">
@@ -332,11 +332,16 @@
 
                         <div class="checkbox-list">
                           <div class="uk-padding-small">
-                            <div class="uk-flex uk-flex-top uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                              <input [id]="indicator.id" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
-                                     (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
-                                     [checked]="showChecked('indicators', indicator.id)">
-                              <label [for]="indicator.id">{{indicator.ui_label}}</label>
+                            <div class="uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
+                              <div *ngIf="indicators[i-1]?.ui_group !== indicator.ui_group" class="uk-width-1-1">
+                                <span class="uk-text-muted">{{indicator.ui_group}}</span>
+                              </div>
+                              <div class="uk-flex uk-flex-top">
+                                <input [id]="indicator.id" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"
+                                       (change)="indicatorSelect($event); (removeCheck('indicators') && allIndicators.checked)?allIndicators.click():''"
+                                       [checked]="showChecked('indicators', indicator.id)">
+                                <label [for]="indicator.id">{{indicator.ui_label}}</label>
+                              </div>
                             </div>
                           </div>
                         </div>

@@ -134,10 +134,14 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
   getIndicators() {
     this.inputService.getIndicators('Bibliometrics').subscribe(
       res=> {
-        // for (let key in res) {
-        //   this.indicators.push({label: key, id: res[key]});
-        // }
-        // console.log(this.indicators);
+        res.sort((a: Indicator, b: Indicator) => {
+          if (a.ui_group < b.ui_group)
+            return -1;
+          else if (a.ui_group > b.ui_group)
+            return 1
+
+          return 0;
+        })
         this.indicators = [...res];
       }
     );
