@@ -18,6 +18,7 @@
         <td>{{set.description}}</td>
         <td>{{set.modificationDate | date: 'medium'}}</td>
         <td>
+          <a class="material-icons uk-margin-small-right">download</a>
           <a [routerLink]="['/datasets/edit', set.id]" class="material-icons uk-margin-small-right">edit</a>
           <a class="material-icons" title="Coming soon..">delete</a>
         </td>
