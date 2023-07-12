@@ -5,7 +5,7 @@
       <div class="uk-width-2-3@m uk-width-2-3@l uk-width-1-1@s">
 
         <div class="uk-text-center uk-margin-medium-bottom">
-          <div class="uk-text-bold uk-margin-small-bottom uk-text-large">Upload dataset</div>
+          <div class="uk-text-bold uk-margin-small-bottom uk-text-large">{{edit ? 'Edit':'Upload'}} dataset</div>
           <div class="uk-text-light">Lorem ipsum bla bla bla</div>
         </div>
 
@@ -14,12 +14,19 @@
         </div>
         <div class="uk-placeholder uk-text-center" appDnd (fileDropped)="onFileDropped($event)">
           <span uk-icon="icon: cloud-upload"></span>
-          <span class="uk-text-middle"> Attach file by dropping it here or </span>
+          <span class="uk-text-middle"> {{edit ? 'Replace':'Attach'}} file by dropping it here or </span>
           <div uk-form-custom>
-            <input type="file" #fileSelect (change)="fileBrowseHandler($event)">
-            <span class="uk-link" (click)="fileSelect.click()">selecting one</span>
+            <input type="file" #fileSelect (change)="fileBrowseHandler($event)"
+                   [attr.uk-tooltip]="file?.name ? file.name:'No file selected'">
+            <span class="uk-link uk-form-custom" (click)="fileSelect.click()">selecting one</span>
           </div>
           <p *ngIf="file?.name">Selected file name: {{file?.name}}</p>
+        </div>
+
+        <div *ngIf="edit && fileMetadata" class="uk-margin uk-width-1-1 uk-flex uk-flex-center">
+          <button class="uk-button uk-button-secondary uk-flex uk-flex-middle">
+            Download file<span class="material-icons">download</span>
+          </button>
         </div>
 
         <form [formGroup]="datasetForm">

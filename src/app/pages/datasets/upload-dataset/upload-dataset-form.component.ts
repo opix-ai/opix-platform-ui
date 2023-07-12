@@ -21,6 +21,11 @@ export class UploadDatasetFormComponent implements OnInit {
   dataset: any;
   id: string = null;
   edit: boolean = false;
+  fileMetadata: {
+    name: string,
+    size: string,
+    modificationDate: string
+  } = null;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private datasetService: WorkflowDatasetsService) {
   }
@@ -30,6 +35,8 @@ export class UploadDatasetFormComponent implements OnInit {
       params => {
         if (params['id']) {
           this.id = params['id'];
+          this.edit = true;
+          this.fileMetadata = {name: 'test', size: '15000', modificationDate: '2023-07-11T11:42:53.952Z'}
           this.datasetService.getDataset(this.id).subscribe(
             res => {
               this.dataset = res
@@ -65,21 +72,18 @@ export class UploadDatasetFormComponent implements OnInit {
 
   /** on file drop handler **/
   onFileDropped(files: File[]) {
-    // this.prepareFilesList($event);
-    console.log(files)
     if(files && files.length) {
       this.file = files[0];
-      console.log(this.file.name);
+      console.log(this.file);
     }
   }
 
   /** handle file from browsing **/
   fileBrowseHandler(event) {
-    // this.prepareFilesList(files);
 
     if(event.target.files && event.target.files.length) {
       this.file = event.target.files[0];
-      console.log(this.file.name);
+      console.log(this.file);
     }
   }
 }
