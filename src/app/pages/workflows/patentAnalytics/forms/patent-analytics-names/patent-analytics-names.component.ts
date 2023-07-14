@@ -198,7 +198,7 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
   stepComplete(step: number) {
     if (step === 0) {
-      if (this.patentInputs.file)
+      if (this.file)
         return true;
     }
     if (step === 1) {
