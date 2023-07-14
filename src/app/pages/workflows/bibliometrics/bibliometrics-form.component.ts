@@ -84,9 +84,6 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
         this.job.jobArguments.push(jobArgument);
       }
     }
-    // for (let element of this.job.jobArguments.find(el => el.name === 'topics').value) {
-    //   element = this.bibliometricForm.get('domain').value + '.' + this.bibliometricForm.get('category').value + '.' + element;
-    // }
     let jobArguments: any[] = [];
     jobArguments.push({'jobType':'workflow'});
     jobArguments.push({'workflowType':'bibliometricAnalysis'});

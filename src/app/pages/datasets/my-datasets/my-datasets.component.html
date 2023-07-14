@@ -1,0 +1,30 @@
+<div class="uk-section uk-section-default">
+  <div class="uk-container uk-container-large uk-margin">
+
+    <h5 class="">My datasets</h5>
+
+    <table class="uk-table uk-table-striped uk-table-divider">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Modified</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let set of dummy">
+        <td>{{set.name}}</td>
+        <td>{{set.description}}</td>
+        <td>{{set.modificationDate | date: 'medium'}}</td>
+        <td>
+          <a class="material-icons uk-margin-small-right">download</a>
+          <a [routerLink]="['/datasets/edit', set.id]" class="material-icons uk-margin-small-right">edit</a>
+          <a class="material-icons" title="Coming soon..">delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

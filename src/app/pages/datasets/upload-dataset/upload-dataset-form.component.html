@@ -1,52 +1,78 @@
 <div class="uk-section uk-section-default" style="min-height: calc(100svh - var(--header-height))">
-  <div class="uk-container uk-container-large uk-margin">
+  <div class="uk-container uk-container-xsmall uk-margin">
 
-    <h5 class="">Upload dataset</h5>
+    <div class="uk-grid uk-flex uk-flex-center">
+      <div class="uk-width-2-3@m uk-width-2-3@l uk-width-1-1@s">
 
-    <label class="uk-form-label" for="description">File</label>
-    <div class="uk-placeholder uk-text-center" appDnd (fileDropped)="onFileDropped($event)">
-      <span uk-icon="icon: cloud-upload"></span>
-      <span class="uk-text-middle"> Attach file by dropping it here or </span>
-      <div uk-form-custom>
-        <input type="file" #fileSelect (change)="fileBrowseHandler($event)">
-        <span class="uk-link" (click)="fileSelect.click()">selecting one</span>
-      </div>
-      <p *ngIf="file?.name">Selected file name: {{file?.name}}</p>
-    </div>
+        <div class="uk-text-center uk-margin-medium-bottom">
+          <div class="uk-text-bold uk-margin-small-bottom uk-text-large">{{edit ? 'Edit':'Upload'}} dataset</div>
+          <div class="uk-text-light">Lorem ipsum bla bla bla</div>
+        </div>
 
-    <form [formGroup]="datasetForm">
-      <div class="uk-margin">
-        <label class="uk-form-label" for="name">Name</label>
-        <input type="text" class="uk-input uk-margin-small-top" id="name" formControlName="name">
-      </div>
-      <div class="uk-margin">
-        <label class="uk-form-label" for="description">Description</label>
-        <textarea type="textarea" class="uk-textarea uk-margin-small-top" id="description" formControlName="description" #description></textarea>
-<!--        <div [hidden]="description.classList.contains('ng-valid') || description.classList.contains('ng-pristine')" class="uk-alert-warning">Description is required</div>-->
-      </div>
-      <div formArrayName="usageList">
-        <label class="uk-form-label">Usage list</label>
-        <div class="uk-margin-small-top">
-          <div *ngFor="let usage of usageList.controls; let i=index"
-               class="uk-margin-small-bottom uk-margin-remove-top uk-margin-remove-left uk-animation-fade" uk-grid>
-            <div class="uk-width-expand uk-padding-remove">
-              <input type="text" class="uk-input" id="usageList-{{0}}" [formControlName]="i">
+        <div class="uk-margin-small-bottom">
+          <label class="uk-text-bold" for="description">File *</label>
+        </div>
+        <div class="uk-placeholder uk-text-center" appDnd (fileDropped)="onFileDropped($event)">
+          <span uk-icon="icon: cloud-upload"></span>
+          <span class="uk-text-middle"> {{edit ? 'Replace':'Attach'}} file by dropping it here or </span>
+          <div uk-form-custom>
+            <input type="file" #fileSelect (change)="fileBrowseHandler($event)"
+                   [attr.uk-tooltip]="file?.name ? file.name:'No file selected'">
+            <span class="uk-link uk-form-custom" (click)="fileSelect.click()">selecting one</span>
+          </div>
+          <p *ngIf="file?.name">Selected file name: {{file?.name}}</p>
+        </div>
+
+        <div *ngIf="edit && fileMetadata" class="uk-margin uk-width-1-1 uk-flex uk-flex-center">
+          <button class="uk-button uk-button-secondary uk-flex uk-flex-middle">
+            Download file<span class="material-icons">download</span>
+          </button>
+        </div>
+
+        <form [formGroup]="datasetForm">
+          <div class="uk-margin">
+            <div class="uk-margin-small-bottom">
+              <label class="uk-text-bold" for="name">Name</label>
             </div>
-            <div *ngIf="usageList.length > 1" class="uk-padding-remove uk-margin-left uk-width-auto uk-flex uk-flex-middle">
-              <a class="material-icons" (click)="removeUsage(i)">highlight_off</a>
+            <input type="text" class="uk-input uk-margin-small-top" id="name" formControlName="name">
+          </div>
+          <div class="uk-margin">
+            <div class="uk-margin-small-bottom">
+              <label class="uk-text-bold" for="description">Description</label>
+            </div>
+            <textarea type="textarea" class="uk-textarea uk-margin-small-top" id="description" formControlName="description" #description></textarea>
+            <!--        <div [hidden]="description.classList.contains('ng-valid') || description.classList.contains('ng-pristine')" class="uk-alert-warning">Description is required</div>-->
+          </div>
+          <div formArrayName="usageList">
+            <div class="uk-margin-small-bottom">
+              <label class="uk-text-bold">Usage list</label>
+            </div>
+            <div class="uk-margin-small-top">
+              <div *ngFor="let usage of usageList.controls; let i=index"
+                   class="uk-margin-small-bottom uk-margin-remove-top uk-margin-remove-left uk-animation-fade" uk-grid>
+                <div class="uk-width-expand uk-padding-remove">
+                  <input type="text" class="uk-input" id="usageList-{{0}}" [formControlName]="i">
+                </div>
+                <div *ngIf="usageList.length > 1" class="uk-padding-remove uk-margin-left uk-width-auto uk-flex uk-flex-middle">
+                  <a class="material-icons" (click)="removeUsage(i)">highlight_off</a>
+                </div>
+              </div>
+            </div>
+            <div class="uk-width-1-1 uk-flex uk-flex-center">
+              <a (click)="addUsage()" class="uk-flex uk-flex-middle">
+                <span class="material-icons uk-text-primary">add</span>
+                <span>Add usage</span>
+              </a>
             </div>
           </div>
+        </form>
+
+        <div class="uk-text-center uk-margin-medium-top uk-margin-large-bottom">
+          <button class="uk-button uk-button-primary uk-width-1-1" (click)="submitData()">Submit</button>
         </div>
-        <div class="uk-width-1-1 uk-flex uk-flex-center">
-          <a (click)="addUsage()">Add usage</a>
-        </div>
+
       </div>
-    </form>
-
-    <div class="uk-margin-top uk-flex uk-flex-right">
-      <button class="uk-button uk-button-primary" (click)="submitData()">Submit</button>
     </div>
-
 <!--    <pre>{{datasetForm.value | json}}</pre>-->
 
   </div>

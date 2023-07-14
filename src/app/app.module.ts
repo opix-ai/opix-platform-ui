@@ -22,6 +22,7 @@ import {GlossaryComponent} from "./pages/glossary/glossary.component";
 import {PatentAnalyticsLandingComponent} from "./pages/workflows/patentAnalytics/landing/patent-analytics-landing.component";
 import {UploadDatasetFormComponent} from "./pages/datasets/upload-dataset/upload-dataset-form.component";
 import {DndDirective} from "./directives/dnd.directive";
+import {MyDatasetsComponent} from "./pages/datasets/my-datasets/my-datasets.component";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {DndDirective} from "./directives/dnd.directive";
     ResultComponent,
     PatentAnalyticsLandingComponent,
     UploadDatasetFormComponent,
+    MyDatasetsComponent,
     DndDirective
   ],
   imports: [
