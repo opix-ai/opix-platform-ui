@@ -334,7 +334,7 @@
                           <div class="uk-padding-small">
                             <div class="uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
                               <div *ngIf="indicators[i-1]?.ui_group !== indicator.ui_group" class="uk-width-1-1">
-                                <span class="uk-text-muted">{{indicator.ui_group}}</span>
+                                <span class="uk-text-muted uk-margin-small-bottom">{{indicator.ui_group}}</span>
                               </div>
                               <div class="uk-flex uk-flex-top">
                                 <input [id]="indicator.id" type="checkbox" [value]="indicator.id" class="uk-margin-small-right"

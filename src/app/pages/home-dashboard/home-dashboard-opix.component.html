@@ -65,7 +65,7 @@
           <div class="uk-grid uk-visible@m">
             <div class="uk-width-3-5">
               <h5>Bibliometric analysis</h5>
-              <p>Bibliometrics Analytics is a pipeline utilizing the Field of Science classification algorithm of SciNoBo. The process finds and collects scientific publications that match Field of Science fields and various metadata, calculates indicators and provides insights using charts. It allows funders, scholars, companies and other stakeholders to organize scientific literature more effectively and calculate impact indicators.</p>
+              <p>We gather and/or discover scientific publications that match your interests in specific fields of science. We further analyze, measure and provide quantitative aspects of scholarly literature, facilitating research in policy and management contexts. OPIX Bibliometrics allows funders, scholars, companies and other stakeholders to organize scientific literature more effectively and calculate impact indicators. Our Bibliometrics is powered by SciNoBo – a suite of analytical tools in scientific literature.</p>
             </div>
             <div class="uk-width-2-5">
               <img src="../assets/images/bibliometrics2.jpg">
@@ -77,7 +77,7 @@
             </div>
             <div class="uk-margin-top">
               <h5>Bibliometric analysis</h5>
-              <p>Bibliometrics Analytics is a pipeline utilizing the Field of Science classification algorithm of SciNoBo. The process finds and collects scientific publications that match Field of Science fields and various metadata, calculates indicators and provides insights using charts. It allows funders, scholars, companies and other stakeholders to organize scientific literature more effectively and calculate impact indicators.</p>
+              <p>We gather and/or discover scientific publications that match your interests in specific fields of science. We further analyze, measure and provide quantitative aspects of scholarly literature, facilitating research in policy and management contexts. OPIX Bibliometrics allows funders, scholars, companies and other stakeholders to organize scientific literature more effectively and calculate impact indicators. Our Bibliometrics is powered by SciNoBo – a suite of analytical tools in scientific literature.</p>
             </div>
           </div>
           <div class="uk-flex uk-flex-between uk-margin-medium-top">
@@ -144,11 +144,11 @@
                   <td>
                     <ng-container *ngIf="job.mergedStatus==='FINISHED'"><label class="uk-label uk-label-success">{{job.mergedStatus}}</label></ng-container>
                     <ng-container *ngIf="job.mergedStatus==='FAILED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
-                    <ng-container *ngIf="job.mergedStatus==='ERROR'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
-                    <ng-container *ngIf="job.mergedStatus==='KILLED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+                    <ng-container *ngIf="job.mergedStatus==='ERROR'"><label class="uk-label uk-label-danger">FAILED</label></ng-container>
+                    <ng-container *ngIf="job.mergedStatus==='KILLED'"><label class="uk-label uk-label-danger">FAILED</label></ng-container>
                     <ng-container *ngIf="job.mergedStatus==='QUEUED'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
                     <ng-container *ngIf="job.mergedStatus==='RUNNING'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
-                    <ng-container *ngIf="job.mergedStatus==='CANCELLED'"><label class="uk-label uk-label-secondary">{{job.mergedStatus}}</label></ng-container>
+                    <ng-container *ngIf="job.mergedStatus==='CANCELLED'"><label class="uk-label uk-label-secondary">FAILED</label></ng-container>
                   </td>
                   <td>
                     <ng-container *ngIf="job.mergedStatus === 'FINISHED'">
