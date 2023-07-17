@@ -50,7 +50,7 @@ export class BibliometricsFormComponent implements OnInit, OnDestroy {
     this.getAdditionalOptions();
     this.getPublicationTypes();
 
-    for (let i = 2000; i < new Date().getFullYear(); i++) {
+    for (let i = 2010; i <= 2021; i++) {
       this.yearRange.push(i);
     }
     this.modal = UIkit.modal(document.getElementById('modal-input'));

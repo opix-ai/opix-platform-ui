@@ -55,8 +55,8 @@ export class Bibliometrics {
     formPrepare.controls['countries'].setValue(["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "GR",
       "DE", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SI", "SK", "ES", "SE"]);
     formPrepare.setControl('indicators', fb.control([], Validators.required));
-    formPrepare.controls['to'].setValue('2022');
-    formPrepare.controls['from'].setValue('2021');
+    formPrepare.controls['to'].setValue('2021');
+    formPrepare.controls['from'].setValue('2010');
 
     return formPrepare;
   }
