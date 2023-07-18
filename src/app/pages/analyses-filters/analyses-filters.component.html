@@ -1,0 +1,77 @@
+<div class="summarySection filters-table">
+  <h5 class="">Filters</h5>
+  <table>
+    <tr *ngFor="let filter of filters">
+      <ng-container *ngIf="filter.name==='from'">
+        <th>Year from</th>
+        <td>{{filter.value}}</td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='to'">
+        <th>Year to</th>
+        <td>{{filter.value}}</td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='dataSource'">
+        <th>Datasource</th>
+        <td>{{filter.value}}</td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='domain'">
+        <ng-container *ngIf="workflowType==='patentAnalyticsClassification'"><th>Subject</th></ng-container>
+        <ng-container *ngIf="workflowType==='bibliometricAnalysis'"><th>Field</th></ng-container>
+        <td>{{filter.value}}</td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='category'">
+        <ng-container *ngIf="workflowType==='patentAnalyticsClassification'"><th>Sector</th></ng-container>
+        <ng-container *ngIf="workflowType==='bibliometricAnalysis'"><th>SubField</th></ng-container>
+        <td>{{filter.value}}</td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='topics'">
+        <ng-container *ngIf="workflowType==='patentAnalyticsClassification'"><th>Technological groups</th></ng-container>
+        <ng-container *ngIf="workflowType==='bibliometricAnalysis'"><th>Research Area</th></ng-container>
+        <td>
+          <div *ngFor="let value of filter.value" class="uk-margin-small-bottom">{{value}}</div>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='countries'">
+        <ng-container *ngIf="workflowType==='patentAnalyticsClassification'"><th>Countries of Applicants/Inventors</th></ng-container>
+        <ng-container *ngIf="workflowType==='bibliometricAnalysis'"><th>Countries of Organizations in Affiliations</th></ng-container>
+        <td>{{filter.value}}</td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='indicators'">
+        <th>Indicators</th>
+        <td>
+          <ng-container *ngIf="workflowType==='patentAnalyticsClassification'">
+            <div *ngFor="let value of filter.value" class="uk-margin-small-bottom">{{patentClassificationIndicatorsMap.get(value).ui_label}}</div>
+          </ng-container>
+          <ng-container *ngIf="workflowType==='patentAnalyticsNames'">
+            <div *ngFor="let value of filter.value" class="uk-margin-small-bottom">{{patentNamesIndicatorsMap.get(value).ui_label}}</div>
+          </ng-container>
+          <ng-container *ngIf="workflowType==='bibliometricAnalysis'">
+            <div *ngFor="let value of filter.value" class="uk-margin-small-bottom">{{bibliometricsIndicatorsMap.get(value).ui_label}}</div>
+          </ng-container>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='accessRights'">
+        <th>Access rights</th>
+        <td>
+          <div *ngFor="let value of filter.value" class="uk-margin-small-bottom">{{value}}</div>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='publicationType'">
+        <th>Publication type</th>
+        <td>
+          <div *ngFor="let value of filter.value" class="uk-margin-small-bottom">{{value}}</div>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="filter.name==='metadata'">
+        <th>Metadata</th>
+        <td>
+          <div *ngFor="let value of filter.value" class="uk-margin-small-bottom">{{value}}</div>
+        </td>
+      </ng-container>
+
+    </tr>
+
+  </table>
+</div>
+
+

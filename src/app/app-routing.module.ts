@@ -16,6 +16,7 @@ import {
 } from "./pages/workflows/patentAnalytics/landing/patent-analytics-landing.component";
 import {UploadDatasetFormComponent} from "./pages/datasets/upload-dataset/upload-dataset-form.component";
 import {MyDatasetsComponent} from "./pages/datasets/my-datasets/my-datasets.component";
+import {BibliometricsLandingComponent} from "./pages/workflows/bibliometrics/landing/bibliometrics-landing.component";
 
 const routes: Routes = [
   {
@@ -42,10 +43,10 @@ const routes: Routes = [
   {
     path: 'landing/patent-analytics',
     component: PatentAnalyticsLandingComponent,
-    canActivate: [RoleAuthGuardComponent],
-    data: {
-      roles: ["OPERATOR-WORKFLOW_PROCESSOR"]
-    }
+  },
+  {
+    path: 'landing/bibliometric-analysis',
+    component: BibliometricsLandingComponent,
   },
   {
     path: 'patent-analytics-names',

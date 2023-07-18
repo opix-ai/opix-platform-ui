@@ -36,6 +36,8 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
 
   headerHeight = 91;
 
+  indicatorsMap: Map<string, Indicator> = new Map();
+
   constructor(private fb: FormBuilder,private router: Router, private inputService: InputService) {
   }
 
@@ -135,6 +137,10 @@ export class PatentAnalyticsClassificationsComponent implements OnInit, OnDestro
         // }
         // // console.log(this.indicators);
         this.indicators = [...res];
+
+        for(let indicator of this.indicators) {
+          this.indicatorsMap.set(indicator.id, indicator);
+        }
       }
     );
   }

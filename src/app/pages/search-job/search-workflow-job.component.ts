@@ -157,6 +157,7 @@ export class SearchWorkflowJobComponent implements OnInit, OnDestroy {
       this.pagingInit();
       return
     }
+    // fixme Check for failed, killed, canceled and error status when failed is selected!!
     if (this.workflowType === '' || this.workflowType === null) {
       this.filteredJobs = this.jobs.filter(job => job.mergedStatus === this.status);
       this.pagingInit();

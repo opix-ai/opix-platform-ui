@@ -11,17 +11,17 @@
           <ng-option [value]="'QUEUED'">Queued</ng-option>
           <ng-option [value]="'RUNNING'">Running</ng-option>
           <ng-option [value]="'FAILED'">Failed</ng-option>
-          <ng-option [value]="'CANCELED'">Canceled</ng-option>
-          <ng-option [value]="'ERROR'">Error</ng-option>
-          <ng-option [value]="'KILLED'">Killed</ng-option>
+<!--          <ng-option [value]="'CANCELED'">Canceled</ng-option>-->
+<!--          <ng-option [value]="'ERROR'">Error</ng-option>-->
+<!--          <ng-option [value]="'KILLED'">Killed</ng-option>-->
         </ng-select>
       </div>
       <div class="uk-width-1-4">
         <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" [(ngModel)]="workflowType" (change)="filter()">
-          <ng-option [value]="''">All workflow types</ng-option>
-          <ng-option [value]="'bibliometricAnalysis'">Bibliometric analysis</ng-option>
-          <ng-option [value]="'patentAnalyticsClassification'">Patent analytics classification</ng-option>
-          <ng-option [value]="'patentAnalyticsNames'">Patent analytics names</ng-option>
+          <ng-option [value]="''">All types</ng-option>
+          <ng-option [value]="'bibliometricAnalysis'">Bibliometrics</ng-option>
+          <ng-option [value]="'patentAnalyticsClassification'">Patents - technological class</ng-option>
+          <ng-option [value]="'patentAnalyticsNames'">Patents - competitors/companies</ng-option>
         </ng-select>
       </div>
       <div class="uk-width-expand">
@@ -70,19 +70,15 @@
         <ng-container *ngIf="jobs?.length > 0">
           <tr *ngFor="let job of filteredJobs | slice: from : to">
             <td class="extra-left-padding">
-              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patent analytics classification</ng-container>
-              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patent analytics names</ng-container>
-              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='bibliometricAnalysis'">Bibliometrics Analysis</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patents - technological class</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patents - competitors/companies</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='bibliometricAnalysis'">Bibliometrics</ng-container>
             </td>
             <td>
               <a class="uk-link">{{getNumberOfFilters(job.callerAttributesObj)}} filters selected</a>
-              <div uk-dropdown="mode: click; pos: bottom-left" class="filters-dropdown" style="max-width: 300px !important;">
+              <div uk-dropdown="mode: click; pos: bottom-left" class="filters-dropdown" style="max-height: 80vh; overflow-y: scroll">
                 <div class="uk-padding-small">
-                  <h6>Filters</h6>
-                  <div *ngFor="let filter of getFilters(job.callerAttributesObj)" class="uk-margin-top">
-                    <span>{{filter.name}}: </span>
-                    <span>{{filter.value}}</span>
-                  </div>
+                  <app-analyses-filters [filters]="getFilters(job.callerAttributesObj)" [workflowType]="this.getWorkflowType(job.callerAttributesObj)"></app-analyses-filters>
                 </div>
               </div>
             </td>
@@ -98,11 +94,18 @@
             <td>
               <ng-container *ngIf="job.mergedStatus==='FINISHED'"><label class="uk-label uk-label-success">{{job.mergedStatus}}</label></ng-container>
               <ng-container *ngIf="job.mergedStatus==='FAILED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
-              <ng-container *ngIf="job.mergedStatus==='ERROR'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
-              <ng-container *ngIf="job.mergedStatus==='KILLED'"><label class="uk-label uk-label-danger">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='ERROR'"><label class="uk-label uk-label-danger">FAILED</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='KILLED'"><label class="uk-label uk-label-danger">FAILED</label></ng-container>
               <ng-container *ngIf="job.mergedStatus==='QUEUED'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
-              <ng-container *ngIf="job.mergedStatus==='RUNNING'"><label class="uk-label uk-label-info">{{job.mergedStatus}}</label></ng-container>
-              <ng-container *ngIf="job.mergedStatus==='CANCELLED'"><label class="uk-label uk-label-secondary">{{job.mergedStatus}}</label></ng-container>
+              <ng-container *ngIf="job.mergedStatus==='RUNNING'">
+                <label class="uk-label uk-label-info">
+                  <span class="uk-flex uk-flex-middle">
+                    <span>{{job.mergedStatus}}</span>
+                    <span uk-spinner="ratio: 0.5" class="uk-margin-small-left"></span>
+                  </span>
+                </label>
+              </ng-container>
+              <ng-container *ngIf="job.mergedStatus==='CANCELLED'"><label class="uk-label uk-label-secondary">FAILED</label></ng-container>
             </td>
             <td class="extra-right-padding">
               <ng-container>

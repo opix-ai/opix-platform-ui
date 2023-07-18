@@ -32,6 +32,8 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
 
   headerHeight = 91;
 
+  indicatorsMap: Map<string, Indicator> = new Map();
+
   constructor(private router: Router, private inputService: InputService) {
   }
 
@@ -96,6 +98,10 @@ export class PatentAnalyticsNamesComponent implements OnInit, OnDestroy {
         //   this.indicators.push({label: key, code: res[key]});
         // }
         this.indicators = [...res];
+
+        for(let indicator of this.indicators) {
+          this.indicatorsMap.set(indicator.id, indicator);
+        }
       }
     );
   }

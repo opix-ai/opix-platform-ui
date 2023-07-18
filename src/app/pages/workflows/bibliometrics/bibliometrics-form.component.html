@@ -333,7 +333,7 @@
                         <div class="checkbox-list">
                           <div class="uk-padding-small">
                             <div class="uk-margin-small-bottom" *ngFor="let indicator of indicators; let i=index">
-                              <div *ngIf="indicators[i-1]?.ui_group !== indicator.ui_group" class="uk-width-1-1">
+                              <div *ngIf="indicators[i-1]?.ui_group !== indicator.ui_group" class="uk-width-1-1 uk-margin-small-bottom">
                                 <span class="uk-text-muted">{{indicator.ui_group}}</span>
                               </div>
                               <div class="uk-flex uk-flex-top">
@@ -378,7 +378,7 @@
                           </tr>
                           <tr>
                             <th>Research Area</th>
-                            <td><div *ngFor="let topic of bibliometricForm.get('topics').value">{{topic}}</div></td>
+                            <td><div *ngFor="let topic of bibliometricForm.get('topics').value" class="uk-margin-small-bottom">{{topic}}</div></td>
                           </tr>
                           <tr>
                             <th>Year from</th>
@@ -396,7 +396,7 @@
                           </tr>
                           <tr>
                             <th>Access rights</th>
-                            <td><div *ngFor="let right of bibliometricForm.get('accessRights').value">{{right}}</div></td>
+                            <td><div *ngFor="let right of bibliometricForm.get('accessRights').value" class="uk-margin-small-bottom">{{right}}</div></td>
                           </tr>
 <!--                          <tr>-->
 <!--                            <th>Additional options</th>-->
@@ -404,12 +404,14 @@
 <!--                          </tr>-->
                           <tr>
                             <th>Publication type</th>
-                            <td>{{bibliometricForm.get('publicationTypes').value}}</td>
+                            <td><div *ngFor="let publicationType of bibliometricForm.get('publicationTypes').value" class="uk-margin-small-bottom">{{publicationType}}</div>
+<!--                              {{bibliometricForm.get('publicationTypes').value}}-->
+                            </td>
                           </tr>
                           <tr>
                             <th>Indicators</th>
                             <td>
-                              <span *ngFor="let indicator of bibliometricForm.get('indicators').value; let i=index">{{(i === 0 ?'':', ') + indicator}}</span>
+                              <div *ngFor="let indicator of bibliometricForm.get('indicators').value" class="uk-margin-small-bottom">{{indicatorsMap.get(indicator).ui_label}}</div>
                             </td>
                           </tr>
                         </table>
