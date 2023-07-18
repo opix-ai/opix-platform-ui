@@ -306,7 +306,7 @@
                           </tr>
                           <tr>
                             <th>Technological groups</th>
-                            <td><div *ngFor="let topic of paForm.get('topics').value">{{topic}}</div></td>
+                            <td><div *ngFor="let topic of paForm.get('topics').value" class="uk-margin-small-bottom">{{topic}}</div></td>
                           </tr>
                           <tr>
                             <th>Year from</th>
@@ -322,7 +322,7 @@
                           </tr>
                           <tr>
                             <th>Indicators</th>
-                            <td><div *ngFor="let indicator of paForm.get('indicators').value">{{indicator}}</div></td>
+                            <td><div *ngFor="let indicator of paForm.get('indicators').value" class="uk-margin-small-bottom">{{indicatorsMap.get(indicator).ui_label}}</div></td>
                           </tr>
                         </table>
                       </div>

@@ -76,13 +76,9 @@
             </td>
             <td>
               <a class="uk-link">{{getNumberOfFilters(job.callerAttributesObj)}} filters selected</a>
-              <div uk-dropdown="mode: click; pos: bottom-left" class="filters-dropdown" style="max-width: 300px !important;">
+              <div uk-dropdown="mode: click; pos: bottom-left" class="filters-dropdown" style="max-height: 80vh; overflow-y: scroll">
                 <div class="uk-padding-small">
-                  <h6>Filters</h6>
-                  <div *ngFor="let filter of getFilters(job.callerAttributesObj)" class="uk-margin-top">
-                    <span>{{filter.name}}: </span>
-                    <span>{{filter.value}}</span>
-                  </div>
+                  <app-analyses-filters [filters]="getFilters(job.callerAttributesObj)" [workflowType]="this.getWorkflowType(job.callerAttributesObj)"></app-analyses-filters>
                 </div>
               </div>
             </td>

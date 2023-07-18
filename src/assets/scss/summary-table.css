@@ -17,6 +17,17 @@
   text-align: start;
 }
 
+.summarySection.filters-table table th, .summarySection.filters-table table td {
+  border: none;
+  padding: 8px 20px 8px 0px;
+  color: var(--black) !important;
+}
+
+.summarySection.filters-table table th {
+  font-size: inherit;
+  font-weight: bold;
+}
+
 .summarySection table th.important {
   background-color: var(--primary-color-background);
 }

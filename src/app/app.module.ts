@@ -24,6 +24,7 @@ import {UploadDatasetFormComponent} from "./pages/datasets/upload-dataset/upload
 import {DndDirective} from "./directives/dnd.directive";
 import {MyDatasetsComponent} from "./pages/datasets/my-datasets/my-datasets.component";
 import {BibliometricsLandingComponent} from "./pages/workflows/bibliometrics/landing/bibliometrics-landing.component";
+import {AnalysesFiltersComponent} from "./pages/analyses-filters/analyses-filters.component";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {BibliometricsLandingComponent} from "./pages/workflows/bibliometrics/lan
     ResultComponent,
     PatentAnalyticsLandingComponent,
     BibliometricsLandingComponent,
+    AnalysesFiltersComponent,
     UploadDatasetFormComponent,
     MyDatasetsComponent,
     DndDirective

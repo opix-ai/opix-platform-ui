@@ -289,11 +289,11 @@
                           </tr>
                           <tr>
                             <th>Indicators</th>
-                            <td><span *ngFor="let indicator of patentInputs.indicators; let i=index">{{(i == 0 ? '' : ', ') + indicator}}</span></td>
+                            <td><div *ngFor="let indicator of patentInputs.indicators" class="uk-margin-small-bottom">{{indicatorsMap.get(indicator).ui_label}}</div></td>
                           </tr>
                           <tr>
                             <th>Metadata</th>
-                            <td><span *ngFor="let metadata of patentInputs.metadata; let i=index">{{(i == 0 ? '' : ', ') + metadata}}</span></td>
+                            <td><div *ngFor="let metadata of patentInputs.metadata" class="uk-margin-small-bottom">{{metadata}}</div></td>
                           </tr>
                         </table>
                       </div>
