@@ -18,10 +18,10 @@
       </div>
       <div class="uk-width-1-4">
         <ng-select labelForId="dataSource" [searchable]="false" [clearable]="false" [(ngModel)]="workflowType" (change)="filter()">
-          <ng-option [value]="''">All analyses types</ng-option>
-          <ng-option [value]="'bibliometricAnalysis'">Bibliometric analysis</ng-option>
-          <ng-option [value]="'patentAnalyticsClassification'">Patent analytics - technological class</ng-option>
-          <ng-option [value]="'patentAnalyticsNames'">Patent analytics - competitors/companies</ng-option>
+          <ng-option [value]="''">All types</ng-option>
+          <ng-option [value]="'bibliometricAnalysis'">Bibliometrics</ng-option>
+          <ng-option [value]="'patentAnalyticsClassification'">Patents - technological class</ng-option>
+          <ng-option [value]="'patentAnalyticsNames'">Patents - competitors/companies</ng-option>
         </ng-select>
       </div>
       <div class="uk-width-expand">
@@ -70,9 +70,9 @@
         <ng-container *ngIf="jobs?.length > 0">
           <tr *ngFor="let job of filteredJobs | slice: from : to">
             <td class="extra-left-padding">
-              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patent analytics - technological class</ng-container>
-              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patent analytics - competitors/companies</ng-container>
-              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='bibliometricAnalysis'">Bibliometric analysis</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patents - technological class</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patents - competitors/companies</ng-container>
+              <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='bibliometricAnalysis'">Bibliometrics</ng-container>
             </td>
             <td>
               <a class="uk-link">{{getNumberOfFilters(job.callerAttributesObj)}} filters selected</a>
