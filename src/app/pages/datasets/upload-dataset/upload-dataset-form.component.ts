@@ -16,7 +16,7 @@ export class UploadDatasetFormComponent implements OnInit {
   datasetForm: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
     description: new FormControl(null, Validators.required),
-    usageList: new FormArray([new FormControl(null)])
+    usages: new FormArray([new FormControl(null)])
   });
   dataset: any;
   id: string = null;
@@ -51,23 +51,28 @@ export class UploadDatasetFormComponent implements OnInit {
 
   submitData() {
     if (this.datasetForm.valid && this.file) {
+      this.formData = new FormData();
       this.formData.append('file', this.file);
-      this.formData.append('form', this.datasetForm.value);
+      this.formData.append('dataset', JSON.stringify(this.datasetForm.value));
+      this.datasetService.uploadDataset(this.formData).subscribe(
+        res => {},
+        error => {console.error(error)}
+      );
     } else {
       console.log('Incomplete form or file missing');
     }
   }
 
-  get usageList() {
-    return this.datasetForm.controls['usageList'] as FormArray;
+  get usages() {
+    return this.datasetForm.controls['usages'] as FormArray;
   }
 
   addUsage() {
-    this.usageList.push(new FormControl(null));
+    this.usages.push(new FormControl(null));
   }
 
   removeUsage(index: number) {
-    this.usageList.removeAt(index);
+    this.usages.removeAt(index);
   }
 
   /** on file drop handler **/

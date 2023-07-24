@@ -43,17 +43,17 @@
             <textarea type="textarea" class="uk-textarea uk-margin-small-top" id="description" formControlName="description" #description></textarea>
             <!--        <div [hidden]="description.classList.contains('ng-valid') || description.classList.contains('ng-pristine')" class="uk-alert-warning">Description is required</div>-->
           </div>
-          <div formArrayName="usageList">
+          <div formArrayName="usages">
             <div class="uk-margin-small-bottom">
               <label class="uk-text-bold">Usage list</label>
             </div>
             <div class="uk-margin-small-top">
-              <div *ngFor="let usage of usageList.controls; let i=index"
+              <div *ngFor="let usage of usages.controls; let i=index"
                    class="uk-margin-small-bottom uk-margin-remove-top uk-margin-remove-left uk-animation-fade" uk-grid>
                 <div class="uk-width-expand uk-padding-remove">
                   <input type="text" class="uk-input" id="usageList-{{0}}" [formControlName]="i">
                 </div>
-                <div *ngIf="usageList.length > 1" class="uk-padding-remove uk-margin-left uk-width-auto uk-flex uk-flex-middle">
+                <div *ngIf="usages.length > 1" class="uk-padding-remove uk-margin-left uk-width-auto uk-flex uk-flex-middle">
                   <a class="material-icons" (click)="removeUsage(i)">highlight_off</a>
                 </div>
               </div>
@@ -73,7 +73,7 @@
 
       </div>
     </div>
-<!--    <pre>{{datasetForm.value | json}}</pre>-->
+    <pre>{{datasetForm.value | json}}</pre>
 
   </div>
 </div>
