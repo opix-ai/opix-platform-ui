@@ -20,11 +20,15 @@
   --intelcomp-light-color: #ff006e;
   --intelcomp-dark-color: #151F2E;
 
-  --sidebar-width: 320px;
-  --sidebar-width-invert: -320px;
-  --toggle-sidebar-closed: 338px;
+  //--sidebar-width: 320px;
+  --sidebar-width: 240px;
+  //--sidebar-width-invert: -320px;
+  --sidebar-width-invert: -240px;
+  //--toggle-sidebar-closed: 338px;
+  --toggle-sidebar-closed: 258px;
   --dashboard-transition-delay: 0.25s;
-  --sidebar-font-size: 16px;
+  //--sidebar-font-size: 16px;
+  --sidebar-font-size: 14px;
   //--sidebar-width: 280px;
   //--header-height: 80px;
 
@@ -228,6 +232,25 @@ body {
 
 .card-table td {
   font-size: 14px;
+}
+
+.bordered-table.uk-table {
+  border: 1px solid #e5e5e5;
+
+}
+
+.bordered-table.uk-table th:not(:first-child), .bordered-table.uk-table td:not(:first-child) {
+  border-left: 1px solid #e5e5e5;
+  text-align: center;
+}
+
+.bordered-table.uk-table th {
+  font-size: 12px;
+  color: #4e555b;
+}
+
+.bordered-table.uk-table td {
+  font-size: 13px;
 }
 
 /* ========================================================================
@@ -984,6 +1007,10 @@ a.serviceDetails {
   /*vertical-align: middle;*/
   //color: #6b6b6b;
   color: #ddd;
+}
+
+.material-icons.dark {
+  color: #6b6b6b;
 }
 
 .material-icons.icons-secondary {

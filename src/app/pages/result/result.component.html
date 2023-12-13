@@ -1,5 +1,5 @@
 <div class="uk-section uk-section-default uk-section-small uk-padding-remove-bottom" style="margin:0px; background-color: #f2f3f8 !important;">
-  <div *ngIf="job" class="uk-container">
+  <div *ngIf="job" class="uk-container uk-container-expand">
     <h4>
       <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsClassification'">Patent analytics classification</ng-container>
       <ng-container *ngIf="this.getWorkflowType(job.callerAttributesObj)==='patentAnalyticsNames'">Patent analytics names</ng-container>

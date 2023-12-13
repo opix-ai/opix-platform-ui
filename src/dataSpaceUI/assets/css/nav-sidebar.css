@@ -101,9 +101,10 @@ ul.uk-nav-sub {
   /*overflow-y: auto;*/
 }
 .sidebar_main_swipe #sidebar_main .menu_section {
-  margin-left: 10px;
+  /*margin-left: 10px;*/
   position: relative;
-  font-size: 14px;
+  /*font-size: 14px;*/
+  font-size: 12px;
 }
 .sidebar_main_swipe #sidebar_main .menu_section > ul > li > a {
   position: relative;

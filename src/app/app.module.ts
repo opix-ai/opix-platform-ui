@@ -25,6 +25,7 @@ import {DndDirective} from "./directives/dnd.directive";
 import {MyDatasetsComponent} from "./pages/datasets/my-datasets/my-datasets.component";
 import {BibliometricsLandingComponent} from "./pages/workflows/bibliometrics/landing/bibliometrics-landing.component";
 import {AnalysesFiltersComponent} from "./pages/analyses-filters/analyses-filters.component";
+import {PatentsResultComponent} from "./pages/result/patents-result.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {AnalysesFiltersComponent} from "./pages/analyses-filters/analyses-filter
     SearchWorkflowJobComponent,
     GlossaryComponent,
     ResultComponent,
+    PatentsResultComponent,
     PatentAnalyticsLandingComponent,
     BibliometricsLandingComponent,
     AnalysesFiltersComponent,

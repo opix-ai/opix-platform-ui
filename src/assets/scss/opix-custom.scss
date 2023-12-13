@@ -64,3 +64,31 @@ a.uk-button {
 .filters-dropdown {
   max-width: 500px !important;
 }
+
+.uk-button-default {
+  border-radius: 4px;
+  text-transform: none;
+  border-color: var(--intelcomp-dark-color);
+  color: var(--intelcomp-dark-color);
+}
+
+.uk-button-default:hover {
+  text-transform: none;
+  color: var(--white);
+  background-color: var(--intelcomp-dark-color);
+}
+
+.uk-button-secondary {
+  border-radius: 4px;
+  text-transform: none;
+  border-color: #e6ecf6;
+  color: var(--link-hover-color);
+  background-color: var(--white);
+}
+
+.uk-button-secondary:hover {
+  text-transform: none;
+  color: var(--link-hover-color);
+  background-color: #e6ecf6;
+  background-image: none;
+}

@@ -17,6 +17,7 @@ import {
 import {UploadDatasetFormComponent} from "./pages/datasets/upload-dataset/upload-dataset-form.component";
 import {MyDatasetsComponent} from "./pages/datasets/my-datasets/my-datasets.component";
 import {BibliometricsLandingComponent} from "./pages/workflows/bibliometrics/landing/bibliometrics-landing.component";
+import {PatentsResultComponent} from "./pages/result/patents-result.component";
 
 const routes: Routes = [
   {
@@ -108,6 +109,10 @@ const routes: Routes = [
   {
     path: 'result/:id',
     component: ResultComponent
+  },
+  {
+    path: 'patents-result/:id',
+    component: PatentsResultComponent
   },
   {
     path: '',

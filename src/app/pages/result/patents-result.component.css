@@ -1,0 +1,68 @@
+.edit-table-columns {
+  color: #1A1A1A !important;
+  font-size: 13px !important;
+  max-width: 400px;
+  padding: 0px;
+}
+
+.edit-table-columns .header {
+  background-color: #bfcfe9;
+  padding: 15px 20px;
+}
+
+.edit-table-columns .body {
+  padding: 15px 20px;
+}
+
+.edit-table-columns hr {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.edit-table-columns .view {
+  padding: 15px 20px;
+}
+
+.uk-button-group .uk-button-secondary.active {
+  background-color: #e6ecf6;
+}
+
+.uk-table.default td, .uk-table.default th {
+  padding: 16px 12px;
+}
+
+.uk-table.compact td, .uk-table.compact th {
+  padding: 5px 8px;
+}
+
+.uk-table.relaxed td, .uk-table.relaxed th {
+  padding: 20px 25px;
+}
+
+.md-btn {
+  border-radius: 4px;
+  padding: 10px 20px;
+  font: 500 14px / 31px 'Open Sans', sans-serif !important;
+  min-width: 10px;
+}
+
+.md-btn-primary {
+  background: var(--white) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  /*border-radius: 23px;*/
+  opacity: 1;
+  text-align: left;
+  font: 14px/19px Open Sans;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  text-transform: none;
+  /*padding: 10px 30px;*/
+}
+
+.md-btn-primary .material-icons {
+  color: var(--intelcomp-light-color) !important;
+  font-size: 30px;
+}

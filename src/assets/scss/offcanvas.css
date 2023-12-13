@@ -1,0 +1,21 @@
+#offcanvas-usage .uk-offcanvas-close {
+  right: 5px !important;
+  left: auto;
+}
+
+.uk-offcanvas-bar-light {
+  text-transform: uppercase;
+}
+
+.uk-offcanvas-bar-light {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -360px;
+  box-sizing: border-box;
+  width: 360px;
+  padding: 20px 20px;
+  background: #fff;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

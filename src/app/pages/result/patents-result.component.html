@@ -1,0 +1,341 @@
+<!--<div class="uk-section uk-section-default uk-section-small uk-padding-remove-bottom" style="margin:0px; background-color: #f2f3f8 !important;">-->
+<div class="uk-section uk-section-default uk-section-small uk-padding-remove-bottom" style="margin:0px;">
+  <div class="uk-container uk-container-expand">
+    <h5>Patents search results</h5>
+  </div>
+
+  <div class="uk-container uk-container-expand uk-margin-top uk-margin-large-bottom">
+    <ul class="uk-flex-right" uk-tab uk-switcher="{connect:'#data_view', animation: 'fade'}">
+      <li class="uk-active">
+        <a href="#">
+        <span class="material-icons dark">table_view</span>Table
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="material-icons dark">list</span>List
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="material-icons dark">pie_chart</span>Analytics
+        </a>
+      </li>
+    </ul>
+
+    <ul id="data_view" class="uk-switcher">
+      <li>
+        <div class="uk-margin-top">
+          <div class="uk-flex uk-flex-middle uk-flex-between">
+            <div>Showing 1-25 of 50 patents</div>
+            <div>
+              <button class="uk-button uk-button-default" type="button">Edit columns</button>
+              <div uk-dropdown="mode: click" class="edit-table-columns uk-width-large">
+                <div class="header">
+                  Customise your results view
+                </div>
+<!--                <div class="body">-->
+<!--                  <div class="uk-flex uk-flex-right">-->
+<!--                    <button class="uk-button uk-button-default uk-button-small uk-margin-small-right" type="button">Deselect all</button>-->
+<!--                    <button class="uk-button uk-button-default uk-button-small" type="button">Select all</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+                <div class="body uk-grid uk-child-width-1-2">
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.applicationNumber"
+                           (change)="changeApplicationNumberColumn($event)" class="uk-margin-small-right">
+                    <label>Application number</label>
+                  </div>
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.applicationAuthority"
+                           (change)="changeApplicationAuthorityColumn($event)" class="uk-margin-small-right">
+                    <label>Application authority</label>
+                  </div>
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.earliestFilingDate"
+                           (change)="changeEarliestFilingDateColumn($event)" class="uk-margin-small-right">
+                    <label>Earliest filing date</label>
+                  </div>
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.granted"
+                           (change)="changeGrantedColumn($event)" class="uk-margin-small-right">
+                    <label>Granted</label>
+                  </div>
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.typeOfIPR"
+                           (change)="changeTypeOfIPRColumn($event)" class="uk-margin-small-right">
+                    <label>Type of IPR</label>
+                  </div>
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.simpleFamilySize"
+                           (change)="changeSimpleFamilySizeColumn($event)" class="uk-margin-small-right">
+                    <label>Simple family size</label>
+                  </div>
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.classification"
+                           (change)="changeClassificationColumn($event)" class="uk-margin-small-right">
+                    <label>Classification</label>
+                  </div>
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.applicants"
+                           (change)="changeApplicantsColumn($event)" class="uk-margin-small-right">
+                    <label>Applicants</label>
+                  </div>
+                  <div class="uk-margin-small-bottom">
+                    <input type="checkbox" [checked]="patentsTableColumns.inventors"
+                           (change)="changeInventorsColumn($event)" class="uk-margin-small-right">
+                    <label>Inventors</label>
+                  </div>
+                </div>
+                <hr>
+                <div class="view">
+                  <div class="uk-button-group uk-width-1-1">
+                    <button class="uk-button uk-button-secondary uk-width-1-3" [ngClass]="{'active': tableView == 'compact'}"
+                            (click)="changeTableView('compact')" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">Compact</button>
+                    <button class="uk-button uk-button-secondary uk-width-1-3" [ngClass]="{'active': tableView == 'default'}"
+                            (click)="changeTableView('default')" style="border-radius: 0px">Default</button>
+                    <button class="uk-button uk-button-secondary uk-width-1-3" [ngClass]="{'active': tableView == 'relaxed'}"
+                            (click)="changeTableView('relaxed')" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;">Relaxed</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="uk-margin-top">
+            <div class="uk-card uk-card-default">
+              <table class="uk-table uk-table-divider uk-table-middle bordered-table" [ngClass]="tableView">
+                <thead>
+                <tr>
+                  <th class="uk-width-1-5">Title</th>
+                  <th *ngIf="patentsTableColumns.applicationNumber" class="uk-width-small">Application Number</th>
+                  <th *ngIf="patentsTableColumns.applicationAuthority" class="uk-width-small">Application Authority</th>
+                  <th *ngIf="patentsTableColumns.earliestFilingDate" class="uk-width-small">Earliest Filing Date</th>
+                  <th *ngIf="patentsTableColumns.granted" class="uk-width-small">Granted</th>
+                  <th *ngIf="patentsTableColumns.typeOfIPR" class="uk-width-small">Type of Intellectual Property Right</th>
+                  <th *ngIf="patentsTableColumns.simpleFamilySize" class="uk-width-small">Simple family size</th>
+                  <th *ngIf="patentsTableColumns.classification" class="uk-width-1-6">Classification</th>
+                  <th *ngIf="patentsTableColumns.applicants" class="uk-width-1-6">Applicants</th>
+                  <th *ngIf="patentsTableColumns.inventors" class="uk-width-1-6">Inventors</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Method for operating a furnace, in particular for dental use, and furnace</td>
+                  <td *ngIf="patentsTableColumns.applicationNumber">07019093</td>
+                  <td *ngIf="patentsTableColumns.applicationAuthority">EP</td>
+                  <td *ngIf="patentsTableColumns.earliestFilingDate">2006-10-23</td>
+                  <td *ngIf="patentsTableColumns.granted">true</td>
+                  <td *ngIf="patentsTableColumns.typeOfIPR">PI</td>
+                  <td *ngIf="patentsTableColumns.simpleFamilySize">4</td>
+                  <td *ngIf="patentsTableColumns.classification">
+                    A61C  13/20 (IPC)<br>
+                    F27B  17/02 (IPC)<br>
+                    .....
+                  </td>
+                  <td *ngIf="patentsTableColumns.applicants">
+                    IVOCLAR VIVADENT AG - company
+                  </td>
+                  <td *ngIf="patentsTableColumns.inventors">
+                    Jussel, Rudolf
+                  </td>
+                </tr>
+                <tr>
+                  <td>Column as part of the car body of a motor vehicle</td>
+                  <td *ngIf="patentsTableColumns.applicationNumber">08104537</td>
+                  <td *ngIf="patentsTableColumns.applicationAuthority">EP</td>
+                  <td *ngIf="patentsTableColumns.earliestFilingDate">2008-06-25</td>
+                  <td *ngIf="patentsTableColumns.granted">false</td>
+                  <td *ngIf="patentsTableColumns.typeOfIPR">PI</td>
+                  <td *ngIf="patentsTableColumns.simpleFamilySize">1</td>
+                  <td *ngIf="patentsTableColumns.classification">
+                    B62D  25/04 (IPC)<br>
+                    B62D  25/04 (CPC)<br>
+                    29.1 (NACE2)
+                  </td>
+                  <td *ngIf="patentsTableColumns.applicants">
+                    Koepcke, Ulrich<br>
+                    FORD GLOBAL TECH LLC - company
+                  </td>
+                  <td *ngIf="patentsTableColumns.inventors">
+                    Hintzen, Dieter (inventor)<br>
+                    Lichter, Martin (inventor)<br>
+                    Kunkel, Bernhard (inventor)
+                  </td>
+                </tr>
+                <tr>
+                  <td>Method for operating a quasi bus for a personal protection system, control device for controlling a personal protection system and device for transferring data from sensors through at least one quasi bus to a control device for controlling a personal protection system</td>
+                  <td *ngIf="patentsTableColumns.applicationNumber">08104559</td>
+                  <td *ngIf="patentsTableColumns.applicationAuthority">EP</td>
+                  <td *ngIf="patentsTableColumns.earliestFilingDate">2007-07-03</td>
+                  <td *ngIf="patentsTableColumns.granted">true</td>
+                  <td *ngIf="patentsTableColumns.typeOfIPR">PI</td>
+                  <td *ngIf="patentsTableColumns.simpleFamilySize">1</td>
+                  <td *ngIf="patentsTableColumns.classification">
+                    H04L  12/26 (IPC)<br>
+                    H04L  12/40 (IPC)<br>
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.applicants">
+                    ROBERT BOSCH GMBH - company
+                  </td>
+                  <td *ngIf="patentsTableColumns.inventors">
+                    Weiss, Timo<br>
+                    Gunselmann, Christian<br>
+                    Schruellkamp, Michael
+                  </td>
+                </tr>
+                <tr>
+                  <td>Rotary printing press for sheets</td>
+                  <td *ngIf="patentsTableColumns.applicationNumber">08158349</td>
+                  <td *ngIf="patentsTableColumns.applicationAuthority">EP</td>
+                  <td *ngIf="patentsTableColumns.earliestFilingDate">2007-07-04</td>
+                  <td *ngIf="patentsTableColumns.granted">false</td>
+                  <td *ngIf="patentsTableColumns.typeOfIPR">PI</td>
+                  <td *ngIf="patentsTableColumns.simpleFamilySize">3</td>
+                  <td *ngIf="patentsTableColumns.classification">
+                    B41F  19/06 (IPC)<br>
+                    B41F  19/062 (CPC)<br>
+                    28.9 (NACE2)
+                  </td>
+                  <td *ngIf="patentsTableColumns.applicants">
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.inventors">
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>Method and device for optical measurement of an object in particular of a workpiece or tool</td>
+                  <td *ngIf="patentsTableColumns.applicationNumber">08000587</td>
+                  <td *ngIf="patentsTableColumns.applicationAuthority">EP</td>
+                  <td *ngIf="patentsTableColumns.earliestFilingDate">2007-01-15</td>
+                  <td *ngIf="patentsTableColumns.granted">true</td>
+                  <td *ngIf="patentsTableColumns.typeOfIPR">PI</td>
+                  <td *ngIf="patentsTableColumns.simpleFamilySize">2</td>
+                  <td *ngIf="patentsTableColumns.classification">
+                    G01B  11/25 (IPC)<br>
+                    G01B  11/25 (CPC)<br>
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.applicants">
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.inventors">
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>Frame bit-size allocation for seamlessly spliced, variable-rate compressed digital video signals</td>
+                  <td *ngIf="patentsTableColumns.applicationNumber">01310432</td>
+                  <td *ngIf="patentsTableColumns.applicationAuthority">EP</td>
+                  <td *ngIf="patentsTableColumns.earliestFilingDate">2000-12-21</td>
+                  <td *ngIf="patentsTableColumns.granted">false</td>
+                  <td *ngIf="patentsTableColumns.typeOfIPR">PI</td>
+                  <td *ngIf="patentsTableColumns.simpleFamilySize">9</td>
+                  <td *ngIf="patentsTableColumns.classification">
+                    H04N   7/50 (IPC)<br>
+                    H04N  21/44 (IPC)<br>
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.applicants">
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.inventors">
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>COMMUNICATION DEVICE WITH A COIL CONFIGURATION FOR THE COMMUNICATION WITH STATIONARY DATA CARRIERS</td>
+                  <td *ngIf="patentsTableColumns.applicationNumber">02769170</td>
+                  <td *ngIf="patentsTableColumns.applicationAuthority">EP</td>
+                  <td *ngIf="patentsTableColumns.earliestFilingDate">2001-05-04</td>
+                  <td *ngIf="patentsTableColumns.granted">true</td>
+                  <td *ngIf="patentsTableColumns.typeOfIPR">PI</td>
+                  <td *ngIf="patentsTableColumns.simpleFamilySize">7</td>
+                  <td *ngIf="patentsTableColumns.classification">
+                    G06K   7/08 (IPC)<br>
+                    G06K   7/10 (IPC)<br>
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.applicants">
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.inventors">
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>PNEUMATIC TYRE FOR VEHICLE, METHOD AND APPARATUS FOR ITS MANUFACTURE.</td>
+                  <td *ngIf="patentsTableColumns.applicationNumber">04791926</td>
+                  <td *ngIf="patentsTableColumns.applicationAuthority">EP</td>
+                  <td *ngIf="patentsTableColumns.earliestFilingDate">2004-10-27</td>
+                  <td *ngIf="patentsTableColumns.granted">true</td>
+                  <td *ngIf="patentsTableColumns.typeOfIPR">PI</td>
+                  <td *ngIf="patentsTableColumns.simpleFamilySize">8</td>
+                  <td *ngIf="patentsTableColumns.classification">
+                    B29D  30/30 (IPC)<br>
+                    B29D  30/52 (IPC)<br>
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.applicants">
+                    ...
+                  </td>
+                  <td *ngIf="patentsTableColumns.inventors">
+                    ...
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <ul class="uk-pagination" uk-margin>
+              <li><a href="#"><span uk-pagination-previous></span></a></li>
+              <li class="uk-active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#"><span uk-pagination-next></span></a></li>
+            </ul>
+          </div>
+        </div>
+
+
+      </li>
+      <li>
+        List view of patents
+      </li>
+      <li>
+        <div>
+          <iframe [src]="url | safeUrl:'resourceUrl'" class="uk-width-1-1" style="min-height: calc(100svh - var(&#45;&#45;header-height));"></iframe>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+<!--  <div *ngIf="job" class="uk-container uk-container-expand">-->
+<!--    <div>Results for job with id: {{job.id}}, completed at {{job.status[0].timestamp | date:'medium'}}</div>-->
+<!--    &lt;!&ndash;    <h4>{{job.id}}</h4>&ndash;&gt;-->
+<!--  </div>-->
+</div>
+
+<!--<div class="uk-section uk-section-default uk-section-small" style="min-height: calc(100svh - var(&#45;&#45;header-height))">-->
+<!--  <div class="uk-container uk-container-large">-->
+
+<!--<iframe [src]="url | safeUrl:'resourceUrl'" class="uk-width-1-1" style="min-height: calc(100svh - var(&#45;&#45;header-height));"></iframe>-->
+
+<!--  </div>-->
+<!--</div>-->
+
+<div class="uk-float-right" style="z-index: 100; top: 100px; position: fixed; right: 0px;">
+  <a href="#offcanvas-usage" uk-toggle class="uk-flex uk-flex-middle md-btn md-btn-primary feedback-button ">
+    <span class="material-icons">tune</span>
+  </a>
+</div>
+
+<div id="offcanvas-usage" class="" uk-offcanvas="flip: true; overlay: true; bg-close: true">
+  <div class="uk-offcanvas-bar-light">
+    <button class="uk-offcanvas-close" type="button" uk-close></button>
+    <div class="summarySection filters-table">
+      <h5 class="">Filters</h5>
+    </div>
+    <!--    <app-analyses-filters [filters]="getFilters(job.callerAttributesObj)" [workflowType]="this.getWorkflowType(job.callerAttributesObj)"></app-analyses-filters>-->
+  </div>
+</div>
+
