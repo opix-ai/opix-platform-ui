@@ -41,7 +41,8 @@
               <div class="uk-flex uk-flex-between uk-flex-middle">
 
                 <div class=" uk-margin-remove">
-                  Showing <span class="uk-text-bold">{{payload.from + 1}}</span> - <span class="uk-text-bold">{{payload.to}}</span> of <span class="uk-text-bold">{{payload.total}}</span> tools
+                  Showing <span class="uk-text-bold">{{payload.from + 1}}</span> - <span class="uk-text-bold">{{payload.to}}</span> of
+                  <span class="uk-text-bold">{{payload.total}}</span> {{resourceType === 'tool' ? 'tools' : 'models'}}
                   <!--<span class="uk-text-bold">{{payload.total}}</span> Datasets, Page <span class="uk-text-bold">{{currentPage}}</span> of {{totalPages}}-->
                 </div>
 
@@ -80,6 +81,11 @@
                             <h5 class="uk-margin-remove uk-text-left@m uk-text-center uk-scrollspy-inview uk-animation-fade uk-inline" uk-scrollspy-class="" style="">
                               {{result.titles[0]?.value}}
                             </h5>
+                          </div>
+                          <div *ngFor="let description of result?.descriptions">
+                            <span *ngIf="description.descriptionType === 'ABSTRACT'" class="field-label">
+                              Abstract: {{description.content}}
+                            </span>
                           </div>
                           <div *ngIf="result?.resourceType?.value" class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
                             <span class="field-label">Type: {{result?.resourceType?.value}}</span>

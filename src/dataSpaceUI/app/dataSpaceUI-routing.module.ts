@@ -59,6 +59,14 @@ const dataSpaceRoutes: Routes = [
     data: {
       roles: ["OPERATOR_DATASET-INGESTOR", "OPERATOR_DEVELOPER"]
     }
+  },
+  {
+    path: 'form/:resourceTypeModel/:id',
+    component: FormComponent,
+    canActivate: [RoleAuthGuardComponent],
+    data: {
+      roles: ["OPERATOR_DATASET-INGESTOR", "OPERATOR_DEVELOPER"]
+    }
   }
 ];
 

@@ -35,7 +35,7 @@
               </div>
             </div>
           </li>
-          <li class="uk-parent" *ngIf="hasRoles()" [routerLinkActive]="['uk-active']">
+          <li class="uk-parent" *ngIf="userInfo && hasRoles()" [routerLinkActive]="['uk-active']">
             <a class="" [routerLink]="['/dashboard']" aria-expanded="false">My dashboard</a>
           </li>
 

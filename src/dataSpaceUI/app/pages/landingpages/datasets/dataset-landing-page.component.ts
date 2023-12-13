@@ -8,6 +8,7 @@ import {UserService} from "../../../services/user.service";
 import {UserInfo} from "../../../domain/userInfo";
 import {ResourcePayloadService} from "../../../services/resource-payload.service";
 import {Paging} from "../../../../catalogue-ui/domain/paging";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 declare var UIkit: any;
 
@@ -26,7 +27,7 @@ export class DatasetLandingPageComponent extends LandingPageComponent {
   constructor(protected override route: ActivatedRoute,
               protected override landingPageService: LandingPageService,
               protected navigationService: NavigationService,
-              protected router: Router,
+              protected router: Router, private authService: AuthenticationService,
               protected userService: UserService,
               protected resourcePayloadService: ResourcePayloadService) {
     super(route, landingPageService)
@@ -52,7 +53,6 @@ export class DatasetLandingPageComponent extends LandingPageComponent {
       );
     }
     this.route.params.subscribe(params => {
-      console.log(params['id']);
       this.resourcePayloadService.getItemsByResourceType('tool', params['id']).subscribe(
         next => {
           this.tools = next;
@@ -69,8 +69,21 @@ export class DatasetLandingPageComponent extends LandingPageComponent {
     this.router.navigate([`/request-data`]).then();
   }
 
-  gotoTooLandingPage() {
+  deleteItem() {
+    this.resourcePayloadService.deleteItem(this.dataset['id'], 'dataset_type').subscribe(
+      res => {
+        // UIkit.modal('#delete-modal').hide();
+        this.router.navigate([`/search`]);
+      },
+      error => {
+        // UIkit.modal('#delete-modal').hide();
+        console.error(error);
+      }
+    );
+  }
 
+  hasRole() {
+    return this.authService.userRoles.includes('OPERATOR_DATASET-INGESTOR');
   }
 
   download(url: string) {

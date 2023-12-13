@@ -15,6 +15,10 @@ export class UserService {
     return this.http.get<UserInfo>(this.base + '/user/info');
   }
 
+  getUserToken() {
+    return this.http.get(this.base + '/user/token');
+  }
+
   roleToSessionStorage(userInfo: UserInfo) {
     this.userInfo = userInfo;
     sessionStorage.setItem('userRoles', userInfo.roles.toString());

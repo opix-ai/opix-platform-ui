@@ -137,7 +137,7 @@
                           </div>
                           <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription line-clamp"
                                uk-scrollspy-class="" style="">
-                            {{resourceInfo['metadata']['descriptions'][0]['value']}}
+                            {{resourceInfo['metadata']['descriptions'][0]?.['value']}}
                           </div>
 
                           <div *ngIf="resourceInfo['metadata']['publisher']" class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">
@@ -181,7 +181,7 @@
                           </div>
                           <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription line-clamp"
                                uk-scrollspy-class="" style="">
-                            {{resourceInfo['metadata']['descriptions'][0]['value']}}
+                            {{resourceInfo['metadata']['descriptions'][0]?.['value']}}
                           </div>
 
                           <div *ngIf="resourceInfo['metadata']['publisher']" class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade service-users" uk-scrollspy-class="">

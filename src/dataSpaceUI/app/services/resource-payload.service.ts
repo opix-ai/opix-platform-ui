@@ -29,7 +29,15 @@ export class ResourcePayloadService {
   }
 
   getItem(resourceType: string, identifierValue: string) {
-    return this.http.get(this.base + `/items/search?resourceType=${resourceType}&field=identifier&value=${identifierValue}`)
+    return this.http.get(this.base + `/items/search?resourceType=${resourceType}&field=identifier&value=${identifierValue}`);
+  }
+
+  getItemById(resourceType: string, id: string) {
+    return this.http.get(this.base + `/items/${id}?resourceType=${resourceType}`);
+  }
+
+  deleteItem(id: string, resourceType: string) {
+    return this.http.delete(this.base + `/items/${id}?resourceType=${resourceType}`);
   }
 
 }
