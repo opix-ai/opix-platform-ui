@@ -12,7 +12,7 @@ import {LandingPageService} from "../../../dataSpaceUI/catalogue-ui/services/lan
 
 export class PayloadExtendComponent extends PayloadComponent implements OnInit{
 
-  hasRole(role: string) {
+  override hasRole(role: string) {
     const userRoles: string[] = this.authService.userRoles;
     return userRoles.includes(role);
   }

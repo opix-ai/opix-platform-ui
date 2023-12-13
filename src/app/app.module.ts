@@ -13,7 +13,6 @@ import {BibliometricsFormComponent} from "./pages/workflows/bibliometrics/biblio
 import {SuccessPageComponent} from "./pages/successPage/successPage.component";
 import {PayloadExtendComponent} from "./pages/payloadExtentionComponent/payload-extend.component";
 import {ResultComponent} from "./pages/result/result.component";
-import {SharedModule} from "../dataSpaceUI/catalogue-ui/shared/shared.module";
 import {HomeDashboardOpixComponent} from "./pages/home-dashboard/home-dashboard-opix.component";
 import {PatentAnalyticsNamesComponent} from "./pages/workflows/patentAnalytics/forms/patent-analytics-names/patent-analytics-names.component";
 import {HomeOpixComponent} from "./pages/home-opix/home-opix.component";
@@ -26,6 +25,8 @@ import {MyDatasetsComponent} from "./pages/datasets/my-datasets/my-datasets.comp
 import {BibliometricsLandingComponent} from "./pages/workflows/bibliometrics/landing/bibliometrics-landing.component";
 import {AnalysesFiltersComponent} from "./pages/analyses-filters/analyses-filters.component";
 import {PatentsResultComponent} from "./pages/result/patents-result.component";
+import {CatalogueUiModule} from "../dataSpaceUI/catalogue-ui/catalogue-ui.module";
+import {CatalogueUiSharedModule} from "../dataSpaceUI/catalogue-ui/shared/catalogue-ui-shared.module";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {PatentsResultComponent} from "./pages/result/patents-result.component";
     ReusableComponentsModule,
     AppRoutingModule,
     NgSelectModule,
-    SharedModule
+    // CatalogueUiModule,
+    CatalogueUiSharedModule
   ],
   providers: [InputService],
   bootstrap: [AppComponent]

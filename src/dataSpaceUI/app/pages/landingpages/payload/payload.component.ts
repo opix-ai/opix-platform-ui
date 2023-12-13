@@ -61,7 +61,7 @@ export class PayloadComponent implements OnInit{
     );
   }
 
-  hasRole() {
+  hasRole(role?) {
     return this.authService.userRoles.includes('OPERATOR_DEVELOPER');
   }
 }
